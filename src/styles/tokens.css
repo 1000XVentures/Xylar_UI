@@ -1,0 +1,52 @@
+:root {
+    /* Layout */
+    --sidebar-w: 72px;
+    --topbar-h: 56px;
+    --content-max-w: 1200px;
+
+    /* Backgrounds */
+    --bg-sidebar: #0D0D0D;
+    --bg-main: #F6F4F1;
+    /* Warm off-white */
+    --bg-card: #FFFFFF;
+
+    /* Text Colors */
+    --text-primary: #1A1A1A;
+    --text-secondary: #4A4A4A;
+    --text-muted: #8E8E93;
+    --text-sidebar: #A1A1AA;
+
+    /* Brand Colors */
+    --accent: #7C3AED;
+    /* Violet */
+    --accent-mid: #9333EA;
+    --accent-light: #F5F3FF;
+    --accent-glow: rgba(124, 58, 237, 0.15);
+
+    /* Signal Colors */
+    --positive: #A3E635;
+    /* Lime green */
+    --positive-light: #F7FEE7;
+    --negative: #EF4444;
+    --negative-light: #FEF2F2;
+    --warning: #F59E0B;
+    --warning-light: #FFFBEB;
+    --lime: #A3E635;
+
+    /* Borders & Shadows */
+    --border: #E8E4DF;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.08);
+
+    /* Radius */
+    --r-sm: 8px;
+    --r-md: 12px;
+    --r-lg: 16px;
+    --r-xl: 24px;
+    --r-full: 9999px;
+
+    /* Transitions */
+    --t-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --t-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}

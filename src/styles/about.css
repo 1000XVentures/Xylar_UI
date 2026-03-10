@@ -1,0 +1,163 @@
+/* ─────────────────────────────────────────────────────
+   About Tab — orbiting icon float animations
+───────────────────────────────────────────────────── */
+
+@keyframes float-a {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes float-b {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+@keyframes float-c {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes float-d {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.orbit-icon-a {
+    animation: float-a 3s ease-in-out infinite;
+}
+
+.orbit-icon-b {
+    animation: float-b 4s ease-in-out infinite;
+}
+
+.orbit-icon-c {
+    animation: float-c 3.5s ease-in-out infinite;
+}
+
+.orbit-icon-d {
+    animation: float-d 4.5s ease-in-out infinite;
+}
+
+/* Icon cluster wrapper */
+.icon-cluster {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+}
+
+.cluster-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #7C3AED;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 40px rgba(124, 58, 237, 0.4);
+}
+
+.orbit-icon {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.orbit-top {
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.orbit-left {
+    top: 50%;
+    left: 8px;
+    transform: translateY(-50%);
+}
+
+.orbit-right {
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+}
+
+.orbit-bottom {
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Belief cards */
+.belief-card {
+    flex: 1;
+    border-radius: 20px;
+    padding: 28px;
+    border: 1px solid var(--border, #E8E4DF);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0;
+}
+
+/* Avatar overlap */
+.avatar-group {
+    display: flex;
+    align-items: center;
+}
+
+.avatar-group .avatar-item:not(:first-child) {
+    margin-left: -12px;
+}
+
+.avatar-item {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    flex-shrink: 0;
+    position: relative;
+}

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Xylar Results Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=DM+Sans:wght@400;500;700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7c3bed",
+                        "background-light": "#fdfcfb", // Warm off-white
+                        "background-dark": "#171121",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "header": ["Syne", "sans-serif"],
+                        "data": ["DM Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'DM Sans', sans-serif; }
+        .font-header { font-family: 'Syne', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen pb-24">
+<!-- Header Navigation -->
+<header class="sticky top-0 z-50 bg-background-light/80 backdrop-blur-md border-b border-primary/10 px-4 py-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-primary/10 rounded-full text-primary">
+<span class="material-symbols-outlined">arrow_back</span>
+</div>
+<h1 class="font-header text-xl font-extrabold tracking-tight">Xylar Results</h1>
+</div>
+<button class="p-2 bg-primary/10 rounded-full text-primary">
+<span class="material-symbols-outlined">share</span>
+</button>
+</header>
+<main class="p-4 space-y-6 max-w-lg mx-auto">
+<!-- Hero Section -->
+<div class="relative overflow-hidden rounded-xl bg-primary aspect-[16/9] flex flex-col justify-end p-6 text-white shadow-xl shadow-primary/20" data-alt="Abstract violet gradient background with flowing lines">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="relative z-10 space-y-2">
+<span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold uppercase tracking-widest">Analysis Ready</span>
+<h2 class="font-header text-3xl font-extrabold">Analysis Complete</h2>
+</div>
+</div>
+<!-- Action Button -->
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-3 shadow-lg shadow-primary/30 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined">download</span>
+<span class="font-display">Download Detailed Report</span>
+</button>
+<!-- Main Content Grid -->
+<div class="grid grid-cols-1 gap-4">
+<!-- Health Score Card -->
+<div class="bg-gradient-to-br from-primary to-[#a855f7] p-6 rounded-xl text-white shadow-lg">
+<p class="text-white/80 font-medium mb-1">Portfolio Health Score</p>
+<div class="flex items-end gap-2">
+<span class="font-header text-5xl font-extrabold">85</span>
+<span class="text-xl font-bold opacity-60 mb-1">/100</span>
+<span class="ml-auto bg-white/20 px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span> +5.2%
+                    </span>
+</div>
+<div class="mt-4 w-full bg-white/20 h-2 rounded-full overflow-hidden">
+<div class="bg-white h-full w-[85%] rounded-full"></div>
+</div>
+</div>
+<!-- Key Signals -->
+<div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-primary/5 shadow-sm">
+<h3 class="font-header text-lg font-bold mb-4">Key Market Signals</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="size-3 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="font-medium">Market Outlook</span>
+</div>
+<span class="text-emerald-600 font-bold">Bullish</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="size-3 rounded-full bg-amber-500"></span>
+<span class="font-medium">Volatility Index</span>
+</div>
+<span class="text-amber-600 font-bold">Medium</span>
+</div>
+</div>
+</div>
+<!-- Portfolio Summary -->
+<div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-primary/5 shadow-sm space-y-4">
+<div class="flex justify-between items-center">
+<h3 class="font-header text-lg font-bold">Portfolio Summary</h3>
+<span class="text-xs font-bold text-primary px-2 py-1 bg-primary/10 rounded">LIVE DATA</span>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-background-light dark:bg-slate-700/50 p-3 rounded-lg">
+<p class="text-xs text-slate-500 mb-1">Total Value</p>
+<p class="font-data text-lg font-bold">₹24,50,000</p>
+</div>
+<div class="bg-background-light dark:bg-slate-700/50 p-3 rounded-lg">
+<p class="text-xs text-slate-500 mb-1">Annual Yield</p>
+<p class="font-data text-lg font-bold text-emerald-600">14.2%</p>
+</div>
+</div>
+</div>
+<!-- Observations -->
+<div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-primary/5 shadow-sm">
+<h3 class="font-header text-lg font-bold mb-3">Key Observations</h3>
+<ul class="space-y-3">
+<li class="flex gap-3 text-sm">
+<span class="material-symbols-outlined text-primary size-5">info</span>
+<p>Heavy concentration in large-cap IT stocks observed (42% of total).</p>
+</li>
+<li class="flex gap-3 text-sm">
+<span class="material-symbols-outlined text-primary size-5">info</span>
+<p>Debt-to-equity ratio is healthier than 80% of peer portfolios.</p>
+</li>
+</ul>
+</div>
+<!-- Risks (Red Theme) -->
+<div class="bg-rose-50 dark:bg-rose-950/20 p-5 rounded-xl border border-rose-100 dark:border-rose-900/50">
+<div class="flex items-center gap-2 mb-3 text-rose-700 dark:text-rose-400">
+<span class="material-symbols-outlined">warning</span>
+<h3 class="font-header text-lg font-bold">Critical Risks</h3>
+</div>
+<div class="space-y-2">
+<div class="bg-white dark:bg-slate-900 p-3 rounded-lg border border-rose-200 dark:border-rose-800">
+<p class="text-sm font-bold text-rose-700 dark:text-rose-400">Sector Exposure</p>
+<p class="text-xs text-slate-600 dark:text-slate-400">Banking stocks are over-leveraged in current market cycle.</p>
+</div>
+</div>
+</div>
+<!-- Opportunities (Lime Theme) -->
+<div class="bg-lime-50 dark:bg-lime-950/20 p-5 rounded-xl border border-lime-100 dark:border-lime-900/50">
+<div class="flex items-center gap-2 mb-3 text-lime-700 dark:text-lime-400">
+<span class="material-symbols-outlined">auto_awesome</span>
+<h3 class="font-header text-lg font-bold">Improvement Ops</h3>
+</div>
+<p class="text-sm text-lime-800 dark:text-lime-300">Rebalance 12% of small-cap holdings into mid-cap manufacturing for better risk-adjusted returns.</p>
+</div>
+<!-- Final Takeaway (Dark Card) -->
+<div class="bg-slate-900 text-white p-6 rounded-xl shadow-xl">
+<div class="flex items-center gap-3 mb-4">
+<div class="size-10 bg-primary rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">psychology</span>
+</div>
+<div>
+<h3 class="font-header font-bold">Final Takeaway</h3>
+<p class="text-[10px] text-white/50 tracking-widest uppercase">AI Synthesis</p>
+</div>
+</div>
+<p class="text-sm leading-relaxed text-slate-300">
+                    Your portfolio is fundamentally strong but lacks "Anti-Fragility." To reach a 90+ score, diversify into International ETFs and Gold to hedge against domestic inflation.
+                </p>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 px-6 py-3 flex justify-between items-center z-50">
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold">DASHBOARD</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">pie_chart</span>
+<span class="text-[10px] font-bold">PORTFOLIO</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined fill-1">insights</span>
+<span class="text-[10px] font-bold">AI INSIGHTS</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold">PROFILE</span>
+</a>
+</nav>
+</body></html>

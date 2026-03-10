@@ -1,0 +1,217 @@
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Xylar - AI Portfolio Analyzer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Syne:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7c3bed",
+                        "background-light": "#F6F4F1",
+                        "background-dark": "#0D0D0D",
+                        "sidebar-dark": "#0D0D0D",
+                        "card-white": "#FFFFFF",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "syne": ["Syne", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .syne-title {
+            font-family: 'Syne', sans-serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen">
+<div class="flex h-screen overflow-hidden">
+<!-- Fixed Dark Sidebar -->
+<aside class="w-[72px] bg-sidebar-dark flex flex-col items-center py-8 shrink-0">
+<div class="mb-12">
+<div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-2xl font-bold">bolt</span>
+</div>
+</div>
+<nav class="flex flex-col gap-8 flex-1">
+<button class="text-white bg-primary/20 p-2 rounded-xl">
+<span class="material-symbols-outlined text-primary">grid_view</span>
+</button>
+<button class="text-slate-400 hover:text-white transition-colors p-2">
+<span class="material-symbols-outlined">analytics</span>
+</button>
+<button class="text-slate-400 hover:text-white transition-colors p-2">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</button>
+<button class="text-slate-400 hover:text-white transition-colors p-2">
+<span class="material-symbols-outlined">history_edu</span>
+</button>
+</nav>
+<div class="mt-auto flex flex-col gap-8">
+<button class="text-slate-400 hover:text-white transition-colors p-2">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-10 h-10 rounded-full border-2 border-primary/30 p-0.5">
+<img alt="User Profile" class="rounded-full" data-alt="User profile avatar icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByLNz3opDOYkcFfPOKuYNeHXps-8dbSDc6HtzywFgKs9waHej6Q2u3mDrjB-eBlVxyLZdvxwFiMoPmprDMacrtz3d18a0wXlBF4JM-n0GwH155Kp4KlbQ1W3G5Njm3iphBsKQZufkJGL0mXiKrD903GShcCXOsBoRDtJnYVXl03Z_q_j9VqEn0YLbOq9G0CKQy85gEtAEP-pztLzh2yXga5SFPADTiPcrxRUxwj6sJMREmk04C4I6_dQT7phHeeTxY1NTF7uX2qEdX"/>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto bg-background-light px-6 py-10 md:px-12">
+<!-- Header Section -->
+<header class="max-w-4xl mx-auto mb-12">
+<div class="flex items-center gap-2 mb-4">
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">India Special Edition</span>
+</div>
+<h1 class="syne-title text-4xl md:text-5xl lg:text-6xl text-slate-900 leading-tight tracking-tight">
+                    Upload your portfolio.<br/>
+<span class="text-primary">Get instant intelligence.</span>
+</h1>
+</header>
+<div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left: Upload Section -->
+<div class="lg:col-span-7 flex flex-col gap-6">
+<div class="bg-card-white p-8 rounded-xl shadow-sm border border-slate-100">
+<!-- Upload Zone -->
+<div class="border-2 border-dashed border-primary/20 bg-primary/5 rounded-xl px-6 py-16 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-primary/10 transition-colors">
+<div class="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-sm mb-4">
+<span class="material-symbols-outlined text-primary text-3xl">upload_file</span>
+</div>
+<h3 class="text-lg font-bold text-slate-900 mb-2">Upload Zone</h3>
+<p class="text-slate-500 text-sm mb-6 max-w-[280px]">Drop your CAS PDF, broker screenshot, or export file here</p>
+<button class="bg-primary text-white px-8 py-3 rounded-full font-bold text-sm hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
+                                Select Files
+                            </button>
+</div>
+<div class="relative py-8 flex items-center justify-center">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-slate-100"></div>
+</div>
+<span class="relative bg-card-white px-4 text-slate-400 text-xs font-bold uppercase tracking-widest">or</span>
+</div>
+<!-- Manual Paste Area -->
+<div class="flex flex-col gap-3">
+<label class="text-sm font-bold text-slate-700 ml-1">Paste portfolio text</label>
+<textarea class="w-full h-32 rounded-xl border-slate-100 bg-background-light p-4 text-sm focus:ring-primary focus:border-primary resize-none placeholder-slate-400" placeholder="Paste your holdings list or text from your statement..."></textarea>
+<div class="flex justify-end mt-2">
+<button class="text-primary text-sm font-bold hover:underline">Clear all</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Benefits/Features Section -->
+<div class="lg:col-span-5">
+<div class="bg-card-white p-8 rounded-xl shadow-sm border border-slate-100 h-full">
+<h2 class="syne-title text-2xl text-slate-900 mb-8">What you'll get</h2>
+<div class="flex flex-col gap-6">
+<!-- Feature Rows -->
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 shrink-0 bg-primary/10 rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">pie_chart</span>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 text-base">Asset Allocation</h4>
+<p class="text-slate-500 text-sm">Deep dive into equity, debt, and cash ratios.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 shrink-0 bg-primary/10 rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">security</span>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 text-base">Risk Profile</h4>
+<p class="text-slate-500 text-sm">Understand your volatility and concentration risk.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 shrink-0 bg-primary/10 rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">trending_up</span>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 text-base">Sector Analysis</h4>
+<p class="text-slate-500 text-sm">See how much exposure you have to IT, Banking, etc.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 shrink-0 bg-primary/10 rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">payments</span>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 text-base">Fee Optimization</h4>
+<p class="text-slate-500 text-sm">Find hidden commissions and expense ratios.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 shrink-0 bg-primary/10 rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">account_balance</span>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 text-base">Tax Efficiency</h4>
+<p class="text-slate-500 text-sm">Identify opportunities for tax-loss harvesting.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 shrink-0 bg-primary/10 rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">auto_awesome</span>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 text-base">AI Suggestions</h4>
+<p class="text-slate-500 text-sm">Smart rebalancing tips based on your goals.</p>
+</div>
+</div>
+</div>
+<!-- Trust Badge -->
+<div class="mt-10 p-4 bg-background-light rounded-xl flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400">lock</span>
+<p class="text-xs text-slate-500 leading-relaxed font-medium">
+                                Your data is end-to-end encrypted. We never share your portfolio information with third parties.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Links -->
+<footer class="max-w-6xl mx-auto mt-16 pb-10 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-slate-200 pt-8">
+<div class="flex items-center gap-6">
+<a class="text-sm font-bold text-slate-500 hover:text-primary transition-colors" href="#">Documentation</a>
+<a class="text-sm font-bold text-slate-500 hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-sm font-bold text-slate-500 hover:text-primary transition-colors" href="#">Support</a>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-xs text-slate-400">Powered by Xylar AI 2.0</span>
+<div class="flex gap-2">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400 text-sm">public</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400 text-sm">alternate_email</span>
+</div>
+</div>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

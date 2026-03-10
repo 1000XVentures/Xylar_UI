@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Xylar Premium Splash Screen</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&amp;family=Syne:wght@800&amp;family=DM+Sans:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#7c3bed",
+          "background-light": "#f7f6f8",
+          "background-dark": "#171121",
+        },
+        fontFamily: {
+          "display": ["Inter", "sans-serif"],
+          "logo": ["Syne", "sans-serif"],
+          "tagline": ["DM Sans", "sans-serif"]
+        },
+        borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+      },
+    },
+  }
+</script>
+<style>
+  .bg-grid-pattern {
+    background-image: linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+    transform: perspective(500px) rotateX(45deg);
+    transform-origin: center top;
+  }
+</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex flex-col antialiased selection:bg-primary/30">
+<div class="relative flex h-screen w-full flex-col items-center justify-between overflow-hidden">
+<!-- Subtle Grid Texture -->
+<div class="absolute inset-0 opacity-40 pointer-events-none" data-alt="Faint diagonal grid texture for depth">
+<div class="absolute inset-0 bg-grid-pattern opacity-30"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-background-dark"></div>
+</div>
+<!-- Deep Violet Radial Glow -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="w-96 h-96 bg-primary/20 blur-[100px] rounded-full"></div>
+</div>
+<!-- Top Spacer -->
+<div class="flex-1"></div>
+<!-- Center Focus: Logo & Typography -->
+<div class="relative z-10 flex flex-col items-center justify-center w-full px-6">
+<!-- Stylized 'X' Logo Mark -->
+<div class="relative flex items-center justify-center w-24 h-24 mb-6" data-alt="Geometric X logo made of stylized rising bars">
+<!-- Simulated bars creating an X -->
+<div class="absolute w-4 h-16 bg-primary rounded-sm transform rotate-45 shadow-[0_0_20px_rgba(124,59,237,0.5)]"></div>
+<div class="absolute w-4 h-16 bg-primary rounded-sm transform -rotate-45 shadow-[0_0_20px_rgba(124,59,237,0.5)] opacity-80"></div>
+<div class="absolute w-4 h-10 bg-primary/70 rounded-sm transform rotate-45 translate-x-6 -translate-y-6"></div>
+<div class="absolute w-4 h-10 bg-primary/70 rounded-sm transform -rotate-45 -translate-x-6 -translate-y-6"></div>
+</div>
+<!-- Wordmark -->
+<h1 class="font-logo text-[48px] font-extrabold text-white leading-none tracking-tight text-center">
+      XYLAR
+    </h1>
+<!-- Tagline -->
+<p class="font-tagline text-sm font-medium tracking-[0.2em] text-slate-400 mt-3 text-center opacity-80">
+      AI WEALTH INTELLIGENCE
+    </p>
+</div>
+<!-- Bottom Section: Loading & Footer -->
+<div class="relative z-10 flex flex-col items-center justify-end w-full pb-10 flex-1">
+<!-- Loading Bar -->
+<div class="w-[200px] h-1.5 bg-slate-800 rounded-full overflow-hidden mb-4">
+<div class="h-full bg-primary rounded-full relative" style="width: 65%;">
+<!-- Inner glow on the progress bar -->
+<div class="absolute right-0 top-0 bottom-0 w-8 bg-white/30 blur-sm"></div>
+</div>
+</div>
+<!-- Loading Text -->
+<p class="font-tagline text-[13px] text-slate-400 mb-8 opacity-80">
+      Initializing your intelligence layer...
+    </p>
+<!-- Footer -->
+<div class="mt-auto">
+<p class="font-tagline text-[11px] text-slate-500 tracking-wide text-center uppercase">
+        Powered by Claude AI
+      </p>
+</div>
+</div>
+</div>
+</body></html>

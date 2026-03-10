@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Xylar - Portfolio Analyzer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7c3bed",
+                        "background-light": "#F6F4F1",
+                        "background-dark": "#171121",
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#231e2d",
+                    },
+                    fontFamily: {
+                        "display": ["Syne", "sans-serif"],
+                        "body": ["DM Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "16px", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'DM Sans', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Syne', sans-serif; }
+        .dashed-border {
+            background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='16' ry='16' stroke='%237c3bed' stroke-width='2' stroke-dasharray='8%2c 8' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+            border-radius: 16px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex justify-center text-slate-900 dark:text-slate-100">
+<!-- Mobile Container -->
+<div class="w-full max-w-[390px] min-h-screen bg-background-light dark:bg-background-dark flex flex-col relative overflow-hidden shadow-2xl">
+<!-- TopAppBar -->
+<div class="flex items-center p-4 justify-between sticky top-0 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md z-10">
+<div class="flex items-center gap-2">
+<div class="text-primary flex size-10 items-center justify-center bg-primary/10 rounded-full">
+<span class="material-symbols-outlined text-[24px]">bolt</span>
+</div>
+<span class="font-display font-bold text-xl tracking-tight">Xylar</span>
+</div>
+<button class="flex items-center justify-center size-10 rounded-full bg-black/5 dark:bg-white/10 text-slate-700 dark:text-slate-300 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+<!-- Hero Section -->
+<div class="px-5 pt-4 pb-6 flex flex-col items-start gap-4">
+<div class="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 dark:bg-primary/20 text-primary text-xs font-bold tracking-wider uppercase">
+<span class="material-symbols-outlined text-[14px] mr-1">star</span>
+                India Special Edition
+            </div>
+<h1 class="font-display text-[32px] font-bold leading-[1.1] tracking-tight text-slate-900 dark:text-white">
+                Upload your portfolio. Get instant intelligence.
+            </h1>
+</div>
+<!-- Main Card -->
+<div class="px-4 pb-8 flex-1">
+<div class="bg-surface-light dark:bg-surface-dark rounded-[24px] p-5 shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col gap-6">
+<!-- Upload Zone -->
+<div class="dashed-border p-6 flex flex-col items-center justify-center gap-4 cursor-pointer hover:bg-primary/5 transition-colors relative">
+<div class="size-14 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">cloud_upload</span>
+</div>
+<div class="text-center">
+<p class="font-medium text-slate-900 dark:text-white">Upload Statement</p>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1">PDF, CSV, or Excel (Max 10MB)</p>
+</div>
+<button class="mt-2 flex items-center justify-center rounded-full h-10 px-6 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-semibold transition-colors">
+                        Select File
+                    </button>
+<!-- Hidden file input would go here -->
+</div>
+<!-- OR Divider -->
+<div class="flex items-center gap-3">
+<div class="flex-1 h-px bg-slate-200 dark:bg-slate-800"></div>
+<span class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">OR</span>
+<div class="flex-1 h-px bg-slate-200 dark:bg-slate-800"></div>
+</div>
+<!-- Textarea -->
+<div>
+<textarea class="w-full h-28 resize-none rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 p-4 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="Paste your portfolio text, holdings, or trade history here..."></textarea>
+</div>
+<!-- Customize Toggle -->
+<div class="flex items-center justify-between py-2 border-t border-slate-100 dark:border-slate-800 mt-2">
+<div class="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+<span class="text-sm font-medium">Customize analysis</span>
+</div>
+<!-- Toggle Switch Mock -->
+<div class="w-11 h-6 bg-slate-200 dark:bg-slate-700 rounded-full relative cursor-pointer">
+<div class="absolute left-1 top-1 size-4 bg-white rounded-full shadow-sm"></div>
+</div>
+</div>
+<!-- Continue Button -->
+<button class="w-full flex items-center justify-center gap-2 rounded-full h-14 bg-gradient-to-r from-primary to-[#9333ea] text-white text-base font-bold shadow-lg shadow-primary/30 hover:shadow-primary/40 transition-shadow">
+                    Continue
+                    <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+<!-- Analysis Includes Section -->
+<div class="mt-8 px-2">
+<h3 class="font-display text-lg font-bold text-slate-900 dark:text-white mb-4">Your analysis includes</h3>
+<div class="grid grid-cols-1 gap-4">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined">pie_chart</span>
+</div>
+<div>
+<p class="font-medium text-slate-900 dark:text-white text-sm">Portfolio Summary</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Asset allocation &amp; total value</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined">insights</span>
+</div>
+<div>
+<p class="font-medium text-slate-900 dark:text-white text-sm">Key Observations</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Strengths &amp; vulnerabilities</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<div>
+<p class="font-medium text-slate-900 dark:text-white text-sm">Risk Assessment</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Sector exposure &amp; volatility</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div>
+<p class="font-medium text-slate-900 dark:text-white text-sm">Tax Optimization</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Indian tax context insights</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="mt-auto p-6 pb-10 flex flex-col items-center justify-center gap-2 text-center bg-background-light dark:bg-background-dark">
+<div class="flex items-center justify-center gap-1.5 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+<span class="text-xs font-medium">Your data is end-to-end secure</span>
+</div>
+<p class="text-[10px] text-slate-400 dark:text-slate-500 max-w-[280px]">
+                Statements are processed securely and deleted immediately after analysis.
+            </p>
+</div>
+</div>
+</body></html>
