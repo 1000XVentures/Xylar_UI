@@ -535,82 +535,139 @@ function ResultsScreen({ analysis, onReset, onDownload }) {
     };
 
     return (
-        <div className="state-container" style={{ maxWidth: 720, margin: '0 auto' }}>
-            {/* Header */}
-            <div style={{ marginBottom: 28 }}>
-                <h1 style={{ fontFamily: "'Outfit',sans-serif", fontSize: 28, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 4 }}>Analysis complete</h1>
-                <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 13, color: 'var(--text-muted)', margin: 0 }}>Generated just now</p>
-            </div>
-
-            {/* 6 Section Cards */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-                {SECTIONS.map((s, i) => {
-                    const isDark = s.key === 'final_takeaway';
-                    const isRisk = s.key === 'risks_red_flags';
-                    const isOpportunity = s.key === 'improvement_opportunities';
-
-                    return (
-                        <div
-                            key={s.key}
-                            style={{
-                                background: isDark ? 'linear-gradient(145deg, #18181b, #09090b)' : 'linear-gradient(180deg, #ffffff, #fafafa)',
-                                border: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.06)',
-                                borderRadius: 'var(--r-lg)', padding: 24,
-                                boxShadow: isDark ? '0 10px 40px -10px rgba(124,58,237,0.2)' : '0 4px 24px -6px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02)',
-                                animation: `card-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards`,
-                                animationDelay: `${i * 80}ms`,
-                                opacity: 0,
-                                position: 'relative',
-                                overflow: 'hidden'
-                            }}
-                        >
-                            {isDark && (
-                                <div style={{ position: 'absolute', top: '-50%', left: '-50%', width: '200%', height: '200%', background: 'radial-gradient(circle at top right, rgba(124,58,237,0.1), transparent 40%)', pointerEvents: 'none' }} />
-                            )}
-                            {/* Card header */}
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16, position: 'relative', zIndex: 1 }}>
-                                <div style={{ width: 32, height: 32, borderRadius: '50%', background: isDark ? 'rgba(124,58,237,0.25)' : 'linear-gradient(135deg, #F3E8FF, #E9D5FF)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, border: isDark ? '1px solid rgba(124,58,237,0.4)' : '1px solid rgba(124,58,237,0.1)' }}>
-                                    <span style={{ fontFamily: "'Inter',sans-serif", fontSize: 12, fontWeight: 700, color: isDark ? '#C4B5FD' : 'var(--accent)' }}>{s.num}</span>
-                                </div>
-                                <span style={{ fontFamily: "'Outfit',sans-serif", fontSize: 16, fontWeight: isDark ? 700 : (i === 0 ? 800 : 700), color: isDark ? '#A3E635' : 'var(--text-primary)', letterSpacing: '-0.01em' }}>{s.title}</span>
-                            </div>
-
-                            {/* Card content */}
-                            {isRisk ? (
-                                <div style={{ background: 'var(--negative-bg,#FEF2F2)', borderLeft: '3px solid var(--negative,#EF4444)', padding: '10px 14px', borderRadius: '0 6px 6px 0' }}>
-                                    <div style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--negative,#EF4444)" strokeWidth="2" strokeLinecap="round" style={{ flexShrink: 0, marginTop: 2 }}>
-                                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" />
-                                        </svg>
-                                        <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 13, color: 'var(--negative,#EF4444)', lineHeight: 1.5, margin: 0 }}>{data[s.key]}</p>
-                                    </div>
-                                </div>
-                            ) : isOpportunity ? (
-                                <div style={{ background: 'var(--lime-bg,#F7FEE7)', borderLeft: '3px solid var(--lime,#A3E635)', padding: '10px 14px', borderRadius: '0 6px 6px 0' }}>
-                                    <div style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#65A30D" strokeWidth="2" strokeLinecap="round" style={{ flexShrink: 0, marginTop: 2 }}>
-                                            <polyline points="9 18 15 12 9 6" />
-                                        </svg>
-                                        <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 13, color: '#65A30D', lineHeight: 1.5, margin: 0 }}>{data[s.key]}</p>
-                                    </div>
-                                </div>
-                            ) : (
-                                <p style={{ position: 'relative', zIndex: 1, fontFamily: "'Inter',sans-serif", fontSize: 14, fontWeight: 400, color: isDark ? 'rgba(255,255,255,0.9)' : 'var(--text-secondary)', lineHeight: 1.75, margin: 0 }}>
-                                    {data[s.key]}
-                                </p>
-                            )}
-
-                            {isDark && (
-                                <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.35)', marginTop: 16, marginBottom: 0 }}>Made by 1000xDev</p>
-                            )}
-                        </div>
-                    );
-                })}
-            </div>
-
-            {/* ── Xylar CTA Banner ── */}
+        <div className="state-container" style={{ maxWidth: 720, margin: '0 auto', paddingBottom: 60 }}>
+            {/* 1. Hero / Health Score Card (Lavender/Purple Gradient) */}
             <div style={{
-                marginTop: 28,
+                background: 'linear-gradient(135deg, #7C3AED 0%, #A855F7 100%)',
+                borderRadius: 'var(--r-xl)',
+                padding: '32px',
+                color: 'white',
+                marginBottom: 24,
+                position: 'relative',
+                overflow: 'hidden',
+                boxShadow: '0 20px 50px -12px rgba(124,58,237,0.3)',
+                animation: 'card-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+            }}>
+                <div style={{ position: 'absolute', top: '-10%', right: '-5%', width: '40%', height: '100%', background: 'radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%)', pointerEvents: 'none' }} />
+
+                <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 13, fontWeight: 600, color: 'rgba(255,255,255,0.8)', marginBottom: 8, letterSpacing: '0.01em' }}>Portfolio Health Score</p>
+
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginBottom: 20 }}>
+                    <span style={{ fontFamily: "'Outfit',sans-serif", fontSize: 56, fontWeight: 800 }}>{data.health_score || 85}</span>
+                    <span style={{ fontFamily: "'Outfit',sans-serif", fontSize: 20, fontWeight: 700, opacity: 0.6 }}>/100</span>
+                    <div style={{ marginLeft: 'auto', background: 'rgba(255,255,255,0.2)', padding: '6px 14px', borderRadius: 'var(--r-full)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18" /><polyline points="17 6 23 6 23 12" /></svg>
+                        <span style={{ fontFamily: "'Inter',sans-serif", fontSize: 12, fontWeight: 700 }}>+5.2%</span>
+                    </div>
+                </div>
+
+                <div style={{ width: '100%', height: 8, background: 'rgba(255,255,255,0.2)', borderRadius: 'var(--r-full)', overflow: 'hidden' }}>
+                    <div style={{ width: `${data.health_score || 85}%`, height: '100%', background: 'white', borderRadius: 'var(--r-full)' }} />
+                </div>
+            </div>
+
+            {/* 2. Key Market Signals */}
+            <div style={{
+                background: 'white', border: '1px solid rgba(124,58,237,0.1)', borderRadius: 'var(--r-lg)',
+                padding: '24px', marginBottom: 24, boxShadow: 'var(--shadow-sm)'
+            }}>
+                <h3 style={{ fontFamily: "'Outfit',sans-serif", fontSize: 16, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 18 }}>Key Market Signals</h3>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                            <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#10B981', animation: 'pulse-dot 2s infinite' }} />
+                            <span style={{ fontFamily: "'Inter',sans-serif", fontSize: 14, fontWeight: 500, color: 'var(--text-secondary)' }}>Market Outlook</span>
+                        </div>
+                        <span style={{ fontFamily: "'Inter',sans-serif", fontSize: 14, fontWeight: 700, color: '#059669' }}>Bullish</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                            <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#F59E0B' }} />
+                            <span style={{ fontFamily: "'Inter',sans-serif", fontSize: 14, fontWeight: 500, color: 'var(--text-secondary)' }}>Volatility Index</span>
+                        </div>
+                        <span style={{ fontFamily: "'Inter',sans-serif", fontSize: 14, fontWeight: 700, color: '#D97706' }}>Medium</span>
+                    </div>
+                </div>
+            </div>
+
+            {/* 3. Section Cards */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+
+                {/* A. Portfolio Summary (Themed) */}
+                <div style={{ background: 'white', border: '1px solid rgba(124,58,237,0.1)', borderRadius: 'var(--r-lg)', padding: '24px', boxShadow: 'var(--shadow-sm)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
+                        <h3 style={{ fontFamily: "'Outfit',sans-serif", fontSize: 16, fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>Portfolio Summary</h3>
+                        <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--accent)', background: 'var(--accent-light)', padding: '4px 8px', borderRadius: '4px', letterSpacing: '0.05em' }}>LIVE ANALYSIS</span>
+                    </div>
+                    <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>{data.portfolio_summary}</p>
+                </div>
+
+                {/* B. Key Observations */}
+                <div style={{ background: 'white', border: '1px solid rgba(124,58,237,0.1)', borderRadius: 'var(--r-lg)', padding: '24px', boxShadow: 'var(--shadow-sm)' }}>
+                    <h3 style={{ fontFamily: "'Outfit',sans-serif", fontSize: 16, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 14 }}>Key Observations</h3>
+                    <div style={{ display: 'flex', gap: 12 }}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2.5" strokeLinecap="round" style={{ flexShrink: 0, marginTop: 1 }}>
+                            <circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" />
+                        </svg>
+                        <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>{data.key_observations}</p>
+                    </div>
+                </div>
+
+                {/* C. Diversification & Concentration */}
+                <div style={{ background: 'white', border: '1px solid rgba(124,58,237,0.1)', borderRadius: 'var(--r-lg)', padding: '24px', boxShadow: 'var(--shadow-sm)' }}>
+                    <h3 style={{ fontFamily: "'Outfit',sans-serif", fontSize: 16, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 14 }}>Diversification & Concentration</h3>
+                    <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>{data.diversification_concentration}</p>
+                </div>
+
+                {/* D. Risks & Red Flags (Rose Theme) */}
+                <div style={{ background: '#FFF1F2', border: '1px solid #FECDD3', borderRadius: 'var(--r-lg)', padding: '24px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14, color: '#BE123C' }}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" />
+                        </svg>
+                        <h3 style={{ fontFamily: "'Outfit',sans-serif", fontSize: 16, fontWeight: 800, margin: 0 }}>Critical Risks</h3>
+                    </div>
+                    <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 14, color: '#BE123C', lineHeight: 1.6, margin: 0, fontWeight: 500 }}>{data.risks_red_flags}</p>
+                </div>
+
+                {/* E. Improvement Opportunities (Lime Theme) */}
+                <div style={{ background: '#F7FEE7', border: '1px solid #D9F99D', borderRadius: 'var(--r-lg)', padding: '24px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14, color: '#4D7C0F' }}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+                        </svg>
+                        <h3 style={{ fontFamily: "'Outfit',sans-serif", fontSize: 16, fontWeight: 800, margin: 0 }}>Improvement Ops</h3>
+                    </div>
+                    <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 14, color: '#4D7C0F', lineHeight: 1.6, margin: 0, fontWeight: 500 }}>{data.improvement_opportunities}</p>
+                </div>
+
+                {/* F. Final Takeaway (Premium Dark) */}
+                <div style={{
+                    background: '#111827', borderRadius: 'var(--r-lg)', padding: '28px', color: 'white',
+                    boxShadow: '0 10px 30px -10px rgba(17,24,39,0.5)', position: 'relative', overflow: 'hidden'
+                }}>
+                    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)' }} />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 18 }}>
+                        <div style={{ width: 44, height: 44, borderRadius: '50%', background: 'var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                <path d="M12 8v4M12 16h.01" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 style={{ fontFamily: "'Outfit',sans-serif", fontSize: 17, fontWeight: 700, margin: 0 }}>Final Takeaway</h3>
+                            <p style={{ fontSize: 9, fontWeight: 800, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: 1 }}>AI Synthesis Engine</p>
+                        </div>
+                    </div>
+                    <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 14, color: 'rgba(255,255,255,0.85)', lineHeight: 1.7, margin: 0 }}>{data.final_takeaway}</p>
+                    <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 10, color: 'rgba(255,255,255,0.25)', marginTop: 20, marginBottom: 0 }}>Verified by Xylar Intelligence · 1.0.4</p>
+                </div>
+
+            </div>
+
+            {/* 4. Xylar CTA Banner */}
+            <div style={{
+                marginTop: 32,
                 background: 'linear-gradient(135deg, #09090b 0%, #18181b 100%)',
                 border: '1px solid rgba(124,58,237,0.30)',
                 borderRadius: 'var(--r-xl)',
@@ -618,22 +675,22 @@ function ResultsScreen({ analysis, onReset, onDownload }) {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                gap: 20,
+                gap: 24,
                 position: 'relative',
                 overflow: 'hidden',
-                boxShadow: '0 0 0 1px rgba(124,58,237,0.08), 0 20px 50px -10px rgba(0,0,0,0.4)',
+                boxShadow: '0 20px 50px -10px rgba(0,0,0,0.4)',
             }}>
                 <div style={{ position: 'absolute', top: '-40px', right: '-40px', width: 180, height: 180, background: 'radial-gradient(circle, rgba(124,58,237,0.18), transparent 70%)', pointerEvents: 'none' }} />
                 <div style={{ position: 'relative', zIndex: 1 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
                         <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#A3E635', boxShadow: '0 0 6px rgba(163,230,53,0.7)' }} />
-                        <span style={{ fontFamily: "'Inter',sans-serif", fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#A3E635' }}>Xylar · Where Capital Meets Code</span>
+                        <span style={{ fontFamily: "'Inter',sans-serif", fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#A3E635' }}>Explore Xylar Workspace</span>
                     </div>
                     <h3 style={{ fontFamily: "'Outfit',sans-serif", fontSize: 20, fontWeight: 800, color: '#FAFAFA', lineHeight: 1.25, letterSpacing: '-0.02em', margin: '0 0 6px' }}>
-                        Want to know more<br />about Xylar?
+                        Ready for custom<br />wealth strategies?
                     </h3>
                     <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 13, color: 'rgba(255,255,255,0.45)', margin: 0, lineHeight: 1.6 }}>
-                        AI-native, quant-powered wealth management.
+                        Join the next generation of asset management.
                     </p>
                 </div>
                 <a
@@ -664,25 +721,47 @@ function ResultsScreen({ analysis, onReset, onDownload }) {
                 </a>
             </div>
 
-            {/* Buttons */}
-            <div style={{ marginTop: 18 }}>
+            {/* 5. Main Action Buttons */}
+            <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 12 }}>
                 <button
                     onClick={onDownload}
-                    style={{ width: '100%', height: 52, background: 'linear-gradient(135deg,#7C3AED,#5B21B6)', color: 'white', fontFamily: "'Outfit',sans-serif", fontSize: 15, fontWeight: 700, borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, transition: 'all 0.15s ease' }}
-                    onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 6px 24px rgba(124,58,237,0.35)'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'none'; }}
+                    style={{
+                        width: '100%', height: 56, background: 'var(--accent)', color: 'white',
+                        fontFamily: "'Outfit',sans-serif", fontSize: 16, fontWeight: 700,
+                        borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                        transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                        boxShadow: '0 8px 32px -8px rgba(124,58,237,0.5)'
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 40px -8px rgba(124,58,237,0.6)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 8px 32px -8px rgba(124,58,237,0.5)'; }}
                 >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg>
-                    Download Report
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg>
+                    Download Detailed Report
                 </button>
-                <button
-                    onClick={onReset}
-                    style={{ width: '100%', height: 48, marginTop: 10, background: 'transparent', border: '1.5px solid var(--border-strong,#D1D5DB)', color: 'var(--text-secondary)', fontFamily: "'Inter',sans-serif", fontSize: 14, fontWeight: 500, borderRadius: 'var(--r-full)', cursor: 'pointer', transition: 'all 0.15s ease' }}
-                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)'; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border-strong,#D1D5DB)'; e.currentTarget.style.color = 'var(--text-secondary)'; }}
-                >
-                    Analyze Another Portfolio
-                </button>
+                <div style={{ display: 'flex', gap: 12 }}>
+                    <button
+                        onClick={onReset}
+                        style={{
+                            flex: 1, height: 48, background: 'white', border: '1.5px solid var(--border-strong)',
+                            color: 'var(--text-secondary)', fontFamily: "'Inter',sans-serif", fontSize: 14,
+                            fontWeight: 600, borderRadius: 'var(--r-full)', cursor: 'pointer', transition: 'all 0.15s ease'
+                        }}
+                        onMouseEnter={(e) => { e.currentTarget.style.background = '#F9FAFB'; e.currentTarget.style.borderColor = 'var(--text-primary)'; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.background = 'white'; e.currentTarget.style.borderColor = 'var(--border-strong)'; }}
+                    >
+                        Analyze Another
+                    </button>
+                    <button
+                        style={{
+                            width: 48, height: 48, background: 'white', border: '1.5px solid var(--border-strong)',
+                            borderRadius: 'var(--r-full)', cursor: 'pointer', display: 'flex', alignItems: 'center',
+                            justifyContent: 'center', color: 'var(--text-secondary)'
+                        }}
+                    >
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" /><polyline points="16 6 12 2 8 6" /><line x1="12" y1="2" x2="12" y2="15" /></svg>
+                    </button>
+                </div>
             </div>
         </div>
     );
