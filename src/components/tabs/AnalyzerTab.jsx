@@ -107,22 +107,13 @@ function LandingScreen({ state, updateState, goTo }) {
 
                 {/* Hero */}
                 <div style={{ textAlign: 'center', marginBottom: 40 }}>
-                    <div style={{
-                        display: 'inline-flex', alignItems: 'center', gap: 6,
-                        background: 'var(--accent-light)', border: '1px solid #DDD6FE',
-                        borderRadius: 'var(--r-full)', padding: '5px 14px',
-                        fontFamily: "'Inter',sans-serif", fontSize: 11, fontWeight: 700,
-                        textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--accent)',
-                        marginBottom: 20,
-                    }}>
-                        <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)', display: 'inline-block' }} />
-                        AI Portfolio Analyzer
-                    </div>
                     <h1 style={{
                         fontFamily: "'Outfit',sans-serif",
                         fontSize: 'clamp(28px, 5vw, 42px)',
                         fontWeight: 800,
-                        color: 'var(--text-primary)',
+                        background: 'linear-gradient(180deg, var(--text-primary) 0%, #4B5563 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
                         lineHeight: 1.1,
                         letterSpacing: '-0.025em',
                         marginBottom: 14,
@@ -132,7 +123,7 @@ function LandingScreen({ state, updateState, goTo }) {
                     <p style={{
                         fontFamily: "'Inter',sans-serif",
                         fontSize: 15,
-                        color: 'var(--text-muted)',
+                        color: '#6B7280',
                         lineHeight: 1.7,
                         margin: 0,
                     }}>
@@ -158,7 +149,7 @@ function LandingScreen({ state, updateState, goTo }) {
                         position: 'relative',
                         transition: 'all 0.2s ease',
                         textAlign: 'center',
-                        boxShadow: isDragOver ? '0 0 0 4px rgba(124,58,237,0.10)' : state.fileName ? '0 0 0 3px rgba(163,230,53,0.15)' : 'var(--shadow-sm)',
+                        boxShadow: isDragOver ? '0 0 0 4px rgba(124,58,237,0.10)' : state.fileName ? '0 10px 30px -5px rgba(163,230,53,0.2)' : '0 20px 50px -12px rgba(0,0,0,0.05)',
                     }}
                 >
                     {/* Icon */}
@@ -255,17 +246,17 @@ function LandingScreen({ state, updateState, goTo }) {
                     disabled={!canContinue}
                     style={{
                         width: '100%', height: 54, marginTop: 18,
-                        background: canContinue ? 'linear-gradient(135deg,#7C3AED,#5B21B6)' : '#E5E7EB',
-                        color: canContinue ? 'white' : '#9CA3AF',
+                        background: canContinue ? 'linear-gradient(135deg,#7C3AED,#5B21B6)' : 'rgba(0,0,0,0.05)',
+                        color: canContinue ? 'white' : 'rgba(0,0,0,0.3)',
                         fontFamily: "'Outfit',sans-serif", fontSize: 16, fontWeight: 700,
-                        borderRadius: 'var(--r-full)', border: 'none',
+                        borderRadius: 'var(--r-full)', border: canContinue ? 'none' : '1px solid rgba(0,0,0,0.05)',
                         cursor: canContinue ? 'pointer' : 'not-allowed',
                         transition: 'all 0.15s ease',
                         letterSpacing: '-0.01em',
-                        boxShadow: canContinue ? '0 4px 18px rgba(124,58,237,0.30)' : 'none',
+                        boxShadow: canContinue ? '0 8px 24px -10px rgba(124,58,237,0.4)' : 'none',
                     }}
-                    onMouseEnter={(e) => { if (canContinue) { e.currentTarget.style.boxShadow = '0 8px 28px rgba(124,58,237,0.40)'; e.currentTarget.style.transform = 'translateY(-1px)'; } }}
-                    onMouseLeave={(e) => { e.currentTarget.style.boxShadow = canContinue ? '0 4px 18px rgba(124,58,237,0.30)' : 'none'; e.currentTarget.style.transform = 'none'; }}
+                    onMouseEnter={(e) => { if (canContinue) { e.currentTarget.style.boxShadow = '0 12px 32px -8px rgba(124,58,237,0.5)'; e.currentTarget.style.transform = 'translateY(-1px)'; } }}
+                    onMouseLeave={(e) => { e.currentTarget.style.boxShadow = canContinue ? '0 8px 24px -10px rgba(124,58,237,0.4)' : 'none'; e.currentTarget.style.transform = 'none'; }}
                 >
                     Customize the analysis →
                 </button>
@@ -396,31 +387,40 @@ function ReadyScreen({ state, updateState, goTo }) {
                 onBlur={(e) => { e.target.style.border = '1px solid var(--border)'; e.target.style.boxShadow = 'none'; }}
             />
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                {PERSONAS.map((p) => {
-                    const selected = isChipSelected(p.phrase);
-                    return (
-                        <button
-                            key={p.label}
-                            onClick={() => toggleChip(p.phrase)}
-                            className={`persona-chip ${selected ? 'selected' : ''}`}
-                        >
-                            {p.label}
-                        </button>
-                    );
-                })}
-            </div>
+            <div style={{ background: '#F8F9FA', padding: 16, borderRadius: 'var(--r-lg)', marginTop: 10 }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                    {PERSONAS.map((p) => {
+                        const selected = isChipSelected(p.phrase);
+                        return (
+                            <button
+                                key={p.label}
+                                onClick={() => toggleChip(p.phrase)}
+                                className={`persona-chip ${selected ? 'selected' : ''}`}
+                            >
+                                {p.label}
+                            </button>
+                        );
+                    })}
+                </div>
 
-            <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 11, color: 'var(--text-muted)', marginTop: 12 }}>
-                Optional — Xylar runs a complete analysis by default.
+                <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 11, color: 'var(--text-muted)', marginTop: 12 }}>
+                    Optional — Xylar runs a complete analysis by default.
+                </div>
             </div>
 
             {/* Analyze button */}
             <button
                 onClick={handleAnalyze}
-                style={{ width: '100%', height: 52, marginTop: 24, background: 'linear-gradient(135deg,#7C3AED,#5B21B6)', color: 'white', fontFamily: "'Outfit',sans-serif", fontSize: 15, fontWeight: 700, borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer', transition: 'all 0.15s ease' }}
-                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 6px 24px rgba(124,58,237,0.35)'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'none'; }}
+                style={{
+                    width: '100%', height: 52, marginTop: 24,
+                    background: 'linear-gradient(135deg,#7C3AED,#5B21B6)',
+                    color: 'white', fontFamily: "'Outfit',sans-serif", fontSize: 16, fontWeight: 700,
+                    borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer',
+                    transition: 'all 0.15s ease',
+                    boxShadow: '0 8px 24px -10px rgba(124,58,237,0.4)',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 12px 32px -8px rgba(124,58,237,0.5)'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 8px 24px -10px rgba(124,58,237,0.4)'; e.currentTarget.style.transform = 'none'; }}
             >
                 Analyze Portfolio
             </button>
