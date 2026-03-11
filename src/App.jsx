@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import logo from './assets/logo.png';
 import Sidebar from './components/Sidebar';
 import TopBar from './components/TopBar';
 import AnalyzerTab from './components/tabs/AnalyzerTab';
@@ -46,14 +47,9 @@ export default function App() {
                 <div className="mobile-topbar-fixed">
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         <div style={{ width: 32, height: 32, borderRadius: 9, background: '#7C3AED', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                            <svg width="16" height="16" viewBox="0 0 22 22" fill="none">
-                                <rect x="2" y="11" width="4" height="8" rx="1.5" fill="white" opacity="0.85" />
-                                <rect x="8" y="7" width="4" height="9" rx="1.5" fill="white" opacity="0.9" />
-                                <rect x="14" y="2" width="4" height="8" rx="1.5" fill="#A3E635" />
-                                <rect x="14" y="12" width="4" height="7" rx="1.5" fill="white" opacity="0.75" />
-                            </svg>
+                            <img src={logo} alt="Xylar Logo" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '4px' }} />
                         </div>
-                        <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 600, color: 'white' }}>Xylar</span>
+                        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, fontWeight: 600, color: 'white' }}>Xylar</span>
                     </div>
                 </div>
 

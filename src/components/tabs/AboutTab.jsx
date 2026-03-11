@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from '../../assets/logo.png';
 import '../../styles/about.css';
 
 const CALENDLY_URL = 'https://calendly.com/xylar/intro';
@@ -36,7 +37,7 @@ const beliefs = [
 ];
 
 export default function AboutTab({ onSwitchToAnalyzer }) {
-    const label11 = { fontFamily: "'DM Sans',sans-serif", fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#7C3AED' };
+    const label11 = { fontFamily: "'Inter',sans-serif", fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#7C3AED' };
 
     return (
         <div className="tab-panel state-container" style={{ padding: '40px', maxWidth: '960px' }}>
@@ -47,12 +48,7 @@ export default function AboutTab({ onSwitchToAnalyzer }) {
                 <div className="icon-cluster">
                     {/* Center orb */}
                     <div className="cluster-center">
-                        <svg width="32" height="32" viewBox="0 0 22 22" fill="none">
-                            <rect x="2" y="11" width="4" height="8" rx="1.5" fill="white" opacity="0.85" />
-                            <rect x="8" y="7" width="4" height="9" rx="1.5" fill="white" opacity="0.9" />
-                            <rect x="14" y="2" width="4" height="8" rx="1.5" fill="#A3E635" />
-                            <rect x="14" y="12" width="4" height="7" rx="1.5" fill="white" opacity="0.75" />
-                        </svg>
+                        <img src={logo} alt="Xylar Logo" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '4px' }} />
                     </div>
                     {/* Top orbit */}
                     <div className="orbit-icon orbit-top orbit-icon-a">
@@ -80,10 +76,10 @@ export default function AboutTab({ onSwitchToAnalyzer }) {
                     </div>
                 </div>
 
-                <h1 className="about-headline" style={{ fontFamily: "'Syne',sans-serif", fontSize: '42px', fontWeight: 800, color: '#0F0F0F', lineHeight: 1.1, letterSpacing: '-0.025em', marginTop: '32px', marginBottom: '16px' }}>
+                <h1 className="about-headline" style={{ fontFamily: "'Outfit',sans-serif", fontSize: '42px', fontWeight: 800, color: '#0F0F0F', lineHeight: 1.1, letterSpacing: '-0.025em', marginTop: '32px', marginBottom: '16px' }}>
                     Intelligence for the<br />Indian investor.
                 </h1>
-                <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '16px', color: '#6B7280', lineHeight: 1.75 }}>
+                <p style={{ fontFamily: "'Inter',sans-serif", fontSize: '16px', color: '#6B7280', lineHeight: 1.75 }}>
                     Xylar is building the layer of intelligence that sits above your portfolio — not to replace your advisor, but to make every conversation with them 10x more informed.
                 </p>
             </div>
@@ -98,8 +94,8 @@ export default function AboutTab({ onSwitchToAnalyzer }) {
                         <IconCircle bg={b.iconBg} size={48}>
                             {b.icon}
                         </IconCircle>
-                        <div style={{ fontFamily: "'Syne',sans-serif", fontSize: '18px', fontWeight: 700, color: b.titleColor, marginTop: '20px', marginBottom: '10px' }}>{b.title}</div>
-                        <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '13px', color: b.bodyColor, lineHeight: 1.7 }}>{b.body}</p>
+                        <div style={{ fontFamily: "'Outfit',sans-serif", fontSize: '18px', fontWeight: 700, color: b.titleColor, marginTop: '20px', marginBottom: '10px' }}>{b.title}</div>
+                        <p style={{ fontFamily: "'Inter',sans-serif", fontSize: '13px', color: b.bodyColor, lineHeight: 1.7 }}>{b.body}</p>
                     </div>
                 ))}
             </div>
@@ -108,10 +104,10 @@ export default function AboutTab({ onSwitchToAnalyzer }) {
             <div className="who-we-are-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center', marginBottom: '64px' }}>
                 <div>
                     <div style={{ ...label11, marginBottom: '12px' }}>The Team</div>
-                    <h2 className="who-we-are-headline" style={{ fontFamily: "'Syne',sans-serif", fontSize: '32px', fontWeight: 800, color: '#0F0F0F', lineHeight: 1.1, marginBottom: '20px' }}>
+                    <h2 className="who-we-are-headline" style={{ fontFamily: "'Outfit',sans-serif", fontSize: '32px', fontWeight: 800, color: '#0F0F0F', lineHeight: 1.1, marginBottom: '20px' }}>
                         Built by people who<br />understand both worlds.
                     </h2>
-                    <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '14px', color: '#6B7280', lineHeight: 1.8, marginBottom: '32px' }}>
+                    <p style={{ fontFamily: "'Inter',sans-serif", fontSize: '14px', color: '#6B7280', lineHeight: 1.8, marginBottom: '32px' }}>
                         Xylar was founded at the intersection of fintech and product design. We've spent years inside wealth management firms watching intelligent clients make uninformed decisions — because the tools available weren't good enough.
                         <br /><br />
                         We decided to build what didn't exist.
@@ -119,8 +115,8 @@ export default function AboutTab({ onSwitchToAnalyzer }) {
                     <div className="team-stats-row" style={{ display: 'flex', gap: '32px' }}>
                         {[{ num: '₹500 Cr+', label: 'Portfolios analyzed in research' }, { num: '10+', label: 'Years of combined fintech experience' }].map(s => (
                             <div key={s.num}>
-                                <div className="team-stat-number" style={{ fontFamily: "'Syne',sans-serif", fontSize: '36px', fontWeight: 800, color: '#7C3AED', lineHeight: 1 }}>{s.num}</div>
-                                <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '12px', color: '#A0A8B0', marginTop: '6px', maxWidth: '120px', lineHeight: 1.4 }}>{s.label}</div>
+                                <div className="team-stat-number" style={{ fontFamily: "'Outfit',sans-serif", fontSize: '36px', fontWeight: 800, color: '#7C3AED', lineHeight: 1 }}>{s.num}</div>
+                                <div style={{ fontFamily: "'Inter',sans-serif", fontSize: '12px', color: '#A0A8B0', marginTop: '6px', maxWidth: '120px', lineHeight: 1.4 }}>{s.label}</div>
                             </div>
                         ))}
                     </div>
@@ -137,11 +133,11 @@ export default function AboutTab({ onSwitchToAnalyzer }) {
                             <div key={i} className="avatar-item" style={{ background: a.bg, color: a.color }}>{a.init}</div>
                         ))}
                     </div>
-                    <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '11px', color: '#A0A8B0', marginBottom: '6px' }}>Mumbai · Feb 2026</div>
-                    <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '14px', color: '#6B7280', fontStyle: 'italic', lineHeight: 1.7, marginBottom: '10px' }}>
+                    <div style={{ fontFamily: "'Inter',sans-serif", fontSize: '11px', color: '#A0A8B0', marginBottom: '6px' }}>Mumbai · Feb 2026</div>
+                    <p style={{ fontFamily: "'Inter',sans-serif", fontSize: '14px', color: '#6B7280', fontStyle: 'italic', lineHeight: 1.7, marginBottom: '10px' }}>
                         "We built Xylar because we were frustrated. Frustrated watching smart people make poor portfolio decisions — not from lack of intelligence, but lack of information."
                     </p>
-                    <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '12px', color: '#A0A8B0' }}>— Xylar Founding Team</div>
+                    <div style={{ fontFamily: "'Inter',sans-serif", fontSize: '12px', color: '#A0A8B0' }}>— Xylar Founding Team</div>
                 </div>
             </div>
 
@@ -151,16 +147,16 @@ export default function AboutTab({ onSwitchToAnalyzer }) {
                 <div className="cta-circle-2" />
                 <div className="about-cta-inner" style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '32px' }}>
                     <div style={{ maxWidth: '500px' }}>
-                        <h3 style={{ fontFamily: "'Syne',sans-serif", fontSize: '26px', fontWeight: 800, color: 'white', marginBottom: '10px' }}>Ready to see what Xylar can do?</h3>
-                        <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '14px', color: 'rgba(255,255,255,0.72)', lineHeight: 1.7 }}>
+                        <h3 style={{ fontFamily: "'Outfit',sans-serif", fontSize: '26px', fontWeight: 800, color: 'white', marginBottom: '10px' }}>Ready to see what Xylar can do?</h3>
+                        <p style={{ fontFamily: "'Inter',sans-serif", fontSize: '14px', color: 'rgba(255,255,255,0.72)', lineHeight: 1.7 }}>
                             Start with the free portfolio analyzer, or book a call to learn about what's coming.
                         </p>
                     </div>
                     <div className="about-cta-buttons" style={{ display: 'flex', gap: '12px', flexShrink: 0 }}>
-                        <button onClick={onSwitchToAnalyzer} style={{ height: '48px', padding: '0 24px', background: '#A3E635', color: '#111', fontFamily: "'Syne',sans-serif", fontSize: '14px', fontWeight: 700, borderRadius: '9999px', border: 'none', cursor: 'pointer', boxShadow: '0 6px 20px rgba(163,230,53,0.3)' }}>
+                        <button onClick={onSwitchToAnalyzer} style={{ height: '48px', padding: '0 24px', background: '#A3E635', color: '#111', fontFamily: "'Outfit',sans-serif", fontSize: '14px', fontWeight: 700, borderRadius: '9999px', border: 'none', cursor: 'pointer', boxShadow: '0 6px 20px rgba(163,230,53,0.3)' }}>
                             Analyze my portfolio →
                         </button>
-                        <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" style={{ height: '48px', lineHeight: '46px', padding: '0 24px', background: 'transparent', color: 'white', fontFamily: "'DM Sans',sans-serif", fontSize: '14px', fontWeight: 600, borderRadius: '9999px', border: '1.5px solid rgba(255,255,255,0.4)', textDecoration: 'none', display: 'inline-block' }}>
+                        <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" style={{ height: '48px', lineHeight: '46px', padding: '0 24px', background: 'transparent', color: 'white', fontFamily: "'Inter',sans-serif", fontSize: '14px', fontWeight: 600, borderRadius: '9999px', border: '1.5px solid rgba(255,255,255,0.4)', textDecoration: 'none', display: 'inline-block' }}>
                             Book a call
                         </a>
                     </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from '../assets/logo.png';
 import '../styles/sidebar.css';
 
 const TABS = [
@@ -41,12 +42,7 @@ export default function Sidebar({ activeTab, onTabChange }) {
         <aside className="sidebar">
             {/* Logo */}
             <div className="sidebar-logo" onClick={() => onTabChange('analyzer')}>
-                <svg width="20" height="20" viewBox="0 0 22 22" fill="none">
-                    <rect x="2" y="11" width="4" height="8" rx="1.5" fill="white" opacity="0.85" />
-                    <rect x="8" y="7" width="4" height="9" rx="1.5" fill="white" opacity="0.9" />
-                    <rect x="14" y="2" width="4" height="8" rx="1.5" fill="#A3E635" opacity="0.95" />
-                    <rect x="14" y="12" width="4" height="7" rx="1.5" fill="white" opacity="0.75" />
-                </svg>
+                <img src={logo} alt="Xylar Logo" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '4px' }} />
             </div>
 
             {/* Nav tabs */}

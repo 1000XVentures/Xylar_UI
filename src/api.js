@@ -68,18 +68,47 @@ Each section: 2-4 sentences minimum. Use specifics where visible.`;
 
     content.push({ type: 'text', text: userText });
 
+    if (ANTHROPIC_API_KEY === 'YOUR_API_KEY_HERE') {
+        // Return a realistic mock response for demonstration
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve({
+                    portfolio_summary: "Your portfolio shows a solid foundation, primarily concentrated in large-cap domestic equity with a modest allocation to debt. We observed consistent investment patterns indicating a disciplined approach.",
+                    key_observations: "You have maintained regular SIPs over the past 3 years. The equity portion is heavily skewed towards financial services and technology sectors, which have driven recent performance. Debt allocation is primarily in short-duration liquid funds.",
+                    diversification_concentration: "Approximately 65% of your equity exposure is concentrated in just two sectors (Finance and Tech). You are currently under-allocated to international equity and mid/small-cap segments compared to a standard balanced portfolio.",
+                    risks_red_flags: "The high concentration in two cyclical sectors exposes the portfolio to sector-specific downturns. Additionally, 15% of your holdings have overlapping underlying stocks across different fund houses, leading to unintended concentration risk.",
+                    improvement_opportunities: "Consider rebalancing by introducing a flexi-cap or multi-asset fund to broaden sector exposure. Expanding your international equity allocation from 2% to 10% could provide better geographic diversification and hedge against domestic volatility.",
+                    final_takeaway: "You have built a strong, disciplined core portfolio. To improve resilience and long-term risk-adjusted returns, focus on reducing sector concentration and modestly increasing international and debt allocations to better balance the portfolio.",
+                    health_score: 74,
+                    key_signals: [
+                        { text: "Strong SIP discipline observed", type: "positive" },
+                        { text: "High concentration in Finance & Tech", type: "negative" },
+                        { text: "Fund overlap causing unintended risk", type: "negative" },
+                        { text: "Good core large-cap foundation", type: "positive" },
+                    ]
+                });
+            }, 3000);
+        });
+    }
+
     const response = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': ANTHROPIC_API_KEY,
+            'anthropic-version': '2023-06-01'
+        },
         body: JSON.stringify({
-            model: 'claude-sonnet-4-20250514',
+            model: 'claude-3-5-sonnet-20240620',
             max_tokens: 2000,
             system: systemPrompt,
             messages: [{ role: 'user', content }]
         })
     });
 
-    if (!response.ok) throw new Error('API request failed');
+    if (!response.ok) {
+        throw new Error('Analysis service is currently unavailable. Please try again later.');
+    }
 
     const data = await response.json();
     const text = data.content.map(b => b.text || '').join('');
@@ -87,6 +116,6 @@ Each section: 2-4 sentences minimum. Use specifics where visible.`;
     try {
         return JSON.parse(text);
     } catch {
-        throw new Error('Failed to parse AI response');
+        throw new Error('Failed to process the analysis report. Please try again.');
     }
 }

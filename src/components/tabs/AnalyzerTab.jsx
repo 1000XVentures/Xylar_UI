@@ -46,9 +46,13 @@ function LandingScreen({ state, updateState, goTo }) {
     const fileInputRef = useRef(null);
     const textareaRef = useRef(null);
 
+    const isTextLocked = !!state.fileName;
+    const isFileLocked = state.pastedText.length > 0;
+
     const canContinue = !!(state.fileName || state.pastedText.length > 5);
 
     const handleFile = async (file) => {
+        if (isFileLocked) return;
         const isPdf = file.type === 'application/pdf';
         const isImage = file.type.startsWith('image/');
         if (!isPdf && !isImage) return;
@@ -63,11 +67,15 @@ function LandingScreen({ state, updateState, goTo }) {
     };
 
     const handleFileInput = (e) => {
+        if (isFileLocked) return;
         if (e.target.files?.[0]) handleFile(e.target.files[0]);
+        // Reset input value so the same file can be uploaded again if needed
+        e.target.value = null;
     };
     const handleDrop = (e) => {
         e.preventDefault();
         setIsDragOver(false);
+        if (isFileLocked) return;
         if (e.dataTransfer.files?.[0]) handleFile(e.dataTransfer.files[0]);
     };
 
@@ -75,25 +83,35 @@ function LandingScreen({ state, updateState, goTo }) {
         if (canContinue) goTo('ready');
     };
 
+    const clearFile = (e) => {
+        e.stopPropagation();
+        updateState({
+            fileData: null,
+            fileType: null,
+            fileName: null,
+            fileSize: null
+        });
+    };
+
     return (
         <div className="state-container" style={{ maxWidth: 560, margin: '0 auto' }}>
             {/* Header */}
             <div style={{ marginBottom: 32 }}>
-                <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--accent)', marginBottom: 10 }}>AI Portfolio Analyzer</div>
-                <h1 style={{ fontFamily: "'Syne',sans-serif", fontSize: 32, fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: 6 }}>
+                <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--accent)', marginBottom: 10 }}>AI Portfolio Analyzer</div>
+                <h1 style={{ fontFamily: "'Outfit',sans-serif", fontSize: 32, fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: 6 }}>
                     Upload your portfolio.
                 </h1>
-                <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 14, color: 'var(--text-muted)', margin: 0 }}>
+                <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 14, color: 'var(--text-muted)', margin: 0 }}>
                     Instant portfolio review
                 </p>
             </div>
 
             {/* Upload zone */}
             <div
-                onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}
+                onDragOver={(e) => { e.preventDefault(); if (!isFileLocked) setIsDragOver(true); }}
                 onDragLeave={() => setIsDragOver(false)}
                 onDrop={handleDrop}
-                onClick={() => fileInputRef.current?.click()}
+                onClick={() => { if (!isFileLocked) fileInputRef.current?.click(); }}
                 style={{
                     border: isDragOver ? '2px solid var(--accent)' : '2px dashed #C4B5FD',
                     background: isDragOver ? 'rgba(124,58,237,0.08)' : 'var(--accent-light)',
@@ -101,62 +119,102 @@ function LandingScreen({ state, updateState, goTo }) {
                     minHeight: 200,
                     display: 'flex', flexDirection: 'column',
                     alignItems: 'center', justifyContent: 'center',
-                    cursor: 'pointer', padding: '40px 24px',
+                    cursor: isFileLocked ? 'not-allowed' : 'pointer', padding: '40px 24px',
                     position: 'relative',
                     transform: isDragOver ? 'scale(1.01)' : 'none',
                     transition: 'all 0.15s ease',
                     textAlign: 'center',
+                    opacity: isFileLocked ? 0.5 : 1,
                 }}
             >
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="16 16 12 12 8 16" /><line x1="12" y1="12" x2="12" y2="21" />
                     <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3" />
                 </svg>
-                <div style={{ fontFamily: "'Syne',sans-serif", fontSize: 20, fontWeight: 700, color: 'var(--text-primary)', marginTop: 16 }}>
+                <div style={{ fontFamily: "'Outfit',sans-serif", fontSize: 20, fontWeight: 700, color: 'var(--text-primary)', marginTop: 16 }}>
                     {state.fileName ? state.fileName : 'Upload PDF or image'}
                 </div>
-                <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 13, color: 'var(--text-muted)', marginTop: 6 }}>
+                <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 13, color: 'var(--text-muted)', marginTop: 6, paddingRight: state.fileName ? 24 : 0 }}>
                     {state.fileName ? state.fileSize : 'CAS statement, broker screenshot, or any portfolio file'}
                 </div>
-                {!state.fileName && (
+
+                {state.fileName && (
+                    <button
+                        onClick={clearFile}
+                        style={{ marginTop: 20, background: 'var(--negative-bg, #FEF2F2)', color: 'var(--negative, #EF4444)', fontFamily: "'Inter',sans-serif", fontSize: 13, fontWeight: 600, padding: '9px 22px', borderRadius: 'var(--r-full)', border: '1px solid var(--negative, #EF4444)', cursor: 'pointer' }}
+                    >
+                        Remove file
+                    </button>
+                )}
+
+                {!state.fileName && !isFileLocked && (
                     <button
                         onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
-                        style={{ marginTop: 20, background: 'var(--accent)', color: 'white', fontFamily: "'DM Sans',sans-serif", fontSize: 13, fontWeight: 600, padding: '9px 22px', borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer' }}
+                        style={{ marginTop: 20, background: 'var(--accent)', color: 'white', fontFamily: "'Inter',sans-serif", fontSize: 13, fontWeight: 600, padding: '9px 22px', borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer' }}
                     >
                         Browse files
                     </button>
+                )}
+                {isFileLocked && (
+                    <div style={{ marginTop: 20, color: 'var(--text-muted)', fontFamily: "'Inter',sans-serif", fontSize: 13, fontWeight: 500 }}>
+                        Locked (Clear text below to upload)
+                    </div>
                 )}
                 <input
                     ref={fileInputRef}
                     type="file"
                     accept=".pdf,.png,.jpg,.jpeg"
                     onChange={handleFileInput}
-                    style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer' }}
+                    disabled={isFileLocked}
+                    style={{ display: 'none' }}
                 />
             </div>
 
             {/* Paste text fallback */}
             <div style={{ margin: '20px 0', display: 'flex', alignItems: 'center', gap: 12 }}>
                 <div style={{ flex: 1, height: 1, background: 'var(--border)' }} />
-                <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 12, color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>or paste text instead</span>
+                <span style={{ fontFamily: "'Inter',sans-serif", fontSize: 12, color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>or paste text instead</span>
                 <div style={{ flex: 1, height: 1, background: 'var(--border)' }} />
             </div>
 
-            <textarea
-                ref={textareaRef}
-                value={state.pastedText}
-                onChange={(e) => updateState({ pastedText: e.target.value, fileData: null, fileType: null, fileName: null, fileSize: null })}
-                placeholder="Paste your holdings, transaction history, or any portfolio data here..."
-                style={{
-                    width: '100%', minHeight: 100, boxSizing: 'border-box',
-                    border: '1px solid var(--border)', borderRadius: 'var(--r-md)',
-                    padding: '14px 16px', fontFamily: "'DM Sans',sans-serif", fontSize: 14,
-                    color: 'var(--text-primary)', background: 'var(--bg-main)',
-                    resize: 'vertical', lineHeight: 1.6, outline: 'none',
-                }}
-                onFocus={(e) => { e.target.style.border = '1px solid var(--accent)'; e.target.style.boxShadow = '0 0 0 3px rgba(124,58,237,0.10)'; }}
-                onBlur={(e) => { e.target.style.border = '1px solid var(--border)'; e.target.style.boxShadow = 'none'; }}
-            />
+            <div style={{ position: 'relative' }}>
+                <textarea
+                    ref={textareaRef}
+                    value={state.pastedText}
+                    onChange={(e) => {
+                        if (!isTextLocked) {
+                            updateState({ pastedText: e.target.value, fileData: null, fileType: null, fileName: null, fileSize: null });
+                        }
+                    }}
+                    disabled={isTextLocked}
+                    placeholder={isTextLocked ? "Locked (Remove file above to paste text)" : "Paste your holdings, transaction history, or any portfolio data here..."}
+                    style={{
+                        width: '100%', minHeight: 100, boxSizing: 'border-box',
+                        border: '1px solid var(--border)', borderRadius: 'var(--r-md)',
+                        padding: '14px 16px', fontFamily: "'Inter',sans-serif", fontSize: 14,
+                        color: 'var(--text-primary)', background: isTextLocked ? '#F3F4F6' : 'var(--bg-main)',
+                        resize: 'vertical', lineHeight: 1.6, outline: 'none',
+                        cursor: isTextLocked ? 'not-allowed' : 'text',
+                        opacity: isTextLocked ? 0.6 : 1,
+                    }}
+                    onFocus={(e) => {
+                        if (!isTextLocked) {
+                            e.target.style.border = '1px solid var(--accent)';
+                            e.target.style.boxShadow = '0 0 0 3px rgba(124,58,237,0.10)';
+                        }
+                    }}
+                    onBlur={(e) => {
+                        if (!isTextLocked) {
+                            e.target.style.border = '1px solid var(--border)';
+                            e.target.style.boxShadow = 'none';
+                        }
+                    }}
+                />
+
+                {isTextLocked && (
+                    <div style={{ position: 'absolute', inset: 0, zIndex: 1, cursor: 'not-allowed' }} />
+                )}
+            </div>
 
             {/* Continue button */}
             <button
@@ -166,7 +224,7 @@ function LandingScreen({ state, updateState, goTo }) {
                     width: '100%', height: 52, marginTop: 24,
                     background: canContinue ? 'linear-gradient(135deg,#7C3AED,#5B21B6)' : 'var(--border)',
                     color: canContinue ? 'white' : 'var(--text-muted)',
-                    fontFamily: "'Syne',sans-serif", fontSize: 15, fontWeight: 700,
+                    fontFamily: "'Outfit',sans-serif", fontSize: 15, fontWeight: 700,
                     borderRadius: 'var(--r-full)', border: 'none',
                     cursor: canContinue ? 'pointer' : 'not-allowed',
                     opacity: canContinue ? 1 : 0.4,
@@ -208,8 +266,8 @@ function ReadyScreen({ state, updateState, goTo, focusTextareaOnLanding }) {
         <div className="state-container" style={{ maxWidth: 560, margin: '0 auto' }}>
             {/* Header */}
             <div style={{ marginBottom: 28 }}>
-                <h1 style={{ fontFamily: "'Syne',sans-serif", fontSize: 28, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 6 }}>Portfolio added</h1>
-                <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 13, color: 'var(--text-muted)', margin: 0 }}>Ready to analyze</p>
+                <h1 style={{ fontFamily: "'Outfit',sans-serif", fontSize: 28, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 6 }}>Portfolio added</h1>
+                <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 13, color: 'var(--text-muted)', margin: 0 }}>Ready to analyze</p>
             </div>
 
             {/* File card */}
@@ -222,14 +280,14 @@ function ReadyScreen({ state, updateState, goTo, focusTextareaOnLanding }) {
                 </div>
                 {/* File info */}
                 <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 14, fontWeight: 600, color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{displayName}</div>
-                    <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 12, color: 'var(--text-muted)', marginTop: 2 }}>{displaySub}</div>
+                    <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 14, fontWeight: 600, color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{displayName}</div>
+                    <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 12, color: 'var(--text-muted)', marginTop: 2 }}>{displaySub}</div>
                 </div>
                 {/* Actions */}
                 <div style={{ display: 'flex', gap: 16, alignItems: 'center', flexShrink: 0 }}>
                     {state.fileName && (
                         <>
-                            <label style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 12, color: 'var(--accent)', textDecoration: 'underline', cursor: 'pointer', minHeight: 44, display: 'flex', alignItems: 'center' }}>
+                            <label style={{ fontFamily: "'Inter',sans-serif", fontSize: 12, color: 'var(--accent)', textDecoration: 'underline', cursor: 'pointer', minHeight: 44, display: 'flex', alignItems: 'center' }}>
                                 Replace
                                 <input ref={fileInputRef} type="file" accept=".pdf,.png,.jpg,.jpeg" onChange={handleReplaceFile} style={{ display: 'none' }} />
                             </label>
@@ -237,7 +295,7 @@ function ReadyScreen({ state, updateState, goTo, focusTextareaOnLanding }) {
                     )}
                     <div
                         onClick={() => { updateState({ ...INITIAL_STATE }); goTo('landing'); }}
-                        style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 12, color: 'var(--text-muted)', textDecoration: 'underline', cursor: 'pointer', minHeight: 44, display: 'flex', alignItems: 'center' }}
+                        style={{ fontFamily: "'Inter',sans-serif", fontSize: 12, color: 'var(--text-muted)', textDecoration: 'underline', cursor: 'pointer', minHeight: 44, display: 'flex', alignItems: 'center' }}
                     >
                         Remove
                     </div>
@@ -256,8 +314,8 @@ function ReadyScreen({ state, updateState, goTo, focusTextareaOnLanding }) {
                     <circle cx="12" cy="12" r="3" />
                 </svg>
                 <div style={{ flex: 1 }}>
-                    <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 14, fontWeight: 500, color: 'var(--text-primary)' }}>Customize analysis</div>
-                    <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 12, color: 'var(--text-muted)', marginTop: 2 }}>Optional — focus on specific areas</div>
+                    <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 14, fontWeight: 500, color: 'var(--text-primary)' }}>Customize analysis</div>
+                    <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 12, color: 'var(--text-muted)', marginTop: 2 }}>Optional — focus on specific areas</div>
                 </div>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2" strokeLinecap="round"><polyline points="9 18 15 12 9 6" /></svg>
             </div>
@@ -267,7 +325,7 @@ function ReadyScreen({ state, updateState, goTo, focusTextareaOnLanding }) {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2" strokeLinecap="round" style={{ flexShrink: 0, marginTop: 2 }}>
                     <circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" />
                 </svg>
-                <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 12, color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
+                <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 12, color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
                     Analysis will cover: risks, allocation, diversification, and key insights.
                 </p>
             </div>
@@ -275,7 +333,7 @@ function ReadyScreen({ state, updateState, goTo, focusTextareaOnLanding }) {
             {/* Analyze button */}
             <button
                 onClick={() => goTo('analyzing')}
-                style={{ width: '100%', height: 52, marginTop: 24, background: 'linear-gradient(135deg,#7C3AED,#5B21B6)', color: 'white', fontFamily: "'Syne',sans-serif", fontSize: 15, fontWeight: 700, borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer', transition: 'all 0.15s ease' }}
+                style={{ width: '100%', height: 52, marginTop: 24, background: 'linear-gradient(135deg,#7C3AED,#5B21B6)', color: 'white', fontFamily: "'Outfit',sans-serif", fontSize: 15, fontWeight: 700, borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer', transition: 'all 0.15s ease' }}
                 onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 6px 24px rgba(124,58,237,0.35)'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'none'; }}
             >
@@ -322,13 +380,13 @@ function CustomizeScreen({ state, updateState, goTo }) {
                 onMouseLeave={(e) => e.currentTarget.querySelector('span').style.color = 'var(--text-secondary)'}
             >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" strokeWidth="2" strokeLinecap="round"><polyline points="15 18 9 12 15 6" /></svg>
-                <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 14, fontWeight: 500, color: 'var(--text-secondary)', transition: 'color 0.15s' }}>Back</span>
+                <span style={{ fontFamily: "'Inter',sans-serif", fontSize: 14, fontWeight: 500, color: 'var(--text-secondary)', transition: 'color 0.15s' }}>Back</span>
             </div>
 
             {/* Header */}
             <div style={{ marginBottom: 28 }}>
-                <h1 style={{ fontFamily: "'Syne',sans-serif", fontSize: 28, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 6 }}>Customize analysis</h1>
-                <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 13, color: 'var(--text-muted)', margin: 0 }}>Optional — the AI runs a complete analysis by default.</p>
+                <h1 style={{ fontFamily: "'Outfit',sans-serif", fontSize: 28, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 6 }}>Customize analysis</h1>
+                <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 13, color: 'var(--text-muted)', margin: 0 }}>Optional — the AI runs a complete analysis by default.</p>
             </div>
 
             {/* Textarea */}
@@ -339,7 +397,7 @@ function CustomizeScreen({ state, updateState, goTo }) {
                 style={{
                     width: '100%', minHeight: 120, boxSizing: 'border-box',
                     border: '1px solid var(--border)', borderRadius: 'var(--r-md)',
-                    padding: '14px 16px', fontFamily: "'DM Sans',sans-serif", fontSize: 14,
+                    padding: '14px 16px', fontFamily: "'Inter',sans-serif", fontSize: 14,
                     color: 'var(--text-primary)', background: 'white',
                     resize: 'vertical', lineHeight: 1.6, outline: 'none',
                 }}
@@ -361,7 +419,7 @@ function CustomizeScreen({ state, updateState, goTo }) {
                                 padding: '8px 16px',
                                 background: selected ? 'var(--accent-light)' : 'white',
                                 color: selected ? 'var(--accent)' : 'var(--text-secondary)',
-                                fontFamily: "'DM Sans',sans-serif", fontSize: 13,
+                                fontFamily: "'Inter',sans-serif", fontSize: 13,
                                 fontWeight: selected ? 600 : 500,
                                 cursor: 'pointer', transition: 'all 0.1s ease',
                             }}
@@ -377,13 +435,13 @@ function CustomizeScreen({ state, updateState, goTo }) {
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2" strokeLinecap="round">
                     <circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" />
                 </svg>
-                <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 12, color: 'var(--text-muted)' }}>Default analysis also works without this.</span>
+                <span style={{ fontFamily: "'Inter',sans-serif", fontSize: 12, color: 'var(--text-muted)' }}>Default analysis also works without this.</span>
             </div>
 
             {/* Analyze Now button */}
             <button
                 onClick={handleAnalyze}
-                style={{ width: '100%', height: 52, marginTop: 28, background: 'linear-gradient(135deg,#7C3AED,#5B21B6)', color: 'white', fontFamily: "'Syne',sans-serif", fontSize: 15, fontWeight: 700, borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer', transition: 'all 0.15s ease' }}
+                style={{ width: '100%', height: 52, marginTop: 28, background: 'linear-gradient(135deg,#7C3AED,#5B21B6)', color: 'white', fontFamily: "'Outfit',sans-serif", fontSize: 15, fontWeight: 700, borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer', transition: 'all 0.15s ease' }}
                 onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 6px 24px rgba(124,58,237,0.35)'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'none'; }}
             >
@@ -455,10 +513,10 @@ function AnalyzingScreen({ state, onComplete, onError }) {
                 </svg>
             </div>
 
-            <h2 style={{ fontFamily: "'Syne',sans-serif", fontSize: 26, fontWeight: 700, color: 'var(--text-primary)', marginTop: 28, marginBottom: 8 }}>
+            <h2 style={{ fontFamily: "'Outfit',sans-serif", fontSize: 26, fontWeight: 700, color: 'var(--text-primary)', marginTop: 28, marginBottom: 8 }}>
                 Analyzing portfolio...
             </h2>
-            <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 14, color: 'var(--text-muted)', margin: 0 }}>
+            <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 14, color: 'var(--text-muted)', margin: 0 }}>
                 Extracting content and generating insights
             </p>
 
@@ -468,7 +526,7 @@ function AnalyzingScreen({ state, onComplete, onError }) {
             </div>
 
             {/* Status text */}
-            <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 13, color: 'var(--text-muted)', marginTop: 14, opacity: statusVisible ? 1 : 0, transition: 'opacity 0.35s ease', minHeight: 20 }}>
+            <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 13, color: 'var(--text-muted)', marginTop: 14, opacity: statusVisible ? 1 : 0, transition: 'opacity 0.35s ease', minHeight: 20 }}>
                 {STATUS_MSGS[statusIdx]}
             </p>
 
@@ -477,7 +535,7 @@ function AnalyzingScreen({ state, onComplete, onError }) {
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2" strokeLinecap="round">
                     <rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
                 </svg>
-                <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 12, color: 'var(--text-muted)' }}>Your data is processed securely and never stored.</span>
+                <span style={{ fontFamily: "'Inter',sans-serif", fontSize: 12, color: 'var(--text-muted)' }}>Your data is processed securely and never stored.</span>
             </div>
         </div>
     );
@@ -507,8 +565,8 @@ function ResultsScreen({ analysis, onReset, onDownload }) {
         <div className="state-container" style={{ maxWidth: 720, margin: '0 auto' }}>
             {/* Header */}
             <div style={{ marginBottom: 28 }}>
-                <h1 style={{ fontFamily: "'Syne',sans-serif", fontSize: 28, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 4 }}>Analysis complete</h1>
-                <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 13, color: 'var(--text-muted)', margin: 0 }}>Generated just now</p>
+                <h1 style={{ fontFamily: "'Outfit',sans-serif", fontSize: 28, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 4 }}>Analysis complete</h1>
+                <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 13, color: 'var(--text-muted)', margin: 0 }}>Generated just now</p>
             </div>
 
             {/* 6 Section Cards */}
@@ -522,21 +580,26 @@ function ResultsScreen({ analysis, onReset, onDownload }) {
                         <div
                             key={s.key}
                             style={{
-                                background: isDark ? '#111' : 'white',
-                                border: isDark ? 'none' : '1px solid var(--border)',
+                                background: isDark ? 'linear-gradient(145deg, #18181b, #09090b)' : 'linear-gradient(180deg, #ffffff, #fafafa)',
+                                border: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.06)',
                                 borderRadius: 'var(--r-lg)', padding: 24,
-                                boxShadow: isDark ? 'none' : 'var(--shadow-sm)',
-                                animation: `card-in 0.35s ease forwards`,
-                                animationDelay: `${i * 70}ms`,
+                                boxShadow: isDark ? '0 10px 40px -10px rgba(124,58,237,0.2)' : '0 4px 24px -6px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02)',
+                                animation: `card-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards`,
+                                animationDelay: `${i * 80}ms`,
                                 opacity: 0,
+                                position: 'relative',
+                                overflow: 'hidden'
                             }}
                         >
+                            {isDark && (
+                                <div style={{ position: 'absolute', top: '-50%', left: '-50%', width: '200%', height: '200%', background: 'radial-gradient(circle at top right, rgba(124,58,237,0.1), transparent 40%)', pointerEvents: 'none' }} />
+                            )}
                             {/* Card header */}
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
-                                <div style={{ width: 26, height: 26, borderRadius: '50%', background: isDark ? 'rgba(124,58,237,0.3)' : 'var(--accent-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                                    <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 11, fontWeight: 700, color: isDark ? '#C4B5FD' : 'var(--accent)' }}>{s.num}</span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16, position: 'relative', zIndex: 1 }}>
+                                <div style={{ width: 32, height: 32, borderRadius: '50%', background: isDark ? 'rgba(124,58,237,0.25)' : 'linear-gradient(135deg, #F3E8FF, #E9D5FF)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, border: isDark ? '1px solid rgba(124,58,237,0.4)' : '1px solid rgba(124,58,237,0.1)' }}>
+                                    <span style={{ fontFamily: "'Inter',sans-serif", fontSize: 12, fontWeight: 700, color: isDark ? '#C4B5FD' : 'var(--accent)' }}>{s.num}</span>
                                 </div>
-                                <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 15, fontWeight: isDark ? 700 : (i === 0 ? 800 : 700), color: isDark ? '#A3E635' : 'var(--text-primary)' }}>{s.title}</span>
+                                <span style={{ fontFamily: "'Outfit',sans-serif", fontSize: 16, fontWeight: isDark ? 700 : (i === 0 ? 800 : 700), color: isDark ? '#A3E635' : 'var(--text-primary)', letterSpacing: '-0.01em' }}>{s.title}</span>
                             </div>
 
                             {/* Card content */}
@@ -546,7 +609,7 @@ function ResultsScreen({ analysis, onReset, onDownload }) {
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--negative,#EF4444)" strokeWidth="2" strokeLinecap="round" style={{ flexShrink: 0, marginTop: 2 }}>
                                             <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" />
                                         </svg>
-                                        <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 13, color: 'var(--negative,#EF4444)', lineHeight: 1.5, margin: 0 }}>{data[s.key]}</p>
+                                        <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 13, color: 'var(--negative,#EF4444)', lineHeight: 1.5, margin: 0 }}>{data[s.key]}</p>
                                     </div>
                                 </div>
                             ) : isOpportunity ? (
@@ -555,17 +618,17 @@ function ResultsScreen({ analysis, onReset, onDownload }) {
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#65A30D" strokeWidth="2" strokeLinecap="round" style={{ flexShrink: 0, marginTop: 2 }}>
                                             <polyline points="9 18 15 12 9 6" />
                                         </svg>
-                                        <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 13, color: '#65A30D', lineHeight: 1.5, margin: 0 }}>{data[s.key]}</p>
+                                        <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 13, color: '#65A30D', lineHeight: 1.5, margin: 0 }}>{data[s.key]}</p>
                                     </div>
                                 </div>
                             ) : (
-                                <p style={{ fontFamily: isDark ? "'Syne',sans-serif" : "'DM Sans',sans-serif", fontSize: isDark ? 15 : 14, fontWeight: isDark ? 600 : 400, color: isDark ? 'white' : 'var(--text-secondary)', lineHeight: isDark ? 1.65 : 1.75, margin: 0 }}>
+                                <p style={{ position: 'relative', zIndex: 1, fontFamily: "'Inter',sans-serif", fontSize: 14, fontWeight: 400, color: isDark ? 'rgba(255,255,255,0.9)' : 'var(--text-secondary)', lineHeight: 1.75, margin: 0 }}>
                                     {data[s.key]}
                                 </p>
                             )}
 
                             {isDark && (
-                                <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.35)', marginTop: 16, marginBottom: 0 }}>Made by 1000xDev</p>
+                                <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 11, color: 'rgba(255,255,255,0.35)', marginTop: 16, marginBottom: 0 }}>Made by 1000xDev</p>
                             )}
                         </div>
                     );
@@ -576,7 +639,7 @@ function ResultsScreen({ analysis, onReset, onDownload }) {
             <div style={{ marginTop: 24 }}>
                 <button
                     onClick={onDownload}
-                    style={{ width: '100%', height: 52, background: 'linear-gradient(135deg,#7C3AED,#5B21B6)', color: 'white', fontFamily: "'Syne',sans-serif", fontSize: 15, fontWeight: 700, borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, transition: 'all 0.15s ease' }}
+                    style={{ width: '100%', height: 52, background: 'linear-gradient(135deg,#7C3AED,#5B21B6)', color: 'white', fontFamily: "'Outfit',sans-serif", fontSize: 15, fontWeight: 700, borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, transition: 'all 0.15s ease' }}
                     onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 6px 24px rgba(124,58,237,0.35)'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
                     onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'none'; }}
                 >
@@ -585,7 +648,7 @@ function ResultsScreen({ analysis, onReset, onDownload }) {
                 </button>
                 <button
                     onClick={onReset}
-                    style={{ width: '100%', height: 48, marginTop: 10, background: 'transparent', border: '1.5px solid var(--border-strong,#D1D5DB)', color: 'var(--text-secondary)', fontFamily: "'DM Sans',sans-serif", fontSize: 14, fontWeight: 500, borderRadius: 'var(--r-full)', cursor: 'pointer', transition: 'all 0.15s ease' }}
+                    style={{ width: '100%', height: 48, marginTop: 10, background: 'transparent', border: '1.5px solid var(--border-strong,#D1D5DB)', color: 'var(--text-secondary)', fontFamily: "'Inter',sans-serif", fontSize: 14, fontWeight: 500, borderRadius: 'var(--r-full)', cursor: 'pointer', transition: 'all 0.15s ease' }}
                     onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)'; }}
                     onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border-strong,#D1D5DB)'; e.currentTarget.style.color = 'var(--text-secondary)'; }}
                 >
@@ -606,16 +669,16 @@ function ErrorScreen({ error, onReset }) {
                 </svg>
             </div>
 
-            <h2 style={{ fontFamily: "'Syne',sans-serif", fontSize: 24, fontWeight: 700, color: 'var(--text-primary)', textAlign: 'center', marginTop: 24, marginBottom: 0 }}>
+            <h2 style={{ fontFamily: "'Outfit',sans-serif", fontSize: 24, fontWeight: 700, color: 'var(--text-primary)', textAlign: 'center', marginTop: 24, marginBottom: 0 }}>
                 We couldn't process that file.
             </h2>
-            <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 14, color: 'var(--text-muted)', textAlign: 'center', lineHeight: 1.7, marginTop: 10, marginBottom: 36 }}>
+            <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 14, color: 'var(--text-muted)', textAlign: 'center', lineHeight: 1.7, marginTop: 10, marginBottom: 36 }}>
                 {error || 'Use a clearer file or paste text directly.'}
             </p>
 
             <button
                 onClick={() => onReset('landing')}
-                style={{ width: '100%', height: 52, background: 'linear-gradient(135deg,#7C3AED,#5B21B6)', color: 'white', fontFamily: "'Syne',sans-serif", fontSize: 15, fontWeight: 700, borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer', transition: 'all 0.15s ease' }}
+                style={{ width: '100%', height: 52, background: 'linear-gradient(135deg,#7C3AED,#5B21B6)', color: 'white', fontFamily: "'Outfit',sans-serif", fontSize: 15, fontWeight: 700, borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer', transition: 'all 0.15s ease' }}
                 onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 6px 24px rgba(124,58,237,0.35)'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none'; }}
             >
@@ -623,7 +686,7 @@ function ErrorScreen({ error, onReset }) {
             </button>
             <button
                 onClick={() => onReset('landing', true)}
-                style={{ width: '100%', height: 48, marginTop: 10, background: 'transparent', border: '1.5px solid var(--border-strong,#D1D5DB)', color: 'var(--text-secondary)', fontFamily: "'DM Sans',sans-serif", fontSize: 14, fontWeight: 500, borderRadius: 'var(--r-full)', cursor: 'pointer', transition: 'all 0.15s ease' }}
+                style={{ width: '100%', height: 48, marginTop: 10, background: 'transparent', border: '1.5px solid var(--border-strong,#D1D5DB)', color: 'var(--text-secondary)', fontFamily: "'Inter',sans-serif", fontSize: 14, fontWeight: 500, borderRadius: 'var(--r-full)', cursor: 'pointer', transition: 'all 0.15s ease' }}
                 onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border-strong,#D1D5DB)'; e.currentTarget.style.color = 'var(--text-secondary)'; }}
             >
