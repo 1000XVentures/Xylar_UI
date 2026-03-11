@@ -233,9 +233,9 @@ function LandingScreen({ state, updateState, goTo }) {
                 onMouseEnter={(e) => { if (canContinue) { e.currentTarget.style.boxShadow = '0 6px 24px rgba(124,58,237,0.35)'; e.currentTarget.style.transform = 'translateY(-1px)'; } }}
                 onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'none'; }}
             >
-                Continue
+                Customize the analysis
             </button>
-        </div>
+        </div >
     );
 }
 
