@@ -94,148 +94,194 @@ function LandingScreen({ state, updateState, goTo }) {
     };
 
     return (
-        <div className="state-container" style={{ maxWidth: 560, margin: '0 auto' }}>
-            {/* Header */}
-            <div style={{ marginBottom: 32 }}>
-                <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--accent)', marginBottom: 10 }}>AI Portfolio Analyzer</div>
-                <h1 style={{ fontFamily: "'Outfit',sans-serif", fontSize: 32, fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: 6 }}>
-                    Upload your portfolio.
-                </h1>
-                <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 14, color: 'var(--text-muted)', margin: 0 }}>
-                    Instant portfolio review
-                </p>
-            </div>
+        <div style={{
+            minHeight: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '48px 24px',
+            background: 'var(--bg-main)',
+        }}>
+            <div style={{ width: '100%', maxWidth: 560 }}>
 
-            {/* Upload zone */}
-            <div
-                onDragOver={(e) => { e.preventDefault(); if (!isFileLocked) setIsDragOver(true); }}
-                onDragLeave={() => setIsDragOver(false)}
-                onDrop={handleDrop}
-                onClick={() => { if (!isFileLocked) fileInputRef.current?.click(); }}
-                style={{
-                    border: isDragOver ? '2px solid var(--accent)' : '2px dashed #C4B5FD',
-                    background: isDragOver ? 'rgba(124,58,237,0.08)' : 'var(--accent-light)',
-                    borderRadius: 'var(--r-lg)',
-                    minHeight: 200,
-                    display: 'flex', flexDirection: 'column',
-                    alignItems: 'center', justifyContent: 'center',
-                    cursor: isFileLocked ? 'not-allowed' : 'pointer', padding: '40px 24px',
-                    position: 'relative',
-                    transform: isDragOver ? 'scale(1.01)' : 'none',
-                    transition: 'all 0.15s ease',
-                    textAlign: 'center',
-                    opacity: isFileLocked ? 0.5 : 1,
-                }}
-            >
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="16 16 12 12 8 16" /><line x1="12" y1="12" x2="12" y2="21" />
-                    <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3" />
-                </svg>
-                <div style={{ fontFamily: "'Outfit',sans-serif", fontSize: 20, fontWeight: 700, color: 'var(--text-primary)', marginTop: 16 }}>
-                    {state.fileName ? state.fileName : 'Upload PDF or image'}
-                </div>
-                <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 13, color: 'var(--text-muted)', marginTop: 6, paddingRight: state.fileName ? 24 : 0 }}>
-                    {state.fileName ? state.fileSize : 'CAS statement, broker screenshot, or any portfolio file'}
-                </div>
-
-                {state.fileName && (
-                    <button
-                        onClick={clearFile}
-                        style={{ marginTop: 20, background: 'var(--negative-bg, #FEF2F2)', color: 'var(--negative, #EF4444)', fontFamily: "'Inter',sans-serif", fontSize: 13, fontWeight: 600, padding: '9px 22px', borderRadius: 'var(--r-full)', border: '1px solid var(--negative, #EF4444)', cursor: 'pointer' }}
-                    >
-                        Remove file
-                    </button>
-                )}
-
-                {!state.fileName && !isFileLocked && (
-                    <button
-                        onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
-                        style={{ marginTop: 20, background: 'var(--accent)', color: 'white', fontFamily: "'Inter',sans-serif", fontSize: 13, fontWeight: 600, padding: '9px 22px', borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer' }}
-                    >
-                        Browse files
-                    </button>
-                )}
-                {isFileLocked && (
-                    <div style={{ marginTop: 20, color: 'var(--text-muted)', fontFamily: "'Inter',sans-serif", fontSize: 13, fontWeight: 500 }}>
-                        Locked (Clear text below to upload)
+                {/* Hero */}
+                <div style={{ textAlign: 'center', marginBottom: 40 }}>
+                    <div style={{
+                        display: 'inline-flex', alignItems: 'center', gap: 6,
+                        background: 'var(--accent-light)', border: '1px solid #DDD6FE',
+                        borderRadius: 'var(--r-full)', padding: '5px 14px',
+                        fontFamily: "'Inter',sans-serif", fontSize: 11, fontWeight: 700,
+                        textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--accent)',
+                        marginBottom: 20,
+                    }}>
+                        <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)', display: 'inline-block' }} />
+                        AI Portfolio Analyzer
                     </div>
-                )}
-                <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept=".pdf,.png,.jpg,.jpeg"
-                    onChange={handleFileInput}
-                    disabled={isFileLocked}
-                    style={{ display: 'none' }}
-                />
-            </div>
+                    <h1 style={{
+                        fontFamily: "'Outfit',sans-serif",
+                        fontSize: 'clamp(28px, 5vw, 42px)',
+                        fontWeight: 800,
+                        color: 'var(--text-primary)',
+                        lineHeight: 1.1,
+                        letterSpacing: '-0.025em',
+                        marginBottom: 14,
+                    }}>
+                        Get instant AI insight<br />on your portfolio
+                    </h1>
+                    <p style={{
+                        fontFamily: "'Inter',sans-serif",
+                        fontSize: 15,
+                        color: 'var(--text-muted)',
+                        lineHeight: 1.7,
+                        margin: 0,
+                    }}>
+                        Upload a PDF, paste a screenshot, or type your holdings.<br />
+                        Deep analysis in under 60 seconds.
+                    </p>
+                </div>
 
-            {/* Paste text fallback */}
-            <div style={{ margin: '20px 0', display: 'flex', alignItems: 'center', gap: 12 }}>
-                <div style={{ flex: 1, height: 1, background: 'var(--border)' }} />
-                <span style={{ fontFamily: "'Inter',sans-serif", fontSize: 12, color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>or paste text instead</span>
-                <div style={{ flex: 1, height: 1, background: 'var(--border)' }} />
-            </div>
+                {/* Upload zone */}
+                <div
+                    onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}
+                    onDragLeave={() => setIsDragOver(false)}
+                    onDrop={handleDrop}
+                    onClick={() => fileInputRef.current?.click()}
+                    style={{
+                        border: isDragOver ? '2px solid var(--accent)' : state.fileName ? '2px solid #A3E635' : '2px dashed #C4B5FD',
+                        background: isDragOver ? 'rgba(124,58,237,0.06)' : state.fileName ? '#F0FDF4' : 'white',
+                        borderRadius: 'var(--r-xl)',
+                        padding: '36px 28px',
+                        display: 'flex', flexDirection: 'column',
+                        alignItems: 'center', justifyContent: 'center',
+                        cursor: 'pointer',
+                        position: 'relative',
+                        transition: 'all 0.2s ease',
+                        textAlign: 'center',
+                        boxShadow: isDragOver ? '0 0 0 4px rgba(124,58,237,0.10)' : state.fileName ? '0 0 0 3px rgba(163,230,53,0.15)' : 'var(--shadow-sm)',
+                    }}
+                >
+                    {/* Icon */}
+                    <div style={{
+                        width: 56, height: 56, borderRadius: 16,
+                        background: state.fileName ? '#DCFCE7' : 'var(--accent-light)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        marginBottom: 16,
+                        transition: 'all 0.2s ease',
+                    }}>
+                        {state.fileName ? (
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                        ) : (
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <polyline points="16 16 12 12 8 16" /><line x1="12" y1="12" x2="12" y2="21" />
+                                <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3" />
+                            </svg>
+                        )}
+                    </div>
 
-            <div style={{ position: 'relative' }}>
+                    <div style={{ fontFamily: "'Outfit',sans-serif", fontSize: 17, fontWeight: 700, color: state.fileName ? '#15803D' : 'var(--text-primary)', marginBottom: 4 }}>
+                        {state.fileName ? state.fileName : 'Drag & drop your file here'}
+                    </div>
+                    <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 13, color: 'var(--text-muted)' }}>
+                        {state.fileName ? state.fileSize : 'PDF, PNG, JPG — CAS statement or broker screenshot'}
+                    </div>
+
+                    {!state.fileName && (
+                        <div style={{
+                            marginTop: 18,
+                            background: 'var(--accent)', color: 'white',
+                            fontFamily: "'Inter',sans-serif", fontSize: 13, fontWeight: 600,
+                            padding: '9px 22px', borderRadius: 'var(--r-full)',
+                            boxShadow: '0 4px 12px rgba(124,58,237,0.3)',
+                        }}>
+                            Browse files
+                        </div>
+                    )}
+
+                    {state.fileName && (
+                        <button
+                            onClick={clearFile}
+                            style={{
+                                marginTop: 14, background: 'transparent', color: '#EF4444',
+                                fontFamily: "'Inter',sans-serif", fontSize: 12, fontWeight: 600,
+                                padding: '6px 16px', borderRadius: 'var(--r-full)',
+                                border: '1px solid #FCA5A5', cursor: 'pointer',
+                            }}
+                        >
+                            Remove file
+                        </button>
+                    )}
+
+                    <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept=".pdf,.png,.jpg,.jpeg"
+                        onChange={handleFileInput}
+                        style={{ display: 'none' }}
+                    />
+                </div>
+
+                {/* Divider */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 14, margin: '22px 0' }}>
+                    <div style={{ flex: 1, height: 1, background: 'var(--border)' }} />
+                    <span style={{ fontFamily: "'Inter',sans-serif", fontSize: 12, color: 'var(--text-muted)', letterSpacing: '0.04em' }}>or add context below</span>
+                    <div style={{ flex: 1, height: 1, background: 'var(--border)' }} />
+                </div>
+
+                {/* Textarea */}
                 <textarea
                     ref={textareaRef}
                     value={state.pastedText}
-                    onChange={(e) => {
-                        if (!isTextLocked) {
-                            updateState({ pastedText: e.target.value, fileData: null, fileType: null, fileName: null, fileSize: null });
-                        }
-                    }}
-                    disabled={isTextLocked}
-                    placeholder={isTextLocked ? "Locked (Remove file above to paste text)" : "Paste your holdings, transaction history, or any portfolio data here..."}
+                    onChange={(e) => updateState({ pastedText: e.target.value })}
+                    placeholder="Paste your holdings, transaction history, or any portfolio notes here..."
                     style={{
-                        width: '100%', minHeight: 100, boxSizing: 'border-box',
-                        border: '1px solid var(--border)', borderRadius: 'var(--r-md)',
-                        padding: '14px 16px', fontFamily: "'Inter',sans-serif", fontSize: 14,
-                        color: 'var(--text-primary)', background: isTextLocked ? '#F3F4F6' : 'var(--bg-main)',
-                        resize: 'vertical', lineHeight: 1.6, outline: 'none',
-                        cursor: isTextLocked ? 'not-allowed' : 'text',
-                        opacity: isTextLocked ? 0.6 : 1,
+                        width: '100%', minHeight: 110, boxSizing: 'border-box',
+                        border: '1.5px solid var(--border)', borderRadius: 'var(--r-lg)',
+                        padding: '16px 18px', fontFamily: "'Inter',sans-serif", fontSize: 14,
+                        color: 'var(--text-primary)', background: 'white',
+                        resize: 'vertical', lineHeight: 1.65, outline: 'none',
+                        transition: 'border 0.15s, box-shadow 0.15s',
+                        boxShadow: 'var(--shadow-sm)',
                     }}
-                    onFocus={(e) => {
-                        if (!isTextLocked) {
-                            e.target.style.border = '1px solid var(--accent)';
-                            e.target.style.boxShadow = '0 0 0 3px rgba(124,58,237,0.10)';
-                        }
-                    }}
-                    onBlur={(e) => {
-                        if (!isTextLocked) {
-                            e.target.style.border = '1px solid var(--border)';
-                            e.target.style.boxShadow = 'none';
-                        }
-                    }}
+                    onFocus={(e) => { e.target.style.border = '1.5px solid var(--accent)'; e.target.style.boxShadow = '0 0 0 3px rgba(124,58,237,0.10)'; }}
+                    onBlur={(e) => { e.target.style.border = '1.5px solid var(--border)'; e.target.style.boxShadow = 'var(--shadow-sm)'; }}
                 />
 
-                {isTextLocked && (
-                    <div style={{ position: 'absolute', inset: 0, zIndex: 1, cursor: 'not-allowed' }} />
-                )}
-            </div>
+                {/* CTA */}
+                <button
+                    onClick={handleContinue}
+                    disabled={!canContinue}
+                    style={{
+                        width: '100%', height: 54, marginTop: 18,
+                        background: canContinue ? 'linear-gradient(135deg,#7C3AED,#5B21B6)' : '#E5E7EB',
+                        color: canContinue ? 'white' : '#9CA3AF',
+                        fontFamily: "'Outfit',sans-serif", fontSize: 16, fontWeight: 700,
+                        borderRadius: 'var(--r-full)', border: 'none',
+                        cursor: canContinue ? 'pointer' : 'not-allowed',
+                        transition: 'all 0.15s ease',
+                        letterSpacing: '-0.01em',
+                        boxShadow: canContinue ? '0 4px 18px rgba(124,58,237,0.30)' : 'none',
+                    }}
+                    onMouseEnter={(e) => { if (canContinue) { e.currentTarget.style.boxShadow = '0 8px 28px rgba(124,58,237,0.40)'; e.currentTarget.style.transform = 'translateY(-1px)'; } }}
+                    onMouseLeave={(e) => { e.currentTarget.style.boxShadow = canContinue ? '0 4px 18px rgba(124,58,237,0.30)' : 'none'; e.currentTarget.style.transform = 'none'; }}
+                >
+                    Customize the analysis →
+                </button>
 
-            {/* Continue button */}
-            <button
-                onClick={handleContinue}
-                disabled={!canContinue}
-                style={{
-                    width: '100%', height: 52, marginTop: 24,
-                    background: canContinue ? 'linear-gradient(135deg,#7C3AED,#5B21B6)' : 'var(--border)',
-                    color: canContinue ? 'white' : 'var(--text-muted)',
-                    fontFamily: "'Outfit',sans-serif", fontSize: 15, fontWeight: 700,
-                    borderRadius: 'var(--r-full)', border: 'none',
-                    cursor: canContinue ? 'pointer' : 'not-allowed',
-                    opacity: canContinue ? 1 : 0.4,
-                    transition: 'all 0.15s ease',
-                }}
-                onMouseEnter={(e) => { if (canContinue) { e.currentTarget.style.boxShadow = '0 6px 24px rgba(124,58,237,0.35)'; e.currentTarget.style.transform = 'translateY(-1px)'; } }}
-                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'none'; }}
-            >
-                Customize the analysis
-            </button>
-        </div >
+                {/* Trust line */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 16 }}>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2" strokeLinecap="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    </svg>
+                    <span style={{ fontFamily: "'Inter',sans-serif", fontSize: 12, color: 'var(--text-muted)' }}>
+                        Session only — your data is never stored
+                    </span>
+                </div>
+
+            </div>
+        </div>
     );
 }
 
@@ -566,8 +612,64 @@ function ResultsScreen({ analysis, onReset, onDownload }) {
                 })}
             </div>
 
+            {/* ── Xylar CTA Banner ── */}
+            <div style={{
+                marginTop: 28,
+                background: 'linear-gradient(135deg, #09090b 0%, #18181b 100%)',
+                border: '1px solid rgba(124,58,237,0.30)',
+                borderRadius: 'var(--r-xl)',
+                padding: '28px 32px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: 20,
+                position: 'relative',
+                overflow: 'hidden',
+                boxShadow: '0 0 0 1px rgba(124,58,237,0.08), 0 20px 50px -10px rgba(0,0,0,0.4)',
+            }}>
+                <div style={{ position: 'absolute', top: '-40px', right: '-40px', width: 180, height: 180, background: 'radial-gradient(circle, rgba(124,58,237,0.18), transparent 70%)', pointerEvents: 'none' }} />
+                <div style={{ position: 'relative', zIndex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+                        <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#A3E635', boxShadow: '0 0 6px rgba(163,230,53,0.7)' }} />
+                        <span style={{ fontFamily: "'Inter',sans-serif", fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#A3E635' }}>Xylar · Where Capital Meets Code</span>
+                    </div>
+                    <h3 style={{ fontFamily: "'Outfit',sans-serif", fontSize: 20, fontWeight: 800, color: '#FAFAFA', lineHeight: 1.25, letterSpacing: '-0.02em', margin: '0 0 6px' }}>
+                        Want to know more<br />about Xylar?
+                    </h3>
+                    <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 13, color: 'rgba(255,255,255,0.45)', margin: 0, lineHeight: 1.6 }}>
+                        AI-native, quant-powered wealth management.
+                    </p>
+                </div>
+                <a
+                    href="https://www.xylar.ai/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                        flexShrink: 0,
+                        display: 'inline-flex', alignItems: 'center', gap: 8,
+                        background: 'linear-gradient(135deg, #7C3AED, #5B21B6)',
+                        color: 'white',
+                        fontFamily: "'Outfit',sans-serif", fontSize: 14, fontWeight: 700,
+                        padding: '12px 22px',
+                        borderRadius: 'var(--r-full)',
+                        textDecoration: 'none',
+                        boxShadow: '0 4px 16px rgba(124,58,237,0.4)',
+                        transition: 'all 0.15s ease',
+                        position: 'relative', zIndex: 1,
+                        whiteSpace: 'nowrap',
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 8px 28px rgba(124,58,237,0.55)'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 4px 16px rgba(124,58,237,0.4)'; e.currentTarget.style.transform = 'none'; }}
+                >
+                    Visit Xylar.ai
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                </a>
+            </div>
+
             {/* Buttons */}
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginTop: 18 }}>
                 <button
                     onClick={onDownload}
                     style={{ width: '100%', height: 52, background: 'linear-gradient(135deg,#7C3AED,#5B21B6)', color: 'white', fontFamily: "'Outfit',sans-serif", fontSize: 15, fontWeight: 700, borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, transition: 'all 0.15s ease' }}
