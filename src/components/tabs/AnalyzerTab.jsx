@@ -368,7 +368,7 @@ function ReadyScreen({ state, updateState, goTo }) {
 
             {/* Inline Customize Section */}
             <div style={{ marginTop: 24, marginBottom: 12, fontFamily: "'Inter',sans-serif", fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)' }}>
-                How should we analyse it?
+                How should we analyse it? <span style={{ fontWeight: 400, color: 'var(--text-muted)', marginLeft: 4 }}>(optional)</span>
             </div>
 
             <textarea
@@ -401,10 +401,6 @@ function ReadyScreen({ state, updateState, goTo }) {
                             </button>
                         );
                     })}
-                </div>
-
-                <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 11, color: 'var(--text-muted)', marginTop: 12 }}>
-                    Optional — Xylar runs a complete analysis by default.
                 </div>
             </div>
 
