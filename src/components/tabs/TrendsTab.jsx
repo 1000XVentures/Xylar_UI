@@ -54,8 +54,8 @@ function DonutChart() {
                 offset += dash;
                 return el;
             })}
-            <text x={cx} y={cy - 4} textAnchor="middle" fontFamily="Syne,sans-serif" fontSize="14" fontWeight="800" fill="#0F0F0F">4,200</text>
-            <text x={cx} y={cy + 12} textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#A0A8B0">schemes</text>
+            <text x={cx} y={cy - 4} textAnchor="middle" fontFamily="Outfit,sans-serif" fontSize="14" fontWeight="800" fill="#0F0F0F">4,200</text>
+            <text x={cx} y={cy + 12} textAnchor="middle" fontFamily="Inter,sans-serif" fontSize="9" fill="#A0A8B0">schemes</text>
         </svg>
     );
 }
@@ -98,8 +98,8 @@ function HealthRing({ score = 74 }) {
             <circle cx="65" cy="65" r={r} fill="none" stroke="#7C3AED" strokeWidth="8"
                 strokeLinecap="round" strokeDasharray={`${dash} ${circ - dash}`}
                 style={{ transform: 'rotate(-90deg)', transformOrigin: '65px 65px', transition: 'stroke-dasharray 1s ease 0.3s' }} />
-            <text x="65" y="60" textAnchor="middle" fontFamily="Syne,sans-serif" fontSize="28" fontWeight="800" fill="white">{score}</text>
-            <text x="65" y="78" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="11" fill="rgba(255,255,255,0.4)">/100</text>
+            <text x="65" y="60" textAnchor="middle" fontFamily="Outfit,sans-serif" fontSize="28" fontWeight="800" fill="white">{score}</text>
+            <text x="65" y="78" textAnchor="middle" fontFamily="Inter,sans-serif" fontSize="11" fill="rgba(255,255,255,0.4)">/100</text>
         </svg>
     );
 }
@@ -114,7 +114,7 @@ export default function TrendsTab() {
     }, []);
 
     const card = { background: 'white', borderRadius: '16px', padding: '24px', border: '1px solid #E8E4DF', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' };
-    const label11 = { fontFamily: "'DM Sans',sans-serif", fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em' };
+    const label11 = { fontFamily: "'Inter',sans-serif", fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em' };
 
     return (
         <div className="tab-panel state-container" style={{ padding: '40px', maxWidth: '1100px' }}>
@@ -123,32 +123,32 @@ export default function TrendsTab() {
             <div className="trends-header-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '40px', marginBottom: '40px' }}>
                 <div style={{ flex: 1, maxWidth: '480px' }}>
                     <div style={{ ...label11, color: '#7C3AED', marginBottom: '12px' }}>Market Intelligence</div>
-                    <h1 className="trends-headline" style={{ fontFamily: "'Syne',sans-serif", fontSize: '40px', fontWeight: 800, color: '#0F0F0F', lineHeight: 1.05, letterSpacing: '-0.025em', marginBottom: '16px' }}>
+                    <h1 className="trends-headline" style={{ fontFamily: "'Outfit',sans-serif", fontSize: '40px', fontWeight: 800, color: '#0F0F0F', lineHeight: 1.05, letterSpacing: '-0.025em', marginBottom: '16px' }}>
                         Mutual Fund<br />Trends
                     </h1>
-                    <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '15px', color: '#6B7280', lineHeight: 1.7, marginBottom: '20px' }}>
+                    <p style={{ fontFamily: "'Inter',sans-serif", fontSize: '15px', color: '#6B7280', lineHeight: 1.7, marginBottom: '20px' }}>
                         What the data is showing about Indian MF markets right now — scheme performance, category flows, and where smart money is moving.
                     </p>
                     <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#EDE9FE', borderRadius: '9999px', padding: '6px 14px' }}>
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
-                        <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '12px', fontWeight: 600, color: '#7C3AED' }}>Updated: March 2026</span>
+                        <span style={{ fontFamily: "'Inter',sans-serif", fontSize: '12px', fontWeight: 600, color: '#7C3AED' }}>Updated: March 2026</span>
                     </div>
                 </div>
 
                 {/* Floating stat cards */}
                 <div className="trends-stat-cluster" style={{ position: 'relative', width: '280px', height: '200px', flexShrink: 0 }}>
                     <div className="stat-card-float" style={{ position: 'absolute', top: 0, left: '20px', background: 'white', borderRadius: '16px', padding: '20px 24px', border: '1px solid #E8E4DF', boxShadow: '0 8px 24px rgba(0,0,0,0.1)', zIndex: 3 }}>
-                        <div style={{ fontFamily: "'Syne',sans-serif", fontSize: '28px', fontWeight: 800, color: '#0F0F0F' }}>₹54.5T</div>
-                        <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '11px', color: '#A0A8B0', marginTop: '2px' }}>Total MF AUM</div>
-                        <div style={{ background: '#F7FEE7', color: '#3F6212', fontFamily: "'DM Sans',sans-serif", fontSize: '11px', fontWeight: 700, borderRadius: '9999px', padding: '3px 10px', marginTop: '8px', display: 'inline-block' }}>+18.4% YoY</div>
+                        <div style={{ fontFamily: "'Outfit',sans-serif", fontSize: '28px', fontWeight: 800, color: '#0F0F0F' }}>₹54.5T</div>
+                        <div style={{ fontFamily: "'Inter',sans-serif", fontSize: '11px', color: '#A0A8B0', marginTop: '2px' }}>Total MF AUM</div>
+                        <div style={{ background: '#F7FEE7', color: '#3F6212', fontFamily: "'Inter',sans-serif", fontSize: '11px', fontWeight: 700, borderRadius: '9999px', padding: '3px 10px', marginTop: '8px', display: 'inline-block' }}>+18.4% YoY</div>
                     </div>
                     <div className="stat-card-float" style={{ position: 'absolute', top: '48px', left: 0, background: '#111', borderRadius: '16px', padding: '18px 22px', boxShadow: '0 4px 16px rgba(0,0,0,0.3)', zIndex: 2 }}>
-                        <div style={{ fontFamily: "'Syne',sans-serif", fontSize: '24px', fontWeight: 800, color: 'white' }}>11.2 Cr</div>
-                        <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '11px', color: 'rgba(255,255,255,0.55)', marginTop: '2px' }}>Active SIP accounts</div>
+                        <div style={{ fontFamily: "'Outfit',sans-serif", fontSize: '24px', fontWeight: 800, color: 'white' }}>11.2 Cr</div>
+                        <div style={{ fontFamily: "'Inter',sans-serif", fontSize: '11px', color: 'rgba(255,255,255,0.55)', marginTop: '2px' }}>Active SIP accounts</div>
                     </div>
                     <div className="stat-card-float" style={{ position: 'absolute', bottom: 0, right: '10px', background: '#7C3AED', borderRadius: '14px', padding: '14px 18px', boxShadow: '0 4px 14px rgba(124,58,237,0.35)', zIndex: 1 }}>
-                        <div style={{ fontFamily: "'Syne',sans-serif", fontSize: '22px', fontWeight: 800, color: 'white' }}>4,200+</div>
-                        <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '11px', color: 'rgba(255,255,255,0.65)', marginTop: '2px' }}>Schemes available</div>
+                        <div style={{ fontFamily: "'Outfit',sans-serif", fontSize: '22px', fontWeight: 800, color: 'white' }}>4,200+</div>
+                        <div style={{ fontFamily: "'Inter',sans-serif", fontSize: '11px', color: 'rgba(255,255,255,0.65)', marginTop: '2px' }}>Schemes available</div>
                     </div>
                 </div>
             </div>
@@ -160,14 +160,14 @@ export default function TrendsTab() {
                 <div style={card}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2"><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /></svg>
-                        <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '13px', fontWeight: 700, color: '#0F0F0F' }}>Top Performing Categories</div>
+                        <div style={{ fontFamily: "'Inter',sans-serif", fontSize: '13px', fontWeight: 700, color: '#0F0F0F' }}>Top Performing Categories</div>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                         {categoryPerformance.map((c, i) => (
                             <div key={i}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
-                                    <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '12px', fontWeight: 500, color: '#0F0F0F' }}>{c.name}</span>
-                                    <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '12px', fontWeight: 700, color: '#3F6212' }}>+{c.return}%</span>
+                                    <span style={{ fontFamily: "'Inter',sans-serif", fontSize: '12px', fontWeight: 500, color: '#0F0F0F' }}>{c.name}</span>
+                                    <span style={{ fontFamily: "'Inter',sans-serif", fontSize: '12px', fontWeight: 700, color: '#3F6212' }}>+{c.return}%</span>
                                 </div>
                                 <div style={{ height: '8px', background: '#F0EDE8', borderRadius: '9999px', overflow: 'hidden' }}>
                                     <div style={{
@@ -186,13 +186,13 @@ export default function TrendsTab() {
                 <div style={card}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18" /><polyline points="17 6 23 6 23 12" /></svg>
-                        <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '13px', fontWeight: 700, color: '#0F0F0F' }}>Monthly SIP Inflows</div>
+                        <div style={{ fontFamily: "'Inter',sans-serif", fontSize: '13px', fontWeight: 700, color: '#0F0F0F' }}>Monthly SIP Inflows</div>
                     </div>
-                    <div style={{ fontFamily: "'Syne',sans-serif", fontSize: '22px', fontWeight: 800, color: '#0F0F0F', marginBottom: '4px' }}>₹26,400 Cr</div>
-                    <div style={{ display: 'inline-block', background: '#F7FEE7', color: '#3F6212', fontFamily: "'DM Sans',sans-serif", fontSize: '11px', fontWeight: 700, borderRadius: '9999px', padding: '2px 10px', marginBottom: '12px' }}>+12% vs last month</div>
+                    <div style={{ fontFamily: "'Outfit',sans-serif", fontSize: '22px', fontWeight: 800, color: '#0F0F0F', marginBottom: '4px' }}>₹26,400 Cr</div>
+                    <div style={{ display: 'inline-block', background: '#F7FEE7', color: '#3F6212', fontFamily: "'Inter',sans-serif", fontSize: '11px', fontWeight: 700, borderRadius: '9999px', padding: '2px 10px', marginBottom: '12px' }}>+12% vs last month</div>
                     <SIPSparkline />
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px' }}>
-                        {['Apr', 'Jul', 'Oct', 'Jan', 'Mar'].map(m => <span key={m} style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '10px', color: '#A0A8B0' }}>{m}</span>)}
+                        {['Apr', 'Jul', 'Oct', 'Jan', 'Mar'].map(m => <span key={m} style={{ fontFamily: "'Inter',sans-serif", fontSize: '10px', color: '#A0A8B0' }}>{m}</span>)}
                     </div>
                 </div>
 
@@ -200,11 +200,11 @@ export default function TrendsTab() {
                 <div style={card}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D97706" strokeWidth="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" /></svg>
-                        <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '13px', fontWeight: 700, color: '#0F0F0F' }}>Scheme Proliferation</div>
+                        <div style={{ fontFamily: "'Inter',sans-serif", fontSize: '13px', fontWeight: 700, color: '#0F0F0F' }}>Scheme Proliferation</div>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}><DonutChart /></div>
                     <div style={{ background: '#FFFBEB', border: '1px solid #FCD34D', borderRadius: '10px', padding: '12px 14px' }}>
-                        <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '12px', color: '#92400E', lineHeight: 1.6, fontStyle: 'italic', margin: 0 }}>
+                        <p style={{ fontFamily: "'Inter',sans-serif", fontSize: '12px', color: '#92400E', lineHeight: 1.6, fontStyle: 'italic', margin: 0 }}>
                             More schemes than ever — but outcomes remain concentrated in the top 15% of funds.
                         </p>
                     </div>
@@ -215,23 +215,23 @@ export default function TrendsTab() {
             <div className="insight-strip" style={{ background: '#111', borderRadius: '16px', padding: '32px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '40px', marginBottom: '40px' }}>
                 <div className="insight-strip-left" style={{ maxWidth: '500px' }}>
                     <div style={{ ...label11, color: '#A3E635', marginBottom: '12px' }}>What this means for you</div>
-                    <div className="insight-strip-text" style={{ fontFamily: "'Syne',sans-serif", fontSize: '22px', fontWeight: 700, color: 'white', lineHeight: 1.3 }}>
+                    <div className="insight-strip-text" style={{ fontFamily: "'Outfit',sans-serif", fontSize: '22px', fontWeight: 700, color: 'white', lineHeight: 1.3 }}>
                         Most investors hold 6–8 funds but gain the diversification benefit of only 2–3.
                     </div>
                 </div>
                 <div className="insight-strip-score" style={{ textAlign: 'center', flexShrink: 0 }}>
                     <HealthRing score={74} />
-                    <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginTop: '4px' }}>Average portfolio health score</div>
+                    <div style={{ fontFamily: "'Inter',sans-serif", fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginTop: '4px' }}>Average portfolio health score</div>
                 </div>
             </div>
 
             {/* ── WHAT'S COMING ── */}
             <div style={{ marginBottom: '32px' }}>
                 <div style={{ ...label11, color: '#7C3AED', marginBottom: '12px' }}>What's Coming</div>
-                <h2 className="whats-coming-headline" style={{ fontFamily: "'Syne',sans-serif", fontSize: '32px', fontWeight: 800, color: '#0F0F0F', lineHeight: 1.1, marginBottom: '12px' }}>
+                <h2 className="whats-coming-headline" style={{ fontFamily: "'Outfit',sans-serif", fontSize: '32px', fontWeight: 800, color: '#0F0F0F', lineHeight: 1.1, marginBottom: '12px' }}>
                     Xylar is building the full<br />portfolio intelligence platform.
                 </h2>
-                <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '15px', color: '#6B7280', lineHeight: 1.75, maxWidth: '560px', marginBottom: '28px' }}>
+                <p style={{ fontFamily: "'Inter',sans-serif", fontSize: '15px', color: '#6B7280', lineHeight: 1.75, maxWidth: '560px', marginBottom: '28px' }}>
                     Continuous monitoring. Historical decision replay. XIRR vs benchmark. Personalised recommendations. Built for investors who want to manage wealth like an institution — not guess.
                 </p>
                 <div className="feature-chips-row" style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '36px' }}>
@@ -249,20 +249,20 @@ export default function TrendsTab() {
                 <div className="cta-circle-1" />
                 <div className="cta-circle-2" />
                 <div style={{ maxWidth: '520px', position: 'relative', zIndex: 1 }}>
-                    <h3 style={{ fontFamily: "'Syne',sans-serif", fontSize: '26px', fontWeight: 800, color: 'white', marginBottom: '10px' }}>Be the first to experience Xylar</h3>
-                    <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '14px', color: 'rgba(255,255,255,0.72)', lineHeight: 1.7 }}>
+                    <h3 style={{ fontFamily: "'Outfit',sans-serif", fontSize: '26px', fontWeight: 800, color: 'white', marginBottom: '10px' }}>Be the first to experience Xylar</h3>
+                    <p style={{ fontFamily: "'Inter',sans-serif", fontSize: '14px', color: 'rgba(255,255,255,0.72)', lineHeight: 1.7 }}>
                         We're onboarding a select group of investors and advisors for our private launch. Book a 20-minute call to see what Xylar can do for your portfolio.
                     </p>
                 </div>
                 <div style={{ textAlign: 'center', position: 'relative', zIndex: 1, flexShrink: 0 }}>
                     <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" style={{
                         display: 'inline-block', height: '52px', lineHeight: '52px', padding: '0 32px',
-                        background: '#A3E635', color: '#111', fontFamily: "'Syne',sans-serif", fontSize: '15px', fontWeight: 700,
+                        background: '#A3E635', color: '#111', fontFamily: "'Outfit',sans-serif", fontSize: '15px', fontWeight: 700,
                         borderRadius: '9999px', textDecoration: 'none', boxShadow: '0 8px 24px rgba(163,230,53,0.35)',
                     }}>
                         Book a Meeting →
                     </a>
-                    <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '11px', color: 'rgba(255,255,255,0.45)', marginTop: '8px' }}>20 min · No commitment · Calendly</div>
+                    <div style={{ fontFamily: "'Inter',sans-serif", fontSize: '11px', color: 'rgba(255,255,255,0.45)', marginTop: '8px' }}>20 min · No commitment · Calendly</div>
                 </div>
             </div>
         </div>

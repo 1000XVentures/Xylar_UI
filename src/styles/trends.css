@@ -61,7 +61,7 @@
     background: white;
     border: 1px solid var(--border, #E8E4DF);
     border-radius: 9999px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 13px;
     font-weight: 600;
     color: var(--text-primary, #0F0F0F);

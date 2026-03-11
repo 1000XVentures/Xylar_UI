@@ -123,7 +123,7 @@ export default function AboutTab({ onSwitchToAnalyzer }) {
                 </div>
 
                 {/* Team card */}
-                <div className="team-card" style={{ background: 'white', border: '1px solid #E8E4DF', borderRadius: '20px', padding: '32px', boxShadow: '0 12px 40px rgba(0,0,0,0.08)' }}>
+                <div className="team-card" style={{ border: '1px solid #E8E4DF', borderRadius: '20px', padding: '32px', boxShadow: '0 12px 40px rgba(0,0,0,0.08)' }}>
                     <div className="avatar-group" style={{ marginBottom: '20px' }}>
                         {[
                             { bg: 'linear-gradient(135deg,#7C3AED,#5B21B6)', color: 'white', init: 'AK' },
@@ -142,7 +142,7 @@ export default function AboutTab({ onSwitchToAnalyzer }) {
             </div>
 
             {/* ── BOTTOM CTA ── */}
-            <div className="about-cta-card" style={{ position: 'relative', background: 'linear-gradient(135deg, #7C3AED 0%, #4C1D95 100%)', borderRadius: '20px', padding: '40px 48px', overflow: 'hidden' }}>
+            <div className="about-cta-card" style={{ position: 'relative', borderRadius: '20px', padding: '40px 48px', overflow: 'hidden' }}>
                 <div className="cta-circle-1" />
                 <div className="cta-circle-2" />
                 <div className="about-cta-inner" style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '32px' }}>
@@ -153,10 +153,10 @@ export default function AboutTab({ onSwitchToAnalyzer }) {
                         </p>
                     </div>
                     <div className="about-cta-buttons" style={{ display: 'flex', gap: '12px', flexShrink: 0 }}>
-                        <button onClick={onSwitchToAnalyzer} style={{ height: '48px', padding: '0 24px', background: '#A3E635', color: '#111', fontFamily: "'Outfit',sans-serif", fontSize: '14px', fontWeight: 700, borderRadius: '9999px', border: 'none', cursor: 'pointer', boxShadow: '0 6px 20px rgba(163,230,53,0.3)' }}>
+                        <button onClick={onSwitchToAnalyzer} style={{ height: '48px', padding: '0 24px', color: '#111', fontFamily: "'Outfit',sans-serif", fontSize: '14px', fontWeight: 700, borderRadius: '9999px', border: 'none', cursor: 'pointer', boxShadow: '0 6px 20px rgba(163,230,53,0.3)' }}>
                             Analyze my portfolio →
                         </button>
-                        <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" style={{ height: '48px', lineHeight: '46px', padding: '0 24px', background: 'transparent', color: 'white', fontFamily: "'Inter',sans-serif", fontSize: '14px', fontWeight: 600, borderRadius: '9999px', border: '1.5px solid rgba(255,255,255,0.4)', textDecoration: 'none', display: 'inline-block' }}>
+                        <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" style={{ height: '48px', lineHeight: '46px', padding: '0 24px', color: 'white', fontFamily: "'Inter',sans-serif", fontSize: '14px', fontWeight: 600, borderRadius: '9999px', border: '1.5px solid rgba(255,255,255,0.4)', textDecoration: 'none', display: 'inline-block' }}>
                             Book a call
                         </a>
                     </div>

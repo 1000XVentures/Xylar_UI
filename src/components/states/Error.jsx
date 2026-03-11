@@ -20,7 +20,7 @@ export default function ErrorState({ onRetry, onSwitchToText }) {
             </div>
 
             <h2 style={{
-                fontFamily: "'Syne', sans-serif",
+                fontFamily: "'Outfit', sans-serif",
                 fontSize: "28px",
                 fontWeight: 700,
                 color: "var(--text-primary)",
@@ -31,7 +31,7 @@ export default function ErrorState({ onRetry, onSwitchToText }) {
             </h2>
 
             <p style={{
-                fontFamily: "'DM Sans', sans-serif",
+                fontFamily: "'Inter', sans-serif",
                 fontSize: "15px",
                 color: "var(--text-muted)",
                 maxWidth: "380px",
@@ -48,7 +48,7 @@ export default function ErrorState({ onRetry, onSwitchToText }) {
                     style={{
                         background: "linear-gradient(135deg, var(--accent) 0%, #5B21B6 100%)",
                         height: "52px", borderRadius: "var(--r-full)", color: "white",
-                        fontFamily: "'Syne', sans-serif", fontSize: "15px", fontWeight: 700, border: "none",
+                        fontFamily: "'Outfit', sans-serif", fontSize: "15px", fontWeight: 700, border: "none",
                         cursor: "pointer"
                     }}
                 >
@@ -59,7 +59,7 @@ export default function ErrorState({ onRetry, onSwitchToText }) {
                     style={{
                         background: "transparent", border: "1.5px solid var(--accent)",
                         height: "52px", borderRadius: "var(--r-full)", color: "var(--accent)",
-                        fontFamily: "'Syne', sans-serif", fontSize: "15px", fontWeight: 700,
+                        fontFamily: "'Outfit', sans-serif", fontSize: "15px", fontWeight: 700,
                         cursor: "pointer"
                     }}
                 >

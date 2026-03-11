@@ -233,7 +233,7 @@
   padding: 0 22px;
   background: linear-gradient(135deg, var(--accent) 0%, #5B21B6 100%);
   color: white;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Outfit', sans-serif;
   font-size: 13px;
   font-weight: 700;
   border-radius: var(--r-full);
@@ -257,7 +257,7 @@
   background: transparent;
   border: 1.5px solid var(--accent);
   color: var(--accent);
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 13px;
   font-weight: 600;
   border-radius: var(--r-full);

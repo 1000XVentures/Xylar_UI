@@ -20,7 +20,7 @@
     background: var(--accent);
     color: #FFF;
     border: none;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-weight: 700;
     font-size: 15px;
     cursor: pointer;
@@ -91,4 +91,38 @@
 .textarea-input:focus {
     border-color: var(--accent);
     background: #FFF;
+}
+
+/* Persona Chips */
+.persona-chip {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--r-full);
+    padding: 7px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.persona-chip:hover {
+    background: var(--accent-light);
+    border-color: #A78BFA;
+}
+
+.persona-chip.selected {
+    background: var(--accent-light);
+    border: 1.5px solid var(--accent);
+    color: var(--accent);
+    font-weight: 600;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.10);
+}
+
+.persona-chip.selected:active {
+    transform: scale(0.96);
 }

@@ -58,7 +58,7 @@ export default function Analyzing({ onProgressComplete }) {
             </div>
 
             <h2 style={{
-                fontFamily: "'Syne', sans-serif",
+                fontFamily: "'Outfit', sans-serif",
                 fontSize: "30px",
                 fontWeight: 700,
                 color: "var(--text-primary)",
@@ -69,7 +69,7 @@ export default function Analyzing({ onProgressComplete }) {
             </h2>
 
             <div style={{
-                fontFamily: "'DM Sans', sans-serif",
+                fontFamily: "'Inter', sans-serif",
                 fontSize: "15px",
                 color: "var(--text-muted)"
             }}>
@@ -81,7 +81,7 @@ export default function Analyzing({ onProgressComplete }) {
             </div>
 
             <div className="status-cycle" style={{
-                fontFamily: "'DM Sans', sans-serif",
+                fontFamily: "'Inter', sans-serif",
                 fontSize: "13px",
                 color: "var(--text-muted)",
                 marginTop: "16px",
@@ -95,7 +95,7 @@ export default function Analyzing({ onProgressComplete }) {
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                     <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                 </svg>
-                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "12px", color: "var(--text-muted)" }}>
+                <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "12px", color: "var(--text-muted)" }}>
                     Your data is analyzed securely and never stored.
                 </div>
             </div>

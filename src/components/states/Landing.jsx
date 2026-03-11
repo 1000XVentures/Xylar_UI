@@ -140,27 +140,23 @@ export default function Landing({ onStateChange }) {
                             </div>
                         )}
 
-                        {!hasFile && (
-                            <div style={{ margin: "20px 0", display: "flex", alignItems: "center", gap: "12px" }}>
-                                <div style={{ flex: 1, height: "1px", background: "var(--border)" }}></div>
-                                <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "12px", color: "var(--text-muted)" }}>or</div>
-                                <div style={{ flex: 1, height: "1px", background: "var(--border)" }}></div>
-                            </div>
-                        )}
+                        <div style={{ margin: "20px 0", display: "flex", alignItems: "center", gap: "12px" }}>
+                            <div style={{ flex: 1, height: "1px", background: "var(--border)" }}></div>
+                            <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "12px", color: "var(--text-muted)" }}>or</div>
+                            <div style={{ flex: 1, height: "1px", background: "var(--border)" }}></div>
+                        </div>
 
-                        {!hasFile && (
-                            <div>
-                                <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "13px", fontWeight: 600, color: "var(--text-primary)", marginBottom: "8px" }}>
-                                    Paste portfolio text
-                                </div>
-                                <textarea
-                                    className="textarea-input"
-                                    placeholder="Paste your holdings, transaction history, or any portfolio data here..."
-                                    value={inputText}
-                                    onChange={(e) => setInputText(e.target.value)}
-                                ></textarea>
+                        <div>
+                            <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "13px", fontWeight: 600, color: "var(--text-primary)", marginBottom: "8px" }}>
+                                Paste portfolio text (Optional)
                             </div>
-                        )}
+                            <textarea
+                                className="textarea-input"
+                                placeholder="Paste your holdings, transaction history, or any portfolio data here..."
+                                value={inputText}
+                                onChange={(e) => setInputText(e.target.value)}
+                            ></textarea>
+                        </div>
 
                         <div
                             onClick={() => setCustomizeOpen(!customizeOpen)}

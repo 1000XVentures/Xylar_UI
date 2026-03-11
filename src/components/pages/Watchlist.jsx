@@ -36,17 +36,17 @@ export default function Watchlist() {
         <div className="state-container" style={{ padding: '36px 40px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
                 <div>
-                    <h1 style={{ fontFamily: "'Syne',sans-serif", fontSize: '28px', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>Watchlist</h1>
-                    <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '13px', color: 'var(--text-muted)', marginTop: '4px' }}>Stocks and funds you're tracking</p>
+                    <h1 style={{ fontFamily: "'Outfit',sans-serif", fontSize: '28px', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>Watchlist</h1>
+                    <p style={{ fontFamily: "'Inter',sans-serif", fontSize: '13px', color: 'var(--text-muted)', marginTop: '4px' }}>Stocks and funds you're tracking</p>
                 </div>
-                <button style={{ height: '44px', padding: '0 20px', background: 'linear-gradient(135deg,#7C3AED,#5B21B6)', color: 'white', fontFamily: "'Syne',sans-serif", fontSize: '14px', fontWeight: 700, border: 'none', borderRadius: '9999px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', boxShadow: '0 4px 14px rgba(124,58,237,.28)' }}>
+                <button style={{ height: '44px', padding: '0 20px', background: 'linear-gradient(135deg,#7C3AED,#5B21B6)', color: 'white', fontFamily: "'Outfit',sans-serif", fontSize: '14px', fontWeight: 700, border: 'none', borderRadius: '9999px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', boxShadow: '0 4px 14px rgba(124,58,237,.28)' }}>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
                     Add to Watchlist
                 </button>
             </div>
 
             <div style={{ marginBottom: '32px' }}>
-                <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-muted)', marginBottom: '12px' }}>Stocks</div>
+                <div style={{ fontFamily: "'Inter',sans-serif", fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-muted)', marginBottom: '12px' }}>Stocks</div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px,1fr))', gap: '12px' }}>
                     {stocks.map((s, i) => (
                         <div key={i} className="card-base" style={{ padding: '18px 20px', transition: 'transform 0.15s' }}
@@ -55,18 +55,18 @@ export default function Watchlist() {
                         >
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                                 <div>
-                                    <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)' }}>{s.name}</div>
-                                    <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '11px', color: 'var(--text-muted)' }}>{s.tick}</div>
+                                    <div style={{ fontFamily: "'Inter',sans-serif", fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)' }}>{s.name}</div>
+                                    <div style={{ fontFamily: "'Inter',sans-serif", fontSize: '11px', color: 'var(--text-muted)' }}>{s.tick}</div>
                                 </div>
-                                <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '12px', fontWeight: 700, color: s.up ? '#65A30D' : '#EF4444', background: s.up ? '#F7FEE7' : '#FEF2F2', padding: '3px 8px', borderRadius: '9999px' }}>{s.chg}</span>
+                                <span style={{ fontFamily: "'Inter',sans-serif", fontSize: '12px', fontWeight: 700, color: s.up ? '#65A30D' : '#EF4444', background: s.up ? '#F7FEE7' : '#FEF2F2', padding: '3px 8px', borderRadius: '9999px' }}>{s.chg}</span>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px' }}>
-                                <div style={{ fontFamily: "'Syne',sans-serif", fontSize: '22px', fontWeight: 800, color: 'var(--text-primary)' }}>{s.price}</div>
+                                <div style={{ fontFamily: "'Outfit',sans-serif", fontSize: '22px', fontWeight: 800, color: 'var(--text-primary)' }}>{s.price}</div>
                                 <MiniSpark up={s.up} />
                             </div>
                             <div style={{ display: 'flex', gap: '6px', marginTop: '10px' }}>
                                 {[`52W H: ${s.hi52}`, `52W L: ${s.lo52}`].map(chip => (
-                                    <span key={chip} style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '10px', color: 'var(--text-muted)', background: '#F0EDE8', padding: '2px 8px', borderRadius: '9999px' }}>{chip}</span>
+                                    <span key={chip} style={{ fontFamily: "'Inter',sans-serif", fontSize: '10px', color: 'var(--text-muted)', background: '#F0EDE8', padding: '2px 8px', borderRadius: '9999px' }}>{chip}</span>
                                 ))}
                             </div>
                         </div>
@@ -75,23 +75,23 @@ export default function Watchlist() {
             </div>
 
             <div>
-                <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-muted)', marginBottom: '12px' }}>Mutual Funds</div>
+                <div style={{ fontFamily: "'Inter',sans-serif", fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-muted)', marginBottom: '12px' }}>Mutual Funds</div>
                 <div className="card-base" style={{ padding: '0 24px' }}>
                     {mfs.map((m, i) => (
                         <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '16px 0', borderBottom: i < mfs.length - 1 ? '1px solid var(--border)' : 'none' }}>
                             <div style={{ flex: 1 }}>
-                                <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)' }}>{m.name}</div>
-                                <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '10px', fontWeight: 600, color: m.catColor, background: m.catBg, padding: '2px 8px', borderRadius: '9999px', marginTop: '4px', display: 'inline-block' }}>{m.cat}</span>
+                                <div style={{ fontFamily: "'Inter',sans-serif", fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)' }}>{m.name}</div>
+                                <span style={{ fontFamily: "'Inter',sans-serif", fontSize: '10px', fontWeight: 600, color: m.catColor, background: m.catBg, padding: '2px 8px', borderRadius: '9999px', marginTop: '4px', display: 'inline-block' }}>{m.cat}</span>
                             </div>
                             <div style={{ display: 'flex', gap: '16px', textAlign: 'center' }}>
                                 {[{ label: '1Y', val: m.ret1y }, { label: '3Y', val: m.ret3y }, { label: '5Y', val: m.ret5y }].map(r => (
                                     <div key={r.label}>
-                                        <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '10px', color: 'var(--text-muted)', marginBottom: '2px' }}>{r.label}</div>
-                                        <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '13px', fontWeight: 700, color: '#65A30D' }}>{r.val}</div>
+                                        <div style={{ fontFamily: "'Inter',sans-serif", fontSize: '10px', color: 'var(--text-muted)', marginBottom: '2px' }}>{r.label}</div>
+                                        <div style={{ fontFamily: "'Inter',sans-serif", fontSize: '13px', fontWeight: 700, color: '#65A30D' }}>{r.val}</div>
                                     </div>
                                 ))}
                             </div>
-                            <button style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '12px', fontWeight: 600, color: '#7C3AED', background: 'none', border: 'none', cursor: 'pointer' }}>View →</button>
+                            <button style={{ fontFamily: "'Inter',sans-serif", fontSize: '12px', fontWeight: 600, color: '#7C3AED', background: 'none', border: 'none', cursor: 'pointer' }}>View →</button>
                         </div>
                     ))}
                 </div>

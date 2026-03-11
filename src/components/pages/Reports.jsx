@@ -19,12 +19,12 @@ export default function Reports({ onRunNew }) {
             {/* Header */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '28px' }}>
                 <div>
-                    <h1 style={{ fontFamily: "'Syne',sans-serif", fontSize: '28px', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>My Reports</h1>
-                    <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '13px', color: 'var(--text-muted)', marginTop: '4px' }}>Your past portfolio analyses</p>
+                    <h1 style={{ fontFamily: "'Outfit',sans-serif", fontSize: '28px', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>My Reports</h1>
+                    <p style={{ fontFamily: "'Inter',sans-serif", fontSize: '13px', color: 'var(--text-muted)', marginTop: '4px' }}>Your past portfolio analyses</p>
                 </div>
                 <button
                     onClick={onRunNew}
-                    style={{ height: '44px', padding: '0 24px', background: 'linear-gradient(135deg,#7C3AED,#5B21B6)', color: 'white', fontFamily: "'Syne',sans-serif", fontSize: '14px', fontWeight: 700, border: 'none', borderRadius: '9999px', cursor: 'pointer', boxShadow: '0 4px 14px rgba(124,58,237,.28)' }}
+                    style={{ height: '44px', padding: '0 24px', background: 'linear-gradient(135deg,#7C3AED,#5B21B6)', color: 'white', fontFamily: "'Outfit',sans-serif", fontSize: '14px', fontWeight: 700, border: 'none', borderRadius: '9999px', cursor: 'pointer', boxShadow: '0 4px 14px rgba(124,58,237,.28)' }}
                 >
                     Run New Analysis →
                 </button>
@@ -40,7 +40,7 @@ export default function Reports({ onRunNew }) {
                         placeholder="Search reports..."
                         value={search}
                         onChange={e => setSearch(e.target.value)}
-                        style={{ width: '100%', height: '38px', paddingLeft: '36px', paddingRight: '12px', border: '1px solid var(--border)', borderRadius: '10px', fontFamily: "'DM Sans',sans-serif", fontSize: '13px', color: 'var(--text-primary)', background: 'white', outline: 'none' }}
+                        style={{ width: '100%', height: '38px', paddingLeft: '36px', paddingRight: '12px', border: '1px solid var(--border)', borderRadius: '10px', fontFamily: "'Inter',sans-serif", fontSize: '13px', color: 'var(--text-primary)', background: 'white', outline: 'none' }}
                     />
                 </div>
                 <div style={{ display: 'flex', gap: '8px' }}>
@@ -49,7 +49,7 @@ export default function Reports({ onRunNew }) {
                             key={f}
                             onClick={() => setActiveFilter(f)}
                             style={{
-                                height: '36px', padding: '0 16px', borderRadius: '9999px', fontFamily: "'DM Sans',sans-serif", fontSize: '12px', fontWeight: 600, cursor: 'pointer',
+                                height: '36px', padding: '0 16px', borderRadius: '9999px', fontFamily: "'Inter',sans-serif", fontSize: '12px', fontWeight: 600, cursor: 'pointer',
                                 background: activeFilter === f ? '#7C3AED' : 'white',
                                 color: activeFilter === f ? 'white' : 'var(--text-secondary)',
                                 border: activeFilter === f ? 'none' : '1px solid var(--border)',
@@ -82,11 +82,11 @@ export default function Reports({ onRunNew }) {
 
                         {/* Info */}
                         <div style={{ flex: 1 }}>
-                            <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '14px', fontWeight: 600 }}>Portfolio Analysis</div>
-                            <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px' }}>{r.date} · {r.duration} analysis</div>
+                            <div style={{ fontFamily: "'Inter',sans-serif", fontSize: '14px', fontWeight: 600 }}>Portfolio Analysis</div>
+                            <div style={{ fontFamily: "'Inter',sans-serif", fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px' }}>{r.date} · {r.duration} analysis</div>
                             <div style={{ display: 'flex', gap: '6px', marginTop: '8px', flexWrap: 'wrap' }}>
                                 {[`${r.holdings} holdings`, `${r.score}/100`, r.value].map(chip => (
-                                    <span key={chip} style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '11px', fontWeight: 600, color: 'var(--text-secondary)', background: 'var(--bg-main)', padding: '3px 10px', borderRadius: '9999px', border: '1px solid var(--border)' }}>{chip}</span>
+                                    <span key={chip} style={{ fontFamily: "'Inter',sans-serif", fontSize: '11px', fontWeight: 600, color: 'var(--text-secondary)', background: 'var(--bg-main)', padding: '3px 10px', borderRadius: '9999px', border: '1px solid var(--border)' }}>{chip}</span>
                                 ))}
                             </div>
                         </div>
@@ -94,8 +94,8 @@ export default function Reports({ onRunNew }) {
                         {/* Score badge */}
                         <div style={{ textAlign: 'center', minWidth: '64px' }}>
                             <div style={{ background: r.scoreBg, borderRadius: '12px', padding: '10px 14px' }}>
-                                <div style={{ fontFamily: "'Syne',sans-serif", fontSize: '22px', fontWeight: 800, color: r.scoreColor, lineHeight: 1 }}>{r.score}</div>
-                                <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '10px', color: r.scoreColor, opacity: 0.7 }}>/100</div>
+                                <div style={{ fontFamily: "'Outfit',sans-serif", fontSize: '22px', fontWeight: 800, color: r.scoreColor, lineHeight: 1 }}>{r.score}</div>
+                                <div style={{ fontFamily: "'Inter',sans-serif", fontSize: '10px', color: r.scoreColor, opacity: 0.7 }}>/100</div>
                             </div>
                         </div>
 
@@ -106,7 +106,7 @@ export default function Reports({ onRunNew }) {
                                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" />
                                 </svg>
                             </button>
-                            <button style={{ height: '34px', padding: '0 16px', borderRadius: '9999px', border: '1.5px solid #7C3AED', background: 'transparent', color: '#7C3AED', fontFamily: "'DM Sans',sans-serif", fontSize: '12px', fontWeight: 600, cursor: 'pointer' }}>View</button>
+                            <button style={{ height: '34px', padding: '0 16px', borderRadius: '9999px', border: '1.5px solid #7C3AED', background: 'transparent', color: '#7C3AED', fontFamily: "'Inter',sans-serif", fontSize: '12px', fontWeight: 600, cursor: 'pointer' }}>View</button>
                         </div>
                     </div>
                 ))}
@@ -114,7 +114,7 @@ export default function Reports({ onRunNew }) {
 
             {/* Empty state */}
             <div style={{ marginTop: '16px', border: '1.5px dashed var(--border)', borderRadius: '16px', padding: '32px', textAlign: 'center' }}>
-                <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: '13px', color: 'var(--text-muted)' }}>No more reports · Analyse your portfolio regularly for better tracking</div>
+                <div style={{ fontFamily: "'Inter',sans-serif", fontSize: '13px', color: 'var(--text-muted)' }}>No more reports · Analyse your portfolio regularly for better tracking</div>
             </div>
         </div>
     );

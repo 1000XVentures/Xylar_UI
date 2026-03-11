@@ -46,8 +46,8 @@ function LandingScreen({ state, updateState, goTo }) {
     const fileInputRef = useRef(null);
     const textareaRef = useRef(null);
 
-    const isTextLocked = !!state.fileName;
-    const isFileLocked = state.pastedText.length > 0;
+    const isTextLocked = false;
+    const isFileLocked = false;
 
     const canContinue = !!(state.fileName || state.pastedText.length > 5);
 
@@ -239,8 +239,30 @@ function LandingScreen({ state, updateState, goTo }) {
     );
 }
 
-function ReadyScreen({ state, updateState, goTo, focusTextareaOnLanding }) {
+function ReadyScreen({ state, updateState, goTo }) {
     const fileInputRef = useRef(null);
+    const [instructions, setInstructions] = useState(state.customInstructions || '');
+
+    const PERSONAS = [
+        { label: 'Warren Buffett', emoji: '💰', phrase: 'Analyse this portfolio through the lens of Warren Buffett — focus on business quality, moat, long-term compounding, and whether holdings would pass a value investing screen.' },
+        { label: 'Charlie Munger', emoji: '🧠', phrase: 'Apply Charlie Munger\'s mental models — look for concentration of high-conviction bets, identify cognitive biases visible in the portfolio behaviour, and flag businesses with durable competitive advantages.' },
+        { label: 'Rakesh Jhunjhunwala', emoji: '📈', phrase: 'Analyse like Rakesh Jhunjhunwala — identify high-conviction mid and small cap opportunities, assess the growth trajectory of holdings, and flag where patience could compound returns significantly.' },
+        { label: 'Peter Lynch', emoji: '🔍', phrase: 'Use Peter Lynch\'s approach — look for hidden gems, assess whether the portfolio is over-diversified into mediocrity, and identify any ten-bagger potential among the holdings.' },
+        { label: 'Risk Manager', emoji: '🛡', phrase: 'Analyse this portfolio as a professional risk manager — focus entirely on downside exposure, concentration risk, correlation between holdings, and tail risk scenarios.' },
+        { label: 'Tax Optimizer', emoji: '⚖', phrase: 'Analyse this portfolio from a tax efficiency standpoint — identify STCG vs LTCG exposure, flag holdings that could be harvested for tax loss, and suggest a restructuring sequence that minimises the tax impact.' },
+        { label: 'Index Challenger', emoji: '📊', phrase: 'Compare this portfolio against a simple index fund strategy — assess whether the active bets are actually adding alpha, identify closet indexing, and make the case for or against active management here.' },
+        { label: 'First Principles', emoji: '✦', phrase: 'Strip away all labels and categories. Analyse this portfolio from first principles — what is the actual underlying economic exposure, what are the real risks, and what would you build if starting from scratch today?' },
+    ];
+
+    const isChipSelected = (phrase) => instructions.includes(phrase);
+
+    const toggleChip = (phrase) => {
+        if (isChipSelected(phrase)) {
+            setInstructions((prev) => prev.replace(phrase, '').replace(/\s{2,}/g, ' ').trim());
+        } else {
+            setInstructions((prev) => (prev ? `${prev.trim()} ${phrase}` : phrase));
+        }
+    };
 
     const handleReplaceFile = async (e) => {
         if (e.target.files?.[0]) {
@@ -257,6 +279,11 @@ function ReadyScreen({ state, updateState, goTo, focusTextareaOnLanding }) {
                 pastedText: '',
             });
         }
+    };
+
+    const handleAnalyze = () => {
+        updateState({ customInstructions: instructions });
+        goTo('analyzing');
     };
 
     const displayName = state.fileName || 'Pasted text';
@@ -302,150 +329,54 @@ function ReadyScreen({ state, updateState, goTo, focusTextareaOnLanding }) {
                 </div>
             </div>
 
-            {/* Customize row — navigates to customize screen */}
-            <div
-                onClick={() => goTo('customize')}
-                style={{ marginTop: 16, background: 'white', border: '1px solid var(--border)', borderRadius: 'var(--r-md)', padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', transition: 'background 0.15s' }}
-                onMouseEnter={(e) => e.currentTarget.style.background = '#F6F4F1'}
-                onMouseLeave={(e) => e.currentTarget.style.background = 'white'}
-            >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
-                    <circle cx="12" cy="12" r="3" />
-                </svg>
-                <div style={{ flex: 1 }}>
-                    <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 14, fontWeight: 500, color: 'var(--text-primary)' }}>Customize analysis</div>
-                    <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 12, color: 'var(--text-muted)', marginTop: 2 }}>Optional — focus on specific areas</div>
-                </div>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2" strokeLinecap="round"><polyline points="9 18 15 12 9 6" /></svg>
+            {/* Inline Customize Section */}
+            <div style={{ marginTop: 24, marginBottom: 12, fontFamily: "'Inter',sans-serif", fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)' }}>
+                How should we analyse it?
             </div>
 
-            {/* Short note */}
-            <div style={{ display: 'flex', gap: 8, alignItems: 'flex-start', marginTop: 16 }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2" strokeLinecap="round" style={{ flexShrink: 0, marginTop: 2 }}>
-                    <circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" />
-                </svg>
-                <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 12, color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
-                    Analysis will cover: risks, allocation, diversification, and key insights.
-                </p>
-            </div>
-
-            {/* Analyze button */}
-            <button
-                onClick={() => goTo('analyzing')}
-                style={{ width: '100%', height: 52, marginTop: 24, background: 'linear-gradient(135deg,#7C3AED,#5B21B6)', color: 'white', fontFamily: "'Outfit',sans-serif", fontSize: 15, fontWeight: 700, borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer', transition: 'all 0.15s ease' }}
-                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 6px 24px rgba(124,58,237,0.35)'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'none'; }}
-            >
-                Analyze Portfolio
-            </button>
-        </div>
-    );
-}
-
-function CustomizeScreen({ state, updateState, goTo }) {
-    const [instructions, setInstructions] = useState(state.customInstructions || '');
-
-    const chips = [
-        { label: 'Risk focus', phrase: 'Focus on risks and red flags.' },
-        { label: 'Concise output', phrase: 'Keep the output concise.' },
-        { label: 'Diversification', phrase: 'Analyse diversification gaps.' },
-        { label: 'Simple language', phrase: 'Use simple, non-technical language.' },
-        { label: 'Tax efficiency', phrase: 'Include tax efficiency insights.' },
-        { label: 'Long-term view', phrase: 'Focus on long-term positioning.' },
-    ];
-
-    const isChipSelected = (phrase) => instructions.includes(phrase);
-
-    const toggleChip = (phrase) => {
-        if (isChipSelected(phrase)) {
-            setInstructions((prev) => prev.replace(phrase, '').replace(/\s{2,}/g, ' ').trim());
-        } else {
-            setInstructions((prev) => (prev ? `${prev.trim()} ${phrase}` : phrase));
-        }
-    };
-
-    const handleAnalyze = () => {
-        updateState({ customInstructions: instructions });
-        goTo('analyzing');
-    };
-
-    return (
-        <div className="state-container" style={{ maxWidth: 560, margin: '0 auto' }}>
-            {/* Back nav */}
-            <div
-                onClick={() => goTo('ready')}
-                style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', marginBottom: 24, width: 'fit-content' }}
-                onMouseEnter={(e) => e.currentTarget.querySelector('span').style.color = 'var(--text-primary)'}
-                onMouseLeave={(e) => e.currentTarget.querySelector('span').style.color = 'var(--text-secondary)'}
-            >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" strokeWidth="2" strokeLinecap="round"><polyline points="15 18 9 12 15 6" /></svg>
-                <span style={{ fontFamily: "'Inter',sans-serif", fontSize: 14, fontWeight: 500, color: 'var(--text-secondary)', transition: 'color 0.15s' }}>Back</span>
-            </div>
-
-            {/* Header */}
-            <div style={{ marginBottom: 28 }}>
-                <h1 style={{ fontFamily: "'Outfit',sans-serif", fontSize: 28, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 6 }}>Customize analysis</h1>
-                <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 13, color: 'var(--text-muted)', margin: 0 }}>Optional — the AI runs a complete analysis by default.</p>
-            </div>
-
-            {/* Textarea */}
             <textarea
                 value={instructions}
                 onChange={(e) => setInstructions(e.target.value)}
-                placeholder={"Focus on diversification risk\nHighlight red flags\nKeep output concise"}
+                placeholder="Or describe how you want it analysed..."
                 style={{
                     width: '100%', minHeight: 120, boxSizing: 'border-box',
                     border: '1px solid var(--border)', borderRadius: 'var(--r-md)',
                     padding: '14px 16px', fontFamily: "'Inter',sans-serif", fontSize: 14,
                     color: 'var(--text-primary)', background: 'white',
                     resize: 'vertical', lineHeight: 1.6, outline: 'none',
+                    marginBottom: 16
                 }}
                 onFocus={(e) => { e.target.style.border = '1px solid var(--accent)'; e.target.style.boxShadow = '0 0 0 3px rgba(124,58,237,0.10)'; }}
                 onBlur={(e) => { e.target.style.border = '1px solid var(--border)'; e.target.style.boxShadow = 'none'; }}
             />
 
-            {/* Chips */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 14 }}>
-                {chips.map((chip) => {
-                    const selected = isChipSelected(chip.phrase);
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                {PERSONAS.map((p) => {
+                    const selected = isChipSelected(p.phrase);
                     return (
                         <button
-                            key={chip.label}
-                            onClick={() => toggleChip(chip.phrase)}
-                            style={{
-                                border: selected ? '1px solid var(--accent)' : '1px solid var(--border)',
-                                borderRadius: 'var(--r-full)',
-                                padding: '8px 16px',
-                                background: selected ? 'var(--accent-light)' : 'white',
-                                color: selected ? 'var(--accent)' : 'var(--text-secondary)',
-                                fontFamily: "'Inter',sans-serif", fontSize: 13,
-                                fontWeight: selected ? 600 : 500,
-                                cursor: 'pointer', transition: 'all 0.1s ease',
-                            }}
+                            key={p.label}
+                            onClick={() => toggleChip(p.phrase)}
+                            className={`persona-chip ${selected ? 'selected' : ''}`}
                         >
-                            {chip.label}
+                            {p.label}
                         </button>
                     );
                 })}
             </div>
 
-            {/* Reassurance */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 16 }}>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2" strokeLinecap="round">
-                    <circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" />
-                </svg>
-                <span style={{ fontFamily: "'Inter',sans-serif", fontSize: 12, color: 'var(--text-muted)' }}>Default analysis also works without this.</span>
+            <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 11, color: 'var(--text-muted)', marginTop: 12 }}>
+                Optional — Xylar runs a complete analysis by default.
             </div>
 
-            {/* Analyze Now button */}
+            {/* Analyze button */}
             <button
                 onClick={handleAnalyze}
-                style={{ width: '100%', height: 52, marginTop: 28, background: 'linear-gradient(135deg,#7C3AED,#5B21B6)', color: 'white', fontFamily: "'Outfit',sans-serif", fontSize: 15, fontWeight: 700, borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer', transition: 'all 0.15s ease' }}
+                style={{ width: '100%', height: 52, marginTop: 24, background: 'linear-gradient(135deg,#7C3AED,#5B21B6)', color: 'white', fontFamily: "'Outfit',sans-serif", fontSize: 15, fontWeight: 700, borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer', transition: 'all 0.15s ease' }}
                 onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 6px 24px rgba(124,58,237,0.35)'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'none'; }}
             >
-                Analyze Now
+                Analyze Portfolio
             </button>
         </div>
     );
@@ -736,9 +667,6 @@ export default function AnalyzerTab() {
             )}
             {analyzer.screen === 'ready' && (
                 <ReadyScreen state={analyzer} updateState={updateState} goTo={goTo} />
-            )}
-            {analyzer.screen === 'customize' && (
-                <CustomizeScreen state={analyzer} updateState={updateState} goTo={goTo} />
             )}
             {analyzer.screen === 'analyzing' && (
                 <AnalyzingScreen state={analyzer} onComplete={handleComplete} onError={handleError} />
