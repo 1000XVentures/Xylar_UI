@@ -256,22 +256,28 @@ export default function Landing({ onStateChange }) {
 
         {/* Bottom Marquee */}
         <div className="mt-auto pt-8 border-t border-slate-200/60 dark:border-slate-800/60 overflow-hidden fade-x-edges">
-          <div className="flex gap-12 items-center text-[11px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap animate-scroll">
-            {[...Array(4)].map((_, i) => (
-              <React.Fragment key={i}>
-                <span>ISO 27001 Certified Security</span>
-                <span className="size-1 bg-slate-300 dark:bg-slate-700 rounded-full"></span>
-                <span>AI-Powered by Xylar 4.0</span>
-                <span className="size-1 bg-slate-300 dark:bg-slate-700 rounded-full"></span>
-                <span>Trusted by 50k+ Indian Investors</span>
-                <span className="size-1 bg-slate-300 dark:bg-slate-700 rounded-full"></span>
-                <span>Bank-Grade Encryption</span>
-                <span className="size-1 bg-slate-300 dark:bg-slate-700 rounded-full"></span>
-              </React.Fragment>
-            ))}
+          <div className="marquee">
+            <div className="marquee-content" style={{ display: "flex", alignItems: "center", gap: 24, flexShrink: 0 }}>
+              <span style={{ fontSize: 10, fontWeight: 700, color: "#94a3b8", letterSpacing: "0.08em", textTransform: "uppercase", whiteSpace: "nowrap" }}>ISO 27001 Certified Security</span>
+              <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#cbd5e1", flexShrink: 0 }} />
+              <span style={{ fontSize: 10, fontWeight: 700, color: "#94a3b8", letterSpacing: "0.08em", textTransform: "uppercase", whiteSpace: "nowrap" }}>AI-Powered by Xylar 4.0</span>
+              <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#cbd5e1", flexShrink: 0 }} />
+              <span style={{ fontSize: 10, fontWeight: 700, color: "#94a3b8", letterSpacing: "0.08em", textTransform: "uppercase", whiteSpace: "nowrap" }}>Trusted by 50k+ Indian Investors</span>
+              <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#cbd5e1", flexShrink: 0 }} />
+              <span style={{ fontSize: 10, fontWeight: 700, color: "#94a3b8", letterSpacing: "0.08em", textTransform: "uppercase", whiteSpace: "nowrap" }}>Bank-Grade Encryption</span>
+              <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#cbd5e1", flexShrink: 0 }} />
+              {/* Repeat for seamless -50% loop */}
+              <span style={{ fontSize: 10, fontWeight: 700, color: "#94a3b8", letterSpacing: "0.08em", textTransform: "uppercase", whiteSpace: "nowrap" }}>ISO 27001 Certified Security</span>
+              <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#cbd5e1", flexShrink: 0 }} />
+              <span style={{ fontSize: 10, fontWeight: 700, color: "#94a3b8", letterSpacing: "0.08em", textTransform: "uppercase", whiteSpace: "nowrap" }}>AI-Powered by Xylar 4.0</span>
+              <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#cbd5e1", flexShrink: 0 }} />
+              <span style={{ fontSize: 10, fontWeight: 700, color: "#94a3b8", letterSpacing: "0.08em", textTransform: "uppercase", whiteSpace: "nowrap" }}>Trusted by 50k+ Indian Investors</span>
+              <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#cbd5e1", flexShrink: 0 }} />
+              <span style={{ fontSize: 10, fontWeight: 700, color: "#94a3b8", letterSpacing: "0.08em", textTransform: "uppercase", whiteSpace: "nowrap" }}>Bank-Grade Encryption</span>
+              <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#cbd5e1", flexShrink: 0 }} />
+            </div>
           </div>
         </div>
-
       </section>
 
       {/* RIGHT COLUMN: The Upload Action */}

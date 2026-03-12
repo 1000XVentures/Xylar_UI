@@ -248,35 +248,35 @@ export default function PersonaLandingScreen({ state, updateState, goTo }) {
                     </div>
                 </div>
 
-                {/* Footer marquee — two identical units (group + gap) for even spacing and seamless loop */}
+                {/* Footer marquee — even spacing, seamless loop */}
                 <div
                     style={{
                         marginTop: "auto",
                         paddingTop: 24,
                         borderTop: "1px solid #f1f5f9",
                         flexShrink: 0,
+                        overflow: "hidden",
                     }}
                 >
-                    <div className="persona-marquee">
-                        <div className="persona-marquee-content">
-                            <div className="persona-marquee-group">
-                                <span style={{ fontSize: 10, fontWeight: 600, color: "#94a3b8", letterSpacing: "0.04em" }}>
-                                    POWERED BY XYLAR A.I · TRUSTED BY 100K+ INDIAN INVESTORS · BANK-GRADE ENCRYPTION ISO 27
-                                </span>
-                                <span className="persona-marquee-gap" />
-                                <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#cbd5e1", flexShrink: 0 }} />
-                                <span className="persona-marquee-gap" />
-                            </div>
-                            <span className="persona-marquee-gap" />
-                            <div className="persona-marquee-group">
-                                <span style={{ fontSize: 10, fontWeight: 600, color: "#94a3b8", letterSpacing: "0.04em" }}>
-                                    POWERED BY XYLAR A.I · TRUSTED BY 100K+ INDIAN INVESTORS · BANK-GRADE ENCRYPTION ISO 27
-                                </span>
-                                <span className="persona-marquee-gap" />
-                                <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#cbd5e1", flexShrink: 0 }} />
-                                <span className="persona-marquee-gap" />
-                            </div>
-                            <span className="persona-marquee-gap" />
+                    <div className="marquee">
+                        <div className="marquee-content" style={{ display: "flex", alignItems: "center", gap: 24, flexShrink: 0 }}>
+                            <span style={{ fontSize: 10, fontWeight: 700, color: "#94a3b8", letterSpacing: "0.08em", textTransform: "uppercase", whiteSpace: "nowrap" }}>ISO 27001 Certified Security</span>
+                            <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#cbd5e1", flexShrink: 0 }} />
+                            <span style={{ fontSize: 10, fontWeight: 700, color: "#94a3b8", letterSpacing: "0.08em", textTransform: "uppercase", whiteSpace: "nowrap" }}>AI-Powered by Xylar 4.0</span>
+                            <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#cbd5e1", flexShrink: 0 }} />
+                            <span style={{ fontSize: 10, fontWeight: 700, color: "#94a3b8", letterSpacing: "0.08em", textTransform: "uppercase", whiteSpace: "nowrap" }}>Trusted by 50k+ Indian Investors</span>
+                            <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#cbd5e1", flexShrink: 0 }} />
+                            <span style={{ fontSize: 10, fontWeight: 700, color: "#94a3b8", letterSpacing: "0.08em", textTransform: "uppercase", whiteSpace: "nowrap" }}>Bank-Grade Encryption</span>
+                            <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#cbd5e1", flexShrink: 0 }} />
+                            {/* Repeat for seamless -50% loop */}
+                            <span style={{ fontSize: 10, fontWeight: 700, color: "#94a3b8", letterSpacing: "0.08em", textTransform: "uppercase", whiteSpace: "nowrap" }}>ISO 27001 Certified Security</span>
+                            <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#cbd5e1", flexShrink: 0 }} />
+                            <span style={{ fontSize: 10, fontWeight: 700, color: "#94a3b8", letterSpacing: "0.08em", textTransform: "uppercase", whiteSpace: "nowrap" }}>AI-Powered by Xylar 4.0</span>
+                            <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#cbd5e1", flexShrink: 0 }} />
+                            <span style={{ fontSize: 10, fontWeight: 700, color: "#94a3b8", letterSpacing: "0.08em", textTransform: "uppercase", whiteSpace: "nowrap" }}>Trusted by 50k+ Indian Investors</span>
+                            <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#cbd5e1", flexShrink: 0 }} />
+                            <span style={{ fontSize: 10, fontWeight: 700, color: "#94a3b8", letterSpacing: "0.08em", textTransform: "uppercase", whiteSpace: "nowrap" }}>Bank-Grade Encryption</span>
+                            <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#cbd5e1", flexShrink: 0 }} />
                         </div>
                     </div>
                 </div>
@@ -447,7 +447,7 @@ export default function PersonaLandingScreen({ state, updateState, goTo }) {
                                 }}
                             >
                                 Continue
-                                <span style={{ fontSize: 18 }}>→</span>
+                                <span style={{ fontSize: 15 }}>→</span>
                             </button>
                             <p style={{ textAlign: "center", fontSize: 9, color: "#94a3b8", marginTop: 12, letterSpacing: "0.1em", fontWeight: 700 }}>
                                 NO LOGIN REQUIRED FOR PREVIEW

@@ -1,0 +1,214 @@
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Syne:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7c3bed",
+                        "background-light": "#F6F4F1",
+                        "background-dark": "#171121",
+                        "buffett-amber": "#f59e0b",
+                        "lynch-blue": "#3b82f6",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "heading": ["Syne", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .animate-pulse-soft {
+            animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .marquee {
+            white-space: nowrap;
+            overflow: hidden;
+            display: flex;
+        }
+        .marquee-content {
+            display: flex;
+            animation: scroll 20s linear infinite;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex min-h-screen w-full flex-col md:flex-row">
+<!-- LEFT COLUMN: The Simulation (55% on desktop, full on mobile) -->
+<section class="w-full md:w-[55%] p-6 md:p-12 flex flex-col gap-8">
+<header class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<div class="size-8 bg-primary rounded flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-sm">auto_awesome</span>
+</div>
+<span class="font-bold tracking-tight text-xl">Xylar AI</span>
+</div>
+</header>
+<!-- Persona Switcher -->
+<div class="flex flex-wrap gap-4 items-center">
+<div class="flex -space-x-3">
+<!-- Warren Buffett (Active) -->
+<div class="relative group cursor-pointer">
+<div class="size-16 rounded-full border-4 border-primary p-0.5 bg-white overflow-hidden shadow-lg">
+<div class="w-full h-full rounded-full bg-buffett-amber/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-buffett-amber text-3xl">person</span>
+</div>
+</div>
+<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap">
+                            BUFFETT
+                        </div>
+</div>
+<!-- Peter Lynch -->
+<div class="relative group cursor-pointer opacity-60 hover:opacity-100 transition-opacity">
+<div class="size-16 rounded-full border-2 border-white p-0.5 bg-white overflow-hidden shadow-sm">
+<div class="w-full h-full rounded-full bg-lynch-blue/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-lynch-blue text-3xl">person</span>
+</div>
+</div>
+</div>
+<!-- Ray Dalio -->
+<div class="relative group cursor-pointer opacity-60 hover:opacity-100 transition-opacity">
+<div class="size-16 rounded-full border-2 border-white p-0.5 bg-white overflow-hidden shadow-sm">
+<div class="w-full h-full rounded-full bg-slate-200 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-500 text-3xl">person</span>
+</div>
+</div>
+</div>
+</div>
+<div class="h-10 w-px bg-slate-200 mx-2 hidden md:block"></div>
+<p class="text-sm font-medium text-slate-500 max-w-[120px]">Switch persona to change lens</p>
+</div>
+<h1 class="text-4xl md:text-5xl font-heading leading-tight tracking-tight max-w-xl">
+                Analysing your portfolio as <span class="text-primary underline decoration-primary/30 underline-offset-8">Warren Buffett</span> would.
+            </h1>
+<!-- Simulation Panel -->
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-2xl shadow-primary/5 border border-slate-100 dark:border-slate-800 overflow-hidden">
+<div class="bg-slate-50 dark:bg-slate-800/50 px-6 py-3 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+<div class="flex gap-1.5">
+<div class="size-2.5 rounded-full bg-slate-300"></div>
+<div class="size-2.5 rounded-full bg-slate-300"></div>
+<div class="size-2.5 rounded-full bg-slate-300"></div>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-emerald-500 animate-pulse-soft"></div>
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Live Simulation</span>
+</div>
+</div>
+<div class="p-6 md:p-8 space-y-6">
+<!-- Insight 1 -->
+<div class="border-l-4 border-buffett-amber pl-5 py-1">
+<span class="text-[10px] font-bold text-buffett-amber uppercase tracking-widest mb-1 block">Value Signal</span>
+<p class="text-lg leading-relaxed text-slate-700 dark:text-slate-300 italic">
+                            "Your concentration in consumer staples suggests a search for durable competitive advantages. I like the moat around HUL, but check the entry price..."
+                        </p>
+</div>
+<!-- Insight 2 -->
+<div class="border-l-4 border-red-500 pl-5 py-1">
+<span class="text-[10px] font-bold text-red-500 uppercase tracking-widest mb-1 block">Concentration Risk</span>
+<p class="text-lg leading-relaxed text-slate-700 dark:text-slate-300 italic">
+                            "42% of your capital is tied to high-beta tech. In Omaha, we call this leaning too far into the wind without a sturdy umbrella."
+                        </p>
+</div>
+<!-- Input Line -->
+<div class="flex items-center gap-2 pt-2">
+<span class="text-primary font-bold text-lg">›</span>
+<div class="h-6 w-0.5 bg-primary animate-pulse-soft"></div>
+</div>
+</div>
+</div>
+<!-- Bottom Marquee -->
+<div class="mt-auto pt-8 border-t border-slate-200/60">
+<div class="marquee overflow-hidden">
+<div class="marquee-content flex gap-12 items-center text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+<span>ISO 27001 Certified Security</span>
+<span class="size-1 bg-slate-300 rounded-full"></span>
+<span>AI-Powered by Xylar 4.0</span>
+<span class="size-1 bg-slate-300 rounded-full"></span>
+<span>Trusted by 50k+ Indian Investors</span>
+<span class="size-1 bg-slate-300 rounded-full"></span>
+<span>Bank-Grade Encryption</span>
+<!-- Repeat for marquee loop -->
+<span>ISO 27001 Certified Security</span>
+<span class="size-1 bg-slate-300 rounded-full"></span>
+<span>AI-Powered by Xylar 4.0</span>
+<span class="size-1 bg-slate-300 rounded-full"></span>
+<span>Trusted by 50k+ Indian Investors</span>
+<span class="size-1 bg-slate-300 rounded-full"></span>
+<span>Bank-Grade Encryption</span>
+</div>
+</div>
+</div>
+</section>
+<!-- RIGHT COLUMN: The Upload Action (45% on desktop) -->
+<aside class="w-full md:w-[45%] bg-white md:sticky md:top-0 md:h-screen p-6 md:p-12 flex flex-col justify-center border-l border-slate-100">
+<div class="max-w-md mx-auto w-full">
+<h2 class="text-4xl md:text-[42px] font-heading leading-none mb-10 tracking-tight text-slate-900">
+                    Your portfolio.<br/>Their lens.
+                </h2>
+<div class="bg-white rounded-2xl border border-slate-100 shadow-xl p-8 space-y-8">
+<!-- Upload Zone -->
+<div class="border-2 border-dashed border-primary/20 bg-primary/[0.02] rounded-xl p-10 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-primary/[0.04] transition-colors group">
+<div class="size-14 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-3xl">upload_file</span>
+</div>
+<h3 class="font-bold text-lg mb-1">Upload Portfolio</h3>
+<p class="text-sm text-slate-500 mb-0">PDF, Excel or CSV from your broker</p>
+</div>
+<div class="space-y-4">
+<button class="w-full bg-primary text-white py-4 rounded-full font-bold text-lg flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">
+                            Continue
+                            <span class="material-symbols-outlined">arrow_right_alt</span>
+</button>
+<p class="text-center text-[10px] text-slate-400 uppercase tracking-widest font-bold">No login required for preview</p>
+</div>
+</div>
+<!-- Teaser Chips -->
+<div class="mt-8 flex flex-wrap gap-2 justify-center">
+<div class="px-3 py-1.5 bg-background-light rounded-full text-xs font-semibold text-slate-600 border border-slate-200/50">Warren Buffett</div>
+<div class="px-3 py-1.5 bg-background-light rounded-full text-xs font-semibold text-slate-600 border border-slate-200/50">Risk Manager</div>
+<div class="px-3 py-1.5 bg-background-light rounded-full text-xs font-semibold text-slate-600 border border-slate-200/50">Dividend Growth</div>
+<div class="px-3 py-1.5 bg-background-light rounded-full text-xs font-semibold text-primary border border-primary/20">+6 more</div>
+</div>
+</div>
+<!-- Mobile Only Padding -->
+<div class="h-12 md:hidden"></div>
+</aside>
+</div>
+<!-- Bottom Nav for Mobile Feel -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-md border-t border-slate-100 px-6 py-3 flex justify-around items-center md:hidden z-50">
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-[10px] font-bold uppercase">Persona</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">upload</span>
+<span class="text-[10px] font-bold uppercase">Upload</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-bold uppercase">Tools</span>
+</button>
+</nav>
+</body></html>
