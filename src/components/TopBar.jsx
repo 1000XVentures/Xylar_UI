@@ -3,18 +3,6 @@ import React from 'react';
 export default function TopBar() {
     return (
         <>
-            <div className="top-bar">
-                <div className="breadcrumb">
-                    Xylar <span className="breadcrumb-sep">/</span> AI Portfolio Analyzer
-                </div>
-                <div className="powered-badge">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--accent)">
-                        <path d="M12 2L14.7 9.3L22 12L14.7 14.7L12 22L9.3 14.7L2 12L9.3 9.3L12 2Z" />
-                    </svg>
-                    Made by 1000xDev
-                </div>
-            </div>
-
             {/* Mobile Top Bar */}
             <div className="mobile-top-bar">
                 <div style={{ width: "32px", height: "32px", background: "var(--accent)", borderRadius: "var(--r-sm)", display: "flex", alignItems: "center", justifyContent: "center" }}>

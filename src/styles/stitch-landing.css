@@ -1,0 +1,13 @@
+/* Stitch landing: two columns on large screens */
+.stitch-landing .stitch-landing-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    align-items: start;
+}
+
+@media (min-width: 1024px) {
+    .stitch-landing .stitch-landing-grid {
+        grid-template-columns: 7fr 5fr;
+    }
+}

@@ -1,312 +1,413 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import logo from '../../assets/logo.png';
+
+const personas = [
+  {
+    id: 'buffett',
+    name: 'Warren Buffett',
+    title: 'Value Investor',
+    color: 'bg-amber-500',
+    lightColor: 'bg-amber-500/20',
+    textColor: 'text-amber-500',
+    borderColor: 'border-amber-500',
+    philosophy: 'Buy great businesses. Hold forever.',
+    insights: [
+      {
+        type: 'VALUE SIGNAL',
+        color: 'text-amber-500',
+        borderColor: 'border-amber-500',
+        text: 'Your concentration in consumer staples suggests a search for durable competitive advantages. I like the moat around HUL, but check the entry price...'
+      },
+      {
+        type: 'CONCENTRATION RISK',
+        color: 'text-red-500',
+        borderColor: 'border-red-500',
+        text: '42% of your capital is tied to high-beta tech. In Omaha, we call this leaning too far into the wind without a sturdy umbrella.'
+      }
+    ]
+  },
+  {
+    id: 'lynch',
+    name: 'Peter Lynch',
+    title: 'Growth Specialist',
+    color: 'bg-blue-500',
+    lightColor: 'bg-blue-500/20',
+    textColor: 'text-blue-500',
+    borderColor: 'border-blue-500',
+    philosophy: 'Invest in what you understand.',
+    insights: [
+      {
+        type: 'OBSERVATION',
+        color: 'text-blue-500',
+        borderColor: 'border-blue-500',
+        text: 'You hold 11 funds but the underlying stock overlap is 68%. This is diworsification — the illusion of diversification without the benefit.'
+      },
+      {
+        type: 'OPPORTUNITY',
+        color: 'text-green-600',
+        borderColor: 'border-green-600',
+        text: 'Two funds in your portfolio are classic ten-bagger candidates — under-followed, profitable, and in unglamorous categories.'
+      }
+    ]
+  },
+  {
+    id: 'risk',
+    name: 'Risk Manager',
+    title: 'Portfolio Protector',
+    color: 'bg-slate-700',
+    lightColor: 'bg-slate-700/20',
+    textColor: 'text-slate-700',
+    borderColor: 'border-slate-700',
+    philosophy: 'Protect the downside. Everything else follows.',
+    insights: [
+      {
+        type: 'DRAWDOWN RISK',
+        color: 'text-red-500',
+        borderColor: 'border-red-500',
+        text: 'Maximum drawdown exposure estimated at 34% in a 2008-style scenario. Three holdings are highly correlated — they will fall together.'
+      },
+      {
+        type: 'OPPORTUNITY',
+        color: 'text-green-600',
+        borderColor: 'border-green-600',
+        text: 'Adding one uncorrelated asset class could reduce portfolio volatility by an estimated 18% without sacrificing meaningful return.'
+      }
+    ]
+  }
+];
 
 export default function Landing({ onStateChange }) {
-    const [isDragOver, setIsDragOver] = useState(false);
-    const [customizeOpen, setCustomizeOpen] = useState(false);
-    const [selectedChips, setSelectedChips] = useState([]);
-    const [inputText, setInputText] = useState('');
-    const [hasFile, setHasFile] = useState(false);
-    const [fileName, setFileName] = useState('');
+  const [activePersonaIdx, setActivePersonaIdx] = useState(0);
+  const [displayedText, setDisplayedText] = useState(['', '', '']);
+  const [activeInsightIdx, setActiveInsightIdx] = useState(0);
+  const [isTyping, setIsTyping] = useState(false);
 
-    const chips = [
-        "Diversification", "Risk focus", "Simple language",
-        "Concise output", "Tax efficiency", "Long-term view"
-    ];
+  const [isDragging, setIsDragging] = useState(false);
+  const [file, setFile] = useState(null);
+  const [portfolioText, setPortfolioText] = useState("");
 
-    const handleDragOver = (e) => {
-        e.preventDefault();
-        setIsDragOver(true);
-    };
+  const activePersona = personas[activePersonaIdx];
 
-    const handleDragLeave = () => {
-        setIsDragOver(false);
-    };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActivePersonaIdx((prev) => (prev + 1) % personas.length);
+    }, 12000);
+    return () => clearInterval(interval);
+  }, []);
 
-    const handleDrop = (e) => {
-        e.preventDefault();
-        setIsDragOver(false);
-        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-            handleFile(e.dataTransfer.files[0]);
-        }
-    };
+  useEffect(() => {
+    setDisplayedText(['', '', '']);
+    setActiveInsightIdx(0);
+    setIsTyping(true);
+  }, [activePersonaIdx]);
 
-    const handleFileInput = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            handleFile(e.target.files[0]);
-        }
-    };
+  useEffect(() => {
+    if (!isTyping || activeInsightIdx >= activePersona.insights.length) {
+      if (activeInsightIdx >= activePersona.insights.length) {
+        setIsTyping(false);
+      }
+      return;
+    }
 
-    const handleFile = (file) => {
-        setFileName(file.name);
-        setHasFile(true);
-    };
+    const currentFullText = activePersona.insights[activeInsightIdx].text;
+    const currentDisplayed = displayedText[activeInsightIdx];
 
-    const removeFile = () => {
-        setFileName('');
-        setHasFile(false);
-    };
+    if (currentDisplayed.length < currentFullText.length) {
+      const timeout = setTimeout(() => {
+        setDisplayedText(prev => {
+          const newTexts = [...prev];
+          newTexts[activeInsightIdx] = currentFullText.slice(0, currentDisplayed.length + 1);
+          return newTexts;
+        });
+      }, 30);
+      return () => clearTimeout(timeout);
+    } else {
+      const timeout = setTimeout(() => {
+        setActiveInsightIdx(prev => prev + 1);
+      }, 500);
+      return () => clearTimeout(timeout);
+    }
+  }, [displayedText, activeInsightIdx, isTyping, activePersona]);
 
-    const toggleChip = (chip) => {
-        setSelectedChips(prev =>
-            prev.includes(chip) ? prev.filter(c => c !== chip) : [...prev, chip]
-        );
-    };
 
-    const canContinue = hasFile || inputText.length > 5;
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
 
-    return (
-        <div className="state-container">
-            <div className="landing-columns">
-                {/* Left Column */}
-                <div className="landing-left">
-                    <div style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: "11px",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.12em",
-                        color: "var(--accent)",
-                        marginBottom: "14px",
-                        fontWeight: "700"
-                    }}>
-                        AI Portfolio Analyzer
-                    </div>
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
 
-                    <h1 className="landing-headline" style={{
-                        fontFamily: "'Outfit', sans-serif",
-                        fontSize: "46px",
-                        fontWeight: 800,
-                        color: "var(--text-primary)",
-                        lineHeight: "1.08",
-                        letterSpacing: "-0.025em",
-                        marginBottom: "18px"
-                    }}>
-                        Upload your portfolio.<br />
-                        <span style={{ color: "#444" }}>Get instant intelligence.</span>
-                    </h1>
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
 
-                    <p style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: "15px",
-                        color: "var(--text-secondary)",
-                        lineHeight: "1.75",
-                        maxWidth: "460px",
-                        marginBottom: "36px"
-                    }}>
-                        Upload a PDF, paste a screenshot, or type your holdings.<br />
-                        AI will surface the insights that matter — in under 60 seconds.
-                    </p>
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      handleFile(e.dataTransfer.files[0]);
+    }
+  };
 
-                    <div className="card-base">
-                        {!hasFile ? (
-                            <div
-                                className={`upload-zone ${isDragOver ? 'drag-over' : ''}`}
-                                onDragOver={handleDragOver}
-                                onDragLeave={handleDragLeave}
-                                onDrop={handleDrop}
-                            >
-                                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: "10px" }}>
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                    <polyline points="17 8 12 3 7 8"></polyline>
-                                    <line x1="12" y1="3" x2="12" y2="15"></line>
-                                </svg>
-                                <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "14px", fontWeight: 500, color: "var(--text-primary)", marginTop: "10px" }}>
-                                    Drag and drop your PDF or screenshot
-                                </div>
-                                <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "12px", color: "var(--text-muted)", marginTop: "4px" }}>
-                                    PDF, PNG, JPG — up to 10MB
-                                </div>
-                                <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "13px", fontWeight: 600, color: "var(--accent)", marginTop: "10px", textDecoration: "underline", cursor: "pointer" }}>
-                                    or browse files
-                                </div>
-                                <input type="file" onChange={handleFileInput} accept=".pdf,.png,.jpg,.jpeg" />
-                            </div>
-                        ) : (
-                            <div className="upload-ready">
-                                <div className="check-anim" style={{
-                                    width: "40px", height: "40px", background: "var(--lime)",
-                                    borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center"
-                                }}>
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                </div>
-                                <div style={{ flex: 1 }}>
-                                    <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "14px", fontWeight: 600, color: "var(--text-primary)" }}>{fileName}</div>
-                                    <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "12px", color: "var(--text-muted)", marginTop: "2px" }}>File uploaded</div>
-                                </div>
-                                <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
-                                    <div onClick={removeFile} style={{ fontFamily: "'Inter', sans-serif", fontSize: "12px", color: "var(--accent)", fontWeight: 500, textDecoration: "underline", cursor: "pointer" }}>Replace</div>
-                                </div>
-                            </div>
-                        )}
+  const handleFileInput = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      handleFile(e.target.files[0]);
+    }
+  };
 
-                        <div style={{ margin: "20px 0", display: "flex", alignItems: "center", gap: "12px" }}>
-                            <div style={{ flex: 1, height: "1px", background: "var(--border)" }}></div>
-                            <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "12px", color: "var(--text-muted)" }}>or</div>
-                            <div style={{ flex: 1, height: "1px", background: "var(--border)" }}></div>
-                        </div>
+  const handleFile = (selectedFile) => {
+    setFile(selectedFile);
+  };
 
-                        <div>
-                            <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "13px", fontWeight: 600, color: "var(--text-primary)", marginBottom: "8px" }}>
-                                Paste portfolio text (Optional)
-                            </div>
-                            <textarea
-                                className="textarea-input"
-                                placeholder="Paste your holdings, transaction history, or any portfolio data here..."
-                                value={inputText}
-                                onChange={(e) => setInputText(e.target.value)}
-                            ></textarea>
-                        </div>
+  const handleContinue = () => {
+    if (file || portfolioText.trim()) {
+      onStateChange('ready');
+    }
+  };
 
-                        <div
-                            onClick={() => setCustomizeOpen(!customizeOpen)}
-                            style={{ marginTop: "16px", display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}
-                        >
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                            </svg>
-                            <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "13px", color: "var(--text-secondary)", fontWeight: 500 }}>
-                                Customize analysis
-                            </div>
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ transform: customizeOpen ? 'rotate(90deg)' : 'rotate(0deg)', transition: '0.2s' }}>
-                                <polyline points="9 18 15 12 9 6"></polyline>
-                            </svg>
-                        </div>
+  return (
+    <div className="relative flex min-h-screen w-full flex-col md:flex-row bg-[#F6F4F1] dark:bg-[#171121] font-display text-slate-900 dark:text-slate-100 overflow-x-hidden antialiased">
 
-                        <div className={`expanded-customize ${customizeOpen ? 'open' : ''}`}>
-                            <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "12px", fontWeight: 600, color: "var(--text-secondary)", marginBottom: "10px" }}>
-                                What should the analysis focus on?
-                            </div>
-                            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "14px" }}>
-                                {chips.map(chip => (
-                                    <div
-                                        key={chip}
-                                        className={`chip ${selectedChips.includes(chip) ? 'selected' : ''}`}
-                                        onClick={() => toggleChip(chip)}
-                                    >
-                                        {chip}
-                                    </div>
-                                ))}
-                            </div>
-                            <textarea
-                                className="textarea-input"
-                                style={{ minHeight: "72px" }}
-                                placeholder="E.g. Focus on diversification risk and keep output concise..."
-                            ></textarea>
-                            <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "11px", color: "var(--text-muted)", marginTop: "6px" }}>
-                                Optional — analysis runs without this.
-                            </div>
-                        </div>
+      {/* LEFT COLUMN: The Simulation */}
+      <section className="w-full md:w-[55%] p-6 md:p-12 flex flex-col gap-8 relative z-10 bg-[#F6F4F1] dark:bg-[#171121]">
 
-                        <button
-                            className="btn-primary"
-                            style={{ marginTop: "20px" }}
-                            disabled={!canContinue}
-                            onClick={() => onStateChange('analyzing')}
-                        >
-                            {hasFile ? "Analyze Portfolio →" : "Customize the analysis →"}
-                        </button>
-
-                        {hasFile && (
-                            <div style={{ marginTop: "12px", display: "flex", gap: "6px", alignItems: "center" }}>
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <line x1="12" y1="16" x2="12" y2="12"></line>
-                                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                                </svg>
-                                <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "12px", color: "var(--text-muted)" }}>
-                                    Analysis will cover: portfolio summary, diversification, risks, opportunities, and a recommendation.
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-
-                {/* Right Column */}
-                <div className="landing-right">
-                    <div className="card-base" style={{ position: "sticky", top: "36px" }}>
-                        <h3 style={{ fontFamily: "'Inter', sans-serif", fontSize: "14px", fontWeight: 600, color: "var(--text-primary)", marginBottom: "20px" }}>
-                            Your analysis includes
-                        </h3>
-
-                        <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-                            {/* Row 1 */}
-                            <div style={{ display: "flex", alignItems: "flex-start", gap: "14px", padding: "14px 0", borderBottom: "1px solid var(--border)" }}>
-                                <div style={{ width: "36px", height: "36px", flexShrink: 0, background: "var(--accent-light)", borderRadius: "var(--r-md)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                                </div>
-                                <div>
-                                    <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "13px", fontWeight: 600, color: "var(--text-primary)" }}>Portfolio Summary</div>
-                                    <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "12px", color: "var(--text-muted)", lineHeight: 1.5, marginTop: "2px" }}>Total picture of your holdings</div>
-                                </div>
-                            </div>
-
-                            {/* Row 2 */}
-                            <div style={{ display: "flex", alignItems: "flex-start", gap: "14px", padding: "14px 0", borderBottom: "1px solid var(--border)" }}>
-                                <div style={{ width: "36px", height: "36px", flexShrink: 0, background: "var(--accent-light)", borderRadius: "var(--r-md)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                </div>
-                                <div>
-                                    <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "13px", fontWeight: 600, color: "var(--text-primary)" }}>Key Observations</div>
-                                    <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "12px", color: "var(--text-muted)", lineHeight: 1.5, marginTop: "2px" }}>Patterns in your investment behaviour</div>
-                                </div>
-                            </div>
-
-                            {/* Row 3 */}
-                            <div style={{ display: "flex", alignItems: "flex-start", gap: "14px", padding: "14px 0", borderBottom: "1px solid var(--border)" }}>
-                                <div style={{ width: "36px", height: "36px", flexShrink: 0, background: "var(--accent-light)", borderRadius: "var(--r-md)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2v10l8.5 4.5"></path></svg>
-                                </div>
-                                <div>
-                                    <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "13px", fontWeight: 600, color: "var(--text-primary)" }}>Diversification</div>
-                                    <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "12px", color: "var(--text-muted)", lineHeight: 1.5, marginTop: "2px" }}>Concentration risk and category balance</div>
-                                </div>
-                            </div>
-
-                            {/* Row 4 */}
-                            <div style={{ display: "flex", alignItems: "flex-start", gap: "14px", padding: "14px 0", borderBottom: "1px solid var(--border)" }}>
-                                <div style={{ width: "36px", height: "36px", flexShrink: 0, background: "var(--accent-light)", borderRadius: "var(--r-md)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                                </div>
-                                <div>
-                                    <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "13px", fontWeight: 600, color: "var(--text-primary)" }}>Risks & Red Flags</div>
-                                    <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "12px", color: "var(--text-muted)", lineHeight: 1.5, marginTop: "2px" }}>What to watch for immediately</div>
-                                </div>
-                            </div>
-
-                            {/* Row 5 */}
-                            <div style={{ display: "flex", alignItems: "flex-start", gap: "14px", padding: "14px 0", borderBottom: "1px solid var(--border)" }}>
-                                <div style={{ width: "36px", height: "36px", flexShrink: 0, background: "var(--accent-light)", borderRadius: "var(--r-md)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-                                </div>
-                                <div>
-                                    <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "13px", fontWeight: 600, color: "var(--text-primary)" }}>Improvement Opportunities</div>
-                                    <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "12px", color: "var(--text-muted)", lineHeight: 1.5, marginTop: "2px" }}>Where to optimise for better outcomes</div>
-                                </div>
-                            </div>
-
-                            {/* Row 6 */}
-                            <div style={{ display: "flex", alignItems: "flex-start", gap: "14px", padding: "14px 0" }}>
-                                <div style={{ width: "36px", height: "36px", flexShrink: 0, background: "var(--accent-light)", borderRadius: "var(--r-md)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                                </div>
-                                <div>
-                                    <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "13px", fontWeight: 600, color: "var(--text-primary)" }}>Final Takeaway</div>
-                                    <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "12px", color: "var(--text-muted)", lineHeight: 1.5, marginTop: "2px" }}>One clear action to take next</div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div style={{ marginTop: "20px", paddingTop: "16px", borderTop: "1px solid var(--border)", display: "flex", alignItems: "center", gap: "6px" }}>
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                            <div style={{ fontFamily: "'Inter', sans-serif", fontSize: "11px", color: "var(--text-muted)" }}>
-                                Your data is processed securely and never stored.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div className="flex items-center gap-1 mb-4 select-none">
+          <span className="font-display font-extrabold text-2xl tracking-tighter text-slate-900 dark:text-white">XYLAR</span>
+          <span className="font-display font-extrabold text-2xl tracking-tighter text-[#7C3AED]">AI</span>
         </div>
-    );
+
+        {/* Persona Switcher */}
+        <div className="flex flex-wrap gap-4 items-center animate-in fade-in slide-in-from-left duration-700">
+          <div className="flex -space-x-3">
+            {personas.map((persona, idx) => (
+              <div
+                key={persona.id}
+                onClick={() => setActivePersonaIdx(idx)}
+                className={`relative group cursor-pointer transition-all duration-300 z-[${10 - idx}] ${activePersonaIdx === idx ? 'scale-110' : 'opacity-60 hover:opacity-100 hover:scale-105 hover:z-20'}`}
+              >
+                <div className={`size-16 rounded-full border-4 p-0.5 bg-white dark:bg-slate-800 overflow-hidden shadow-lg transition-all duration-500 ${activePersonaIdx === idx ? 'border-[#7c3bed]' : 'border-white dark:border-slate-800 shadow-sm'}`}>
+                  <div className={`w-full h-full rounded-full ${persona.lightColor} flex items-center justify-center`}>
+                    <span className={`material-symbols-outlined ${persona.textColor} text-3xl font-light`}>person</span>
+                  </div>
+                </div>
+                {activePersonaIdx === idx && (
+                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-[#7c3bed] text-white text-[10px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap animate-in fade-in zoom-in duration-300">
+                    {persona.id.toUpperCase()}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          <div className="h-10 w-px bg-slate-200 dark:bg-slate-800 mx-2 hidden md:block"></div>
+          <p className="text-sm font-medium text-slate-500 dark:text-slate-400 max-w-[120px] leading-tight">Switch persona to change lens</p>
+        </div>
+
+        {/* Headline */}
+        <div className="min-h-[120px] flex items-center">
+          <h1 className="text-4xl md:text-5xl font-heading leading-[1.1] tracking-tight max-w-xl transition-all duration-500">
+            Analysing your portfolio as <span className="text-[#7c3bed] underline decoration-[#7c3bed]/30 underline-offset-8 decoration-2">{activePersona.name}</span> would.
+          </h1>
+        </div>
+
+        {/* Simulation Panel */}
+        <div className="bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl shadow-[#7c3bed]/5 border border-slate-100 dark:border-slate-800 overflow-hidden min-h-[360px] flex flex-col relative transition-all duration-500 hover:shadow-[#7c3bed]/10">
+
+          {/* Panel Header */}
+          <div className="bg-slate-50 dark:bg-slate-800/50 px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <div className="flex gap-1.5">
+              <div className="size-2.5 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+              <div className="size-2.5 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+              <div className="size-2.5 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="size-2 rounded-full bg-emerald-500 animate-pulse-soft"></div>
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Live Simulation</span>
+            </div>
+          </div>
+
+          {/* Panel Content */}
+          <div className="p-6 md:p-8 space-y-6 flex-1">
+            {activePersona.insights.map((insight, idx) => (
+              <div
+                key={`${activePersona.id}-${idx}`}
+                className={`border-l-4 ${insight.borderColor} pl-5 py-1 transition-all duration-500 ease-out ${idx <= activeInsightIdx ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}
+              >
+                <span className={`text-[10px] font-bold ${insight.color} uppercase tracking-widest mb-1.5 block`}>
+                  {insight.type}
+                </span>
+
+                <p className="text-lg leading-relaxed text-slate-700 dark:text-slate-300 italic min-h-[1.5em] relative">
+                  {displayedText[idx]}
+                  {idx === activeInsightIdx && isTyping && (
+                    <span className="inline-block w-1.5 h-5 bg-[#7c3bed]/40 ml-1 translate-y-1 animate-pulse"></span>
+                  )}
+                </p>
+              </div>
+            ))}
+
+            {/* Input Line Caret */}
+            {!isTyping && activeInsightIdx >= activePersona.insights.length && (
+              <div className="flex items-center gap-2 pt-2 animate-in fade-in duration-500">
+                <span className="text-[#7c3bed] font-bold text-lg">›</span>
+                <div className="h-6 w-0.5 bg-[#7c3bed] animate-pulse-soft"></div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Bottom Marquee */}
+        <div className="mt-auto pt-8 border-t border-slate-200/60 dark:border-slate-800/60 overflow-hidden fade-x-edges">
+          <div className="flex gap-12 items-center text-[11px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap animate-scroll">
+            {[...Array(4)].map((_, i) => (
+              <React.Fragment key={i}>
+                <span>ISO 27001 Certified Security</span>
+                <span className="size-1 bg-slate-300 dark:bg-slate-700 rounded-full"></span>
+                <span>AI-Powered by Xylar 4.0</span>
+                <span className="size-1 bg-slate-300 dark:bg-slate-700 rounded-full"></span>
+                <span>Trusted by 50k+ Indian Investors</span>
+                <span className="size-1 bg-slate-300 dark:bg-slate-700 rounded-full"></span>
+                <span>Bank-Grade Encryption</span>
+                <span className="size-1 bg-slate-300 dark:bg-slate-700 rounded-full"></span>
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+
+      </section>
+
+      {/* RIGHT COLUMN: The Upload Action */}
+      <aside className="w-full md:w-[45%] bg-white dark:bg-[#110c18] border-l border-slate-50 dark:border-slate-800/50 md:sticky md:top-0 md:h-screen p-8 md:p-16 flex flex-col justify-center overflow-y-auto">
+
+        <div className="max-w-[440px] mx-auto w-full animate-in fade-in slide-in-from-bottom duration-1000">
+          <h2 className="text-2xl md:text-[28px] font-heading leading-tight mb-8 mt-8 tracking-tight text-slate-900 dark:text-white whitespace-nowrap">
+            Your portfolio. Their lens.
+          </h2>
+
+          <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-2xl shadow-[#7c3bed]/5 p-8 space-y-8">
+            {/* Upload Zone */}
+            <div
+              className={`border-2 border-dashed rounded-xl p-10 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 group ${isDragging
+                ? 'border-[#7c3bed] bg-[#7c3bed]/[0.05] scale-[1.02]'
+                : 'border-[#7c3bed]/20 bg-[#7c3bed]/[0.02] hover:bg-[#7c3bed]/[0.04] hover:border-[#7c3bed]/40'
+                }`}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              onClick={() => document.getElementById('file-upload').click()}
+            >
+              <input
+                type="file"
+                id="file-upload"
+                className="hidden"
+                onChange={handleFileInput}
+                accept=".pdf,.csv,.xlsx,.xls,image/*"
+              />
+
+              <div className={`size-14 bg-[#7c3bed]/10 rounded-full flex items-center justify-center mb-4 transition-transform duration-500 ${isDragging || file ? 'scale-110' : 'group-hover:scale-110'}`}>
+                {file ? (
+                  <span className="material-symbols-outlined text-emerald-500 text-3xl">check_circle</span>
+                ) : (
+                  <span className="material-symbols-outlined text-[#7c3bed] text-3xl">upload_file</span>
+                )}
+              </div>
+
+              <h3 className="font-bold text-lg mb-1 text-slate-900 dark:text-white">
+                {file ? file.name : 'Upload Portfolio'}
+              </h3>
+              <p className="text-sm text-slate-500">
+                {file ? 'Click to change file' : 'PDF, Excel or CSV from your broker'}
+              </p>
+            </div>
+
+            <div className="relative py-8 flex items-center justify-center">
+              <div className="w-full border-t border-slate-100 dark:border-slate-800"></div>
+            </div>
+
+            {/* Manual Paste Area */}
+            <div className="flex flex-col gap-3">
+              <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Paste portfolio text</label>
+              <textarea
+                value={portfolioText}
+                onChange={(e) => setPortfolioText(e.target.value)}
+                className="w-full h-32 rounded-xl border border-slate-100 dark:border-slate-800 bg-[#F6F4F1] dark:bg-slate-800/50 p-4 text-sm focus:ring-1 focus:ring-[#7c3bed] focus:border-[#7c3bed] resize-none placeholder-slate-400 outline-none transition-all"
+                placeholder="Paste your holdings list or text from your statement..."
+              ></textarea>
+              {portfolioText.length > 0 && (
+                <button
+                  onClick={() => setPortfolioText("")}
+                  className="self-end text-[10px] font-bold text-[#7c3bed] uppercase tracking-tighter hover:underline"
+                >
+                  Clear all
+                </button>
+              )}
+            </div>
+
+            <div className="space-y-4">
+              <button
+                onClick={handleContinue}
+                disabled={!file && !portfolioText.trim()}
+                className={`w-full h-14 rounded-full font-bold text-lg flex items-center justify-center gap-2 transition-all duration-300 shadow-lg ${file || portfolioText.trim()
+                  ? 'bg-[#7c3bed] text-white hover:bg-[#6D28D9] hover:shadow-[#7c3bed]/30 hover:scale-[1.02]'
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-400 cursor-not-allowed'
+                  }`}
+              >
+                Continue Analysis
+                <span className="material-symbols-outlined">arrow_right_alt</span>
+              </button>
+
+              <p className="text-center text-[10px] text-slate-400 uppercase tracking-widest font-bold">
+                No login required for preview
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Spacer */}
+        <div className="h-12 md:hidden"></div>
+      </aside>
+
+      {/* Global Bottom Nav for Mobile */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-[#110c18]/80 backdrop-blur-md border-t border-slate-100 dark:border-slate-800 px-6 py-3 flex justify-around items-center md:hidden z-50">
+        <button className="flex flex-col items-center gap-1 text-[#7c3bed]">
+          <span className="material-symbols-outlined">explore</span>
+          <span className="text-[10px] font-bold uppercase">Persona</span>
+        </button>
+        <button className="flex flex-col items-center gap-1 text-slate-400">
+          <span className="material-symbols-outlined">upload</span>
+          <span className="text-[10px] font-bold uppercase">Upload</span>
+        </button>
+        <button className="flex flex-col items-center gap-1 text-slate-400">
+          <span className="material-symbols-outlined">settings</span>
+          <span className="text-[10px] font-bold uppercase">Tools</span>
+        </button>
+      </nav>
+
+      <style dangerouslySetInnerHTML={{
+        __html: `
+        @keyframes scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        @keyframes pulse-soft {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.4; }
+        }
+        .animate-scroll {
+          animation: scroll 30s linear infinite;
+        }
+        .animate-pulse-soft {
+          animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .fade-x-edges {
+          mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+          -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .font-heading {
+          font-family: 'Syne', sans-serif;
+        }
+        .font-display {
+          font-family: 'Inter', sans-serif;
+        }
+      `}} />
+    </div>
+  );
 }

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { analyzePortfolio } from '../../api';
 import { downloadReport } from '../../download';
+import PersonaLandingScreen from '../landing/PersonaLandingScreen';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // AnalyzerTab — manages all 6 states of the analyzer flow
@@ -840,7 +841,7 @@ export default function AnalyzerTab() {
     return (
         <div className="tab-panel" style={{ flex: 1, overflow: 'auto' }}>
             {analyzer.screen === 'landing' && (
-                <LandingScreen state={analyzer} updateState={updateState} goTo={goTo} />
+                <PersonaLandingScreen state={analyzer} updateState={updateState} goTo={goTo} />
             )}
             {analyzer.screen === 'ready' && (
                 <ReadyScreen state={analyzer} updateState={updateState} goTo={goTo} />
