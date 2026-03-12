@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Xylar Persona Selection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Syne:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#91400d",
+                        "background-light": "#f8f7f6",
+                        "background-dark": "#221710",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "syne": ["Syne", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+<div class="mx-auto max-w-[640px] min-h-screen flex flex-col px-4 py-2">
+<!-- Top Navigation -->
+<div class="flex items-center justify-between py-4">
+<button class="flex items-center justify-center size-12 rounded-full hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-slate-900 dark:text-slate-100">arrow_back</span>
+</button>
+<div class="flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800">
+<div class="size-2 rounded-full bg-emerald-500 animate-pulse"></div>
+<span class="text-emerald-700 dark:text-emerald-400 text-sm font-bold tracking-tight uppercase">Ready</span>
+</div>
+</div>
+<!-- Headline -->
+<div class="pt-6 pb-8">
+<h1 class="font-syne text-[36px] leading-[1.1] text-slate-900 dark:text-slate-100">Choose your analyst.</h1>
+</div>
+<!-- Persona Grid -->
+<div class="flex flex-wrap gap-3 mb-8">
+<!-- Active Persona: Buffett -->
+<button class="flex items-center gap-2 pl-2 pr-5 py-2 rounded-full bg-amber-100 dark:bg-amber-900/40 ring-2 ring-primary ring-offset-2 ring-offset-background-light dark:ring-offset-background-dark shadow-[0_0_20px_rgba(139,92,246,0.3)] border border-amber-200 dark:border-amber-800 transition-all">
+<div class="size-8 rounded-full bg-amber-500 flex items-center justify-center text-white overflow-hidden shadow-sm" data-alt="Portrait of Warren Buffett illustration">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</div>
+<span class="text-slate-900 dark:text-slate-100 text-sm font-semibold">Warren Buffett</span>
+</button>
+<!-- Munger -->
+<button class="flex items-center gap-2 pl-2 pr-5 py-2 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
+<div class="size-8 rounded-full bg-slate-600 flex items-center justify-center text-white" data-alt="Portrait of Charlie Munger illustration">
+<span class="material-symbols-outlined text-[20px]">psychology</span>
+</div>
+<span class="text-slate-900 dark:text-slate-100 text-sm font-medium">Charlie Munger</span>
+</button>
+<!-- Lynch -->
+<button class="flex items-center gap-2 pl-2 pr-5 py-2 rounded-full bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-all">
+<div class="size-8 rounded-full bg-blue-500 flex items-center justify-center text-white" data-alt="Portrait of Peter Lynch illustration">
+<span class="material-symbols-outlined text-[20px]">search_insights</span>
+</div>
+<span class="text-slate-900 dark:text-slate-100 text-sm font-medium">Peter Lynch</span>
+</button>
+<!-- Jhunjhunwala -->
+<button class="flex items-center gap-2 pl-2 pr-5 py-2 rounded-full bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-all">
+<div class="size-8 rounded-full bg-emerald-500 flex items-center justify-center text-white" data-alt="Portrait of Rakesh Jhunjhunwala illustration">
+<span class="material-symbols-outlined text-[20px]">trending_up</span>
+</div>
+<span class="text-slate-900 dark:text-slate-100 text-sm font-medium">Rakesh Jhunjhunwala</span>
+</button>
+<!-- Risk Manager -->
+<button class="flex items-center gap-2 pl-2 pr-5 py-2 rounded-full bg-rose-50 dark:bg-rose-900/20 border border-rose-100 dark:border-rose-800 hover:bg-rose-100 dark:hover:bg-rose-900/40 transition-all">
+<div class="size-8 rounded-full bg-rose-500 flex items-center justify-center text-white" data-alt="Risk management shield icon">
+<span class="material-symbols-outlined text-[20px]">shield</span>
+</div>
+<span class="text-slate-900 dark:text-slate-100 text-sm font-medium">Risk Manager</span>
+</button>
+<!-- Growth Specialist -->
+<button class="flex items-center gap-2 pl-2 pr-5 py-2 rounded-full bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 transition-all">
+<div class="size-8 rounded-full bg-indigo-500 flex items-center justify-center text-white" data-alt="Growth rocket icon">
+<span class="material-symbols-outlined text-[20px]">rocket_launch</span>
+</div>
+<span class="text-slate-900 dark:text-slate-100 text-sm font-medium">Growth Specialist</span>
+</button>
+<!-- Value Hunter -->
+<button class="flex items-center gap-2 pl-2 pr-5 py-2 rounded-full bg-teal-50 dark:bg-teal-900/20 border border-teal-100 dark:border-teal-800 hover:bg-teal-100 dark:hover:bg-teal-900/40 transition-all">
+<div class="size-8 rounded-full bg-teal-500 flex items-center justify-center text-white" data-alt="Magnifying glass over money icon">
+<span class="material-symbols-outlined text-[20px]">travel_explore</span>
+</div>
+<span class="text-slate-900 dark:text-slate-100 text-sm font-medium">Value Hunter</span>
+</button>
+<!-- Dividend King -->
+<button class="flex items-center gap-2 pl-2 pr-5 py-2 rounded-full bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800 hover:bg-amber-100 dark:hover:bg-amber-900/40 transition-all">
+<div class="size-8 rounded-full bg-amber-600 flex items-center justify-center text-white" data-alt="Golden crown icon">
+<span class="material-symbols-outlined text-[20px]">badge</span>
+</div>
+<span class="text-slate-900 dark:text-slate-100 text-sm font-medium">Dividend King</span>
+</button>
+</div>
+<!-- Preview Card -->
+<div class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-xl border border-primary/10 dark:border-primary/20 flex flex-col mb-8">
+<div class="h-1.5 w-full bg-primary/80"></div>
+<div class="p-6">
+<div class="flex items-center gap-4 mb-4">
+<div class="size-16 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center overflow-hidden" data-alt="Large profile picture of Warren Buffett">
+<span class="material-symbols-outlined text-primary text-4xl">person</span>
+</div>
+<div>
+<p class="text-primary text-xs font-bold uppercase tracking-widest mb-1">Selected Analyst</p>
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white">Warren Buffett</h2>
+</div>
+</div>
+<div class="space-y-4">
+<div class="bg-primary/5 dark:bg-primary/10 p-4 rounded-lg">
+<p class="text-slate-700 dark:text-slate-300 italic font-medium">"Buy great businesses. Hold forever."</p>
+<p class="text-primary/70 text-xs mt-2 font-semibold">Investment Philosophy</p>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">security</span>
+</div>
+<div class="flex-1 border-b border-primary/5 dark:border-primary/10 pb-2">
+<p class="text-sm font-bold text-slate-900 dark:text-white">Moat</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Competitive advantages and durability</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+</div>
+<div class="flex-1 border-b border-primary/5 dark:border-primary/10 pb-2">
+<p class="text-sm font-bold text-slate-900 dark:text-white">Capital Allocation</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Management efficiency and cash utility</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-slate-900 dark:text-white">Margin of Safety</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Intrinsic value relative to market price</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Custom Input -->
+<div class="mb-8">
+<label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 px-1">Add anything specific (optional)</label>
+<textarea class="w-full rounded-xl border-primary/20 dark:border-primary/30 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-primary focus:border-primary placeholder-slate-400 dark:placeholder-slate-600 shadow-sm transition-all" placeholder="Focus on my tech exposure or dividend sustainability..." rows="3"></textarea>
+</div>
+<!-- Actions -->
+<div class="space-y-6 mt-auto pb-10">
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-5 rounded-full shadow-lg shadow-primary/30 flex items-center justify-center gap-2 transition-transform active:scale-95">
+                Analyze with Buffett
+                <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<div class="text-center">
+<button class="text-slate-500 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors">
+                    Skip — run default analysis
+                </button>
+</div>
+</div>
+</div>
+</body></html>

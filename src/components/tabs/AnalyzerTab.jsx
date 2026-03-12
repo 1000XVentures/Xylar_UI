@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { analyzePortfolio } from '../../api';
 import { downloadReport } from '../../download';
 import PersonaLandingScreen from '../landing/PersonaLandingScreen';
+import PersonaSelectionScreen from '../landing/PersonaSelectionScreen';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // AnalyzerTab — manages all 6 states of the analyzer flow
@@ -328,99 +329,182 @@ function ReadyScreen({ state, updateState, goTo }) {
     const displaySub = state.fileName ? state.fileSize : `${state.pastedText.length} characters`;
 
     return (
-        <div className="state-container" style={{ maxWidth: 560, margin: '0 auto' }}>
-            {/* Header */}
-            <div style={{ marginBottom: 28 }}>
-                <h1 style={{ fontFamily: "'Outfit',sans-serif", fontSize: 28, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 6 }}>Portfolio added</h1>
-                <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 13, color: 'var(--text-muted)', margin: 0 }}>Ready to analyze</p>
-            </div>
+        <div style={{
+            minHeight: '100%',
+            background: '#ffffff',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '40px 24px 60px',
+        }}>
+            <div style={{ width: '100%', maxWidth: 480 }}>
 
-            {/* File card */}
-            <div style={{ background: '#F0FDF4', border: '1px solid #86EFAC', borderRadius: 'var(--r-lg)', padding: 20, display: 'flex', alignItems: 'center', gap: 16 }}>
-                {/* Check circle */}
-                <div style={{ width: 44, height: 44, background: 'var(--lime,#A3E635)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, animation: 'checkPop 0.3s cubic-bezier(0.34,1.56,0.64,1) forwards' }}>
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                    </svg>
+                {/* Header */}
+                <div style={{ marginBottom: 32 }}>
+                    <h1 style={{
+                        fontFamily: "'Outfit', sans-serif",
+                        fontSize: 'clamp(1.75rem, 3vw, 2.25rem)',
+                        fontWeight: 700,
+                        color: '#0f172a',
+                        letterSpacing: '-0.025em',
+                        lineHeight: 1.15,
+                        marginBottom: 8,
+                        marginTop: 0,
+                    }}>
+                        Your portfolio.<br />Their lens.
+                    </h1>
+                    <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, color: '#64748b', margin: 0 }}>
+                        Confirm your upload and choose how to analyse it.
+                    </p>
                 </div>
-                {/* File info */}
-                <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 14, fontWeight: 600, color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{displayName}</div>
-                    <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 12, color: 'var(--text-muted)', marginTop: 2 }}>{displaySub}</div>
-                </div>
-                {/* Actions */}
-                <div style={{ display: 'flex', gap: 16, alignItems: 'center', flexShrink: 0 }}>
-                    {state.fileName && (
-                        <>
-                            <label style={{ fontFamily: "'Inter',sans-serif", fontSize: 12, color: 'var(--accent)', textDecoration: 'underline', cursor: 'pointer', minHeight: 44, display: 'flex', alignItems: 'center' }}>
+
+                {/* File confirmed card */}
+                <div style={{
+                    background: '#ffffff',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: 16,
+                    padding: '16px 20px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 14,
+                    boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
+                    marginBottom: 24,
+                }}>
+                    <div style={{
+                        width: 40, height: 40, flexShrink: 0,
+                        background: 'rgba(124,58,237,0.1)',
+                        borderRadius: 10,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    }}>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c3bed" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                    </div>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, fontWeight: 600, color: '#0f172a', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{displayName}</div>
+                        <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, color: '#64748b', marginTop: 2 }}>{displaySub}</div>
+                    </div>
+                    <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexShrink: 0 }}>
+                        {state.fileName && (
+                            <label style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, fontWeight: 600, color: '#7c3bed', cursor: 'pointer' }}>
                                 Replace
                                 <input ref={fileInputRef} type="file" accept=".pdf,.png,.jpg,.jpeg" onChange={handleReplaceFile} style={{ display: 'none' }} />
                             </label>
-                        </>
-                    )}
-                    <div
-                        onClick={() => { updateState({ ...INITIAL_STATE }); goTo('landing'); }}
-                        style={{ fontFamily: "'Inter',sans-serif", fontSize: 12, color: 'var(--text-muted)', textDecoration: 'underline', cursor: 'pointer', minHeight: 44, display: 'flex', alignItems: 'center' }}
-                    >
-                        Remove
+                        )}
+                        <span
+                            role="button"
+                            tabIndex={0}
+                            onClick={() => { updateState({ ...INITIAL_STATE }); goTo('landing'); }}
+                            style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, fontWeight: 600, color: '#94a3b8', cursor: 'pointer' }}
+                        >
+                            Remove
+                        </span>
                     </div>
                 </div>
-            </div>
 
-            {/* Inline Customize Section */}
-            <div style={{ marginTop: 24, marginBottom: 12, fontFamily: "'Inter',sans-serif", fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)' }}>
-                How should we analyse it? <span style={{ fontWeight: 400, color: 'var(--text-muted)', marginLeft: 4 }}>(optional)</span>
-            </div>
+                {/* Customize card */}
+                <div style={{
+                    background: '#ffffff',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: 20,
+                    padding: 24,
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+                    marginBottom: 24,
+                }}>
+                    <div style={{ marginBottom: 16 }}>
+                        <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 700, color: '#0f172a', margin: '0 0 2px' }}>
+                            How should we analyse it?
+                        </p>
+                        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: '#64748b', margin: 0 }}>
+                            Pick a lens or describe your focus — optional.
+                        </p>
+                    </div>
 
-            <textarea
-                value={instructions}
-                onChange={(e) => setInstructions(e.target.value)}
-                placeholder="Or describe how you want it analysed..."
-                style={{
-                    width: '100%', minHeight: 120, boxSizing: 'border-box',
-                    border: '1px solid var(--border)', borderRadius: 'var(--r-md)',
-                    padding: '14px 16px', fontFamily: "'Inter',sans-serif", fontSize: 14,
-                    color: 'var(--text-primary)', background: 'white',
-                    resize: 'vertical', lineHeight: 1.6, outline: 'none',
-                    marginBottom: 16
-                }}
-                onFocus={(e) => { e.target.style.border = '1px solid var(--accent)'; e.target.style.boxShadow = '0 0 0 3px rgba(124,58,237,0.10)'; }}
-                onBlur={(e) => { e.target.style.border = '1px solid var(--border)'; e.target.style.boxShadow = 'none'; }}
-            />
+                    <textarea
+                        value={instructions}
+                        onChange={(e) => setInstructions(e.target.value)}
+                        placeholder="e.g. Focus on tax efficiency and risk..."
+                        style={{
+                            width: '100%',
+                            minHeight: 90,
+                            boxSizing: 'border-box',
+                            border: '1px solid #e2e8f0',
+                            borderRadius: 12,
+                            padding: '12px 14px',
+                            fontFamily: "'Inter', sans-serif",
+                            fontSize: 14,
+                            color: '#0f172a',
+                            background: '#f8fafc',
+                            resize: 'vertical',
+                            lineHeight: 1.6,
+                            outline: 'none',
+                            transition: 'border 0.15s, box-shadow 0.15s',
+                            marginBottom: 16,
+                        }}
+                        onFocus={(e) => { e.target.style.border = '1px solid #7c3bed'; e.target.style.boxShadow = '0 0 0 3px rgba(124,58,237,0.10)'; e.target.style.background = '#ffffff'; }}
+                        onBlur={(e) => { e.target.style.border = '1px solid #e2e8f0'; e.target.style.boxShadow = 'none'; e.target.style.background = '#f8fafc'; }}
+                    />
 
-            <div style={{ background: '#F8F9FA', padding: 16, borderRadius: 'var(--r-lg)', marginTop: 10 }}>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                    {PERSONAS.map((p) => {
-                        const selected = isChipSelected(p.phrase);
-                        return (
-                            <button
-                                key={p.label}
-                                onClick={() => toggleChip(p.phrase)}
-                                className={`persona-chip ${selected ? 'selected' : ''}`}
-                            >
-                                {p.label}
-                            </button>
-                        );
-                    })}
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                        {PERSONAS.map((p) => {
+                            const selected = isChipSelected(p.phrase);
+                            return (
+                                <button
+                                    key={p.label}
+                                    onClick={() => toggleChip(p.phrase)}
+                                    style={{
+                                        padding: '7px 13px',
+                                        borderRadius: 9999,
+                                        border: selected ? '1.5px solid #7c3bed' : '1px solid #e2e8f0',
+                                        background: selected ? 'rgba(124,58,237,0.08)' : '#ffffff',
+                                        color: selected ? '#7c3bed' : '#334155',
+                                        fontFamily: "'Inter', sans-serif",
+                                        fontSize: 12,
+                                        fontWeight: selected ? 600 : 500,
+                                        cursor: 'pointer',
+                                        transition: 'all 0.15s ease',
+                                    }}
+                                >
+                                    {p.label}
+                                </button>
+                            );
+                        })}
+                    </div>
                 </div>
-            </div>
 
-            {/* Analyze button */}
-            <button
-                onClick={handleAnalyze}
-                style={{
-                    width: '100%', height: 52, marginTop: 24,
-                    background: 'linear-gradient(135deg,#7C3AED,#5B21B6)',
-                    color: 'white', fontFamily: "'Outfit',sans-serif", fontSize: 16, fontWeight: 700,
-                    borderRadius: 'var(--r-full)', border: 'none', cursor: 'pointer',
-                    transition: 'all 0.15s ease',
-                    boxShadow: '0 8px 24px -10px rgba(124,58,237,0.4)',
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 12px 32px -8px rgba(124,58,237,0.5)'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 8px 24px -10px rgba(124,58,237,0.4)'; e.currentTarget.style.transform = 'none'; }}
-            >
-                Analyze Portfolio
-            </button>
+                {/* Analyze button */}
+                <button
+                    onClick={handleAnalyze}
+                    style={{
+                        width: '100%',
+                        height: 54,
+                        background: '#7c3bed',
+                        color: 'white',
+                        fontFamily: "'Outfit', sans-serif",
+                        fontSize: 16,
+                        fontWeight: 700,
+                        borderRadius: 9999,
+                        border: 'none',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: 8,
+                        boxShadow: '0 4px 14px rgba(124,58,237,0.35)',
+                        transition: 'box-shadow 0.15s ease, transform 0.15s ease',
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 8px 24px rgba(124,58,237,0.45)'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 4px 14px rgba(124,58,237,0.35)'; e.currentTarget.style.transform = 'none'; }}
+                >
+                    Analyze Portfolio
+                    <span style={{ fontSize: 18 }}>→</span>
+                </button>
+
+                <p style={{ textAlign: 'center', fontFamily: "'Inter', sans-serif", fontSize: 10, color: '#94a3b8', marginTop: 14, letterSpacing: '0.08em', fontWeight: 700 }}>
+                    YOUR DATA IS NEVER STORED · SESSION ONLY
+                </p>
+            </div>
         </div>
     );
 }
@@ -844,7 +928,7 @@ export default function AnalyzerTab() {
                 <PersonaLandingScreen state={analyzer} updateState={updateState} goTo={goTo} />
             )}
             {analyzer.screen === 'ready' && (
-                <ReadyScreen state={analyzer} updateState={updateState} goTo={goTo} />
+                <PersonaSelectionScreen state={analyzer} updateState={updateState} goTo={goTo} />
             )}
             {analyzer.screen === 'analyzing' && (
                 <AnalyzingScreen state={analyzer} onComplete={handleComplete} onError={handleError} />
