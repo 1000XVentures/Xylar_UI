@@ -108,20 +108,34 @@ export default function PersonaSelectionScreen({ state, updateState, goTo }) {
         <div style={{ background: "#ffffff", minHeight: "100dvh", padding: "40px 24px" }}>
             <div style={{ maxWidth: 640, margin: "0 auto" }}>
 
-                {/* Back button */}
-                <div style={{ marginBottom: 32 }}>
+                {/* Header: logo + back */}
+                <div style={{ marginBottom: 32, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    {/* XYLAR AI logo — navigates to landing */}
                     <button
                         onClick={() => goTo("landing")}
                         style={{
                             background: "none", border: "none", cursor: "pointer", padding: 0,
-                            display: "flex", alignItems: "center", gap: 6,
-                            color: "#94a3b8",
+                            fontFamily: "'Outfit', sans-serif", fontSize: 18, fontWeight: 800,
+                            letterSpacing: "-0.04em", color: "#0f172a",
+                            display: "inline-flex", alignItems: "center", gap: 2,
                         }}
-                        onMouseEnter={(e) => e.currentTarget.style.color = "#0f172a"}
-                        onMouseLeave={(e) => e.currentTarget.style.color = "#94a3b8"}
                     >
-                        <span className="material-symbols-outlined" style={{ fontSize: 18 }}>chevron_left</span>
-                        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, fontWeight: 500 }}>Back</span>
+                        XYLAR<span style={{ color: "#7c3aed" }}>AI</span>
+                    </button>
+
+                    {/* Back arrow */}
+                    <button
+                        onClick={() => goTo("landing")}
+                        style={{
+                            background: "none", border: "1px solid #e2e8f0", cursor: "pointer",
+                            padding: "6px 14px", borderRadius: 999, display: "flex", alignItems: "center",
+                            gap: 4, color: "#64748b",
+                        }}
+                        onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#7c3aed"; e.currentTarget.style.color = "#7c3aed"; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#e2e8f0"; e.currentTarget.style.color = "#64748b"; }}
+                    >
+                        <span className="material-symbols-outlined" style={{ fontSize: 16 }}>chevron_left</span>
+                        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, fontWeight: 500 }}>Back</span>
                     </button>
                 </div>
 

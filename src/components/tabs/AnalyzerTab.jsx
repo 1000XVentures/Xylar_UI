@@ -41,6 +41,33 @@ function readFileAsBase64(file) {
     });
 }
 
+// ─── SHARED LOGO BUTTON ───────────────────────────────────────────────────────
+
+function XylarLogo({ onClick }) {
+    return (
+        <button
+            type="button"
+            onClick={onClick}
+            style={{
+                background: 'none',
+                border: 'none',
+                cursor: onClick ? 'pointer' : 'default',
+                fontFamily: "'Outfit', sans-serif",
+                fontSize: 18,
+                fontWeight: 800,
+                letterSpacing: '-0.04em',
+                color: '#0f172a',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 2,
+                padding: 0,
+            }}
+        >
+            XYLAR<span style={{ color: '#7c3bed' }}>AI</span>
+        </button>
+    );
+}
+
 // ─── STATE SCREENS ────────────────────────────────────────────────────────────
 
 function LandingScreen({ state, updateState, goTo }) {
@@ -563,7 +590,13 @@ function AnalyzingScreen({ state, onComplete, onError }) {
     }, []);
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 'calc(100vh - 120px)', padding: '0 24px', textAlign: 'center' }}>
+        <div style={{ minHeight: '100vh', background: '#ffffff', display: 'flex', flexDirection: 'column' }}>
+            {/* Logo bar */}
+            <div style={{ padding: '20px 24px', borderBottom: '1px solid #f1f5f9' }}>
+                <XylarLogo onClick={null} />
+            </div>
+
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0 24px', textAlign: 'center' }}>
             {/* Pulsing orb */}
             <div style={{ width: 80, height: 80, background: 'var(--accent)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', animation: 'pulse-ring 2s ease-in-out infinite' }}>
                 <svg width="36" height="36" viewBox="0 0 24 24" fill="white">
@@ -595,6 +628,7 @@ function AnalyzingScreen({ state, onComplete, onError }) {
                 </svg>
                 <span style={{ fontFamily: "'Inter',sans-serif", fontSize: 12, color: 'var(--text-muted)' }}>Your data is processed securely and never stored.</span>
             </div>
+            </div>
         </div>
     );
 }
@@ -620,7 +654,13 @@ function ResultsScreen({ analysis, onReset, onDownload }) {
     };
 
     return (
-        <div className="state-container" style={{ maxWidth: 720, margin: '0 auto', paddingBottom: 60 }}>
+        <div style={{ background: '#ffffff', minHeight: '100vh' }}>
+            {/* Logo bar */}
+            <div style={{ padding: '20px 24px', borderBottom: '1px solid #f1f5f9', position: 'sticky', top: 0, background: '#ffffff', zIndex: 10 }}>
+                <XylarLogo onClick={onReset} />
+            </div>
+
+            <div className="state-container" style={{ maxWidth: 720, margin: '0 auto', paddingBottom: 60 }}>
             {/* 1. Hero / Health Score Card (Lavender/Purple Gradient) */}
             <div style={{
                 background: 'linear-gradient(135deg, #7C3AED 0%, #A855F7 100%)',
@@ -848,13 +888,20 @@ function ResultsScreen({ analysis, onReset, onDownload }) {
                     </button>
                 </div>
             </div>
+            </div>
         </div>
     );
 }
 
 function ErrorScreen({ error, onReset }) {
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 'calc(100vh - 120px)', padding: '0 24px', maxWidth: 400, margin: '0 auto' }}>
+        <div style={{ background: '#ffffff', minHeight: '100vh' }}>
+            {/* Logo bar */}
+            <div style={{ padding: '20px 24px', borderBottom: '1px solid #f1f5f9' }}>
+                <XylarLogo onClick={() => onReset('landing')} />
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 'calc(100vh - 65px)', padding: '0 24px', maxWidth: 400, margin: '0 auto' }}>
             {/* Error icon */}
             <div style={{ width: 80, height: 80, background: 'var(--negative-bg,#FEF2F2)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', animation: 'scaleIn 0.25s ease forwards' }}>
                 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--negative,#EF4444)" strokeWidth="2" strokeLinecap="round">
@@ -885,6 +932,7 @@ function ErrorScreen({ error, onReset }) {
             >
                 Paste Text Instead
             </button>
+            </div>
         </div>
     );
 }

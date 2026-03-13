@@ -85,41 +85,25 @@ export default function PersonaLandingScreen({ state, updateState, goTo }) {
     };
 
     return (
-        <div
-            className="persona-landing-root"
-            style={{
-                background: "#ffffff",
-                minHeight: "100%",
-                display: "flex", // Ensure it's flex for the split columns
-            }}
-        >
-            {/* Left: Simulation — strict 55% */}
-            <section
-                style={{
-                    flex: "0 0 55%",
-                    maxWidth: "55%",
-                    padding: "32px 48px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 28,
-                    background: "#F6F4F1", // Correct Stitch color
-                    minWidth: 0,
-                }}
-            >
-                <div style={{
-                    fontFamily: "'Outfit', sans-serif",
-                    fontSize: 22,
-                    fontWeight: 800,
-                    letterSpacing: "-0.04em",
-                    color: "#0f172a",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 4,
-                    marginBottom: 8
-                }}>
-                    XYLAR
-                    <span style={{ color: PRIMARY }}>AI</span>
-                </div>
+        <div className="persona-landing-root">
+            {/* Left: Simulation */}
+            <section className="persona-landing-section">
+                <button
+                    type="button"
+                    onClick={() => updateState({
+                        fileData: null, fileType: null, fileName: null,
+                        fileSize: null, pastedText: "",
+                    })}
+                    style={{
+                        background: "none", border: "none", cursor: "pointer", padding: 0,
+                        fontFamily: "'Outfit', sans-serif", fontSize: 22, fontWeight: 800,
+                        letterSpacing: "-0.04em", color: "#0f172a",
+                        display: "inline-flex", alignItems: "center", gap: 4,
+                        marginBottom: 8,
+                    }}
+                >
+                    XYLAR<span style={{ color: PRIMARY }}>AI</span>
+                </button>
 
                 {/* Persona switcher — active = purple bg + white icon, inactive = gray outline */}
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center" }}>
@@ -282,36 +266,19 @@ export default function PersonaLandingScreen({ state, updateState, goTo }) {
                 </div>
             </section>
 
-            {/* Right: Upload — strict 45% */}
-            <aside
-                className="persona-landing-aside"
-                style={{
-                    flex: "0 0 45%",
-                    maxWidth: "45%",
-                    background: "#ffffff",
-                    borderLeft: "1px solid #f1f5f9",
-                    padding: "40px 32px",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    minWidth: 0,
-                    height: "100vh",
-                    position: "sticky",
-                    top: 0
-                }}
-            >
-                <div style={{ maxWidth: 440, margin: "0 auto", width: "100%" }}>
+            {/* Right: Upload */}
+            <aside className="persona-landing-aside">
+                <div style={{ maxWidth: 480, margin: "0 auto", width: "100%" }}>
                     <h2
                         style={{
                             fontFamily: "'Outfit', sans-serif",
-                            fontSize: "clamp(1.25rem, 2vw, 1.75rem)",
+                            fontSize: "clamp(1.5rem, 5vw, 1.75rem)",
                             fontWeight: 700,
                             lineHeight: 1.2,
                             letterSpacing: "-0.02em",
                             color: "#0f172a",
-                            marginBottom: 28,
-                            marginTop: 32,
-                            whiteSpace: "nowrap"
+                            marginBottom: 24,
+                            marginTop: 0,
                         }}
                     >
                         Your portfolio. Their lens.
@@ -320,10 +287,10 @@ export default function PersonaLandingScreen({ state, updateState, goTo }) {
                     <div
                         style={{
                             background: "#ffffff",
-                            borderRadius: 24,
-                            border: "1px solid #f1f5f9",
-                            boxShadow: "0 20px 50px rgba(0,0,0,0.04)",
-                            padding: 36,
+                            borderRadius: 20,
+                            border: "1px solid #e2e8f0",
+                            boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
+                            padding: "24px 20px",
                         }}
                     >
                         {/* Upload zone — purple square icon (arrow + document) */}
@@ -336,7 +303,7 @@ export default function PersonaLandingScreen({ state, updateState, goTo }) {
                                 border: `2px dashed ${isDragOver ? PRIMARY : "rgba(124,58,237,0.2)"}`,
                                 background: state.fileName ? "#f0fdf4" : "rgba(124,58,237,0.04)",
                                 borderRadius: 14,
-                                padding: 36,
+                                padding: "24px 20px",
                                 display: "flex",
                                 flexDirection: "column",
                                 alignItems: "center",
@@ -388,9 +355,7 @@ export default function PersonaLandingScreen({ state, updateState, goTo }) {
                         </div>
 
                         {/* Divider */}
-                        <div style={{ position: "relative", margin: "32px 0", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                            <div style={{ width: "100%", height: "1px", background: "#f1f5f9" }}></div>
-                        </div>
+                        <div style={{ margin: "20px 0", height: "1px", background: "#f1f5f9" }} />
 
                         {/* Manual Paste Area */}
                         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -401,7 +366,7 @@ export default function PersonaLandingScreen({ state, updateState, goTo }) {
                                 placeholder="Paste your holdings list or text from your statement..."
                                 style={{
                                     width: "100%",
-                                    height: 120,
+                                    height: 96,
                                     borderRadius: 14,
                                     border: "1px solid #e2e8f0",
                                     background: "#F6F4F1",
@@ -424,7 +389,7 @@ export default function PersonaLandingScreen({ state, updateState, goTo }) {
                             )}
                         </div>
 
-                        <div style={{ marginTop: 24 }}>
+                        <div style={{ marginTop: 16 }}>
                             <button
                                 type="button"
                                 onClick={handleContinue}

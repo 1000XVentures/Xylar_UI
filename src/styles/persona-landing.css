@@ -1,14 +1,7 @@
-/* Stitch Persona Landing – marquee and pulse */
+/* Stitch Persona Landing – animations */
 @keyframes pulse-soft {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.4;
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
 }
 
 .persona-pulse-soft {
@@ -16,13 +9,8 @@
 }
 
 @keyframes scroll {
-    0% {
-        transform: translateX(0);
-    }
-
-    100% {
-        transform: translateX(-50%);
-    }
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
 
 .marquee {
@@ -36,25 +24,67 @@
     animation: scroll 20s linear infinite;
 }
 
-/* Two-column layout */
+/* ─── Layout ─────────────────────────────────────────────── */
 .persona-landing-root {
     display: flex;
     flex-direction: column;
     min-height: 100%;
+    background: #ffffff;
 }
 
+/* Left section — mobile: full width */
+.persona-landing-section {
+    width: 100%;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background: #F6F4F1;
+}
+
+/* Right aside — mobile: full width, no sticky */
+.persona-landing-aside {
+    width: 100%;
+    background: #ffffff;
+    border-top: 1px solid #f1f5f9;
+    padding: 28px 20px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Simulation panel on mobile — compact */
+.persona-simulation-panel {
+    border-radius: 14px;
+}
+
+/* Desktop: side by side */
 @media (min-width: 768px) {
     .persona-landing-root {
         flex-direction: row;
+        min-height: 100dvh;
+    }
+
+    .persona-landing-section {
+        flex: 0 0 55%;
+        max-width: 55%;
+        min-width: 0;
+        padding: 32px 48px;
+        gap: 28px;
+        min-height: 100%;
     }
 
     .persona-landing-aside {
+        flex: 0 0 45%;
+        max-width: 45%;
+        min-width: 0;
+        padding: 40px 32px;
+        justify-content: center;
+        border-top: none;
+        border-left: 1px solid #f1f5f9;
+        height: 100vh;
         position: sticky;
         top: 0;
-        height: 100vh;
-    }
-
-    .persona-bottom-nav {
-        display: none;
+        overflow-y: auto;
     }
 }
